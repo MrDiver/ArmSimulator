@@ -1,0 +1,2 @@
+lexer grammar ARMLexer;
+Base : ' ';

@@ -1,0 +1,6 @@
+<RCC>
+    <qresource prefix="/fonts">
+        <file alias="scproit">fonts/SourceCodeVariable-Italic.ttf</file>
+        <file alias="scpro">fonts/SourceCodeVariable-Roman.ttf</file>
+    </qresource>
+</RCC>
