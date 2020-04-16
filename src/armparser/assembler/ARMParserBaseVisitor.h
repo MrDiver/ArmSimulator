@@ -21,6 +21,34 @@ public:
     return visitChildren(ctx);
   }
 
+  virtual antlrcpp::Any visitProgram(ARMParser::ProgramContext *ctx) override {
+    return visitChildren(ctx);
+  }
+
+  virtual antlrcpp::Any visitStatement(ARMParser::StatementContext *ctx) override {
+    return visitChildren(ctx);
+  }
+
+  virtual antlrcpp::Any visitInstruction(ARMParser::InstructionContext *ctx) override {
+    return visitChildren(ctx);
+  }
+
+  virtual antlrcpp::Any visitCond(ARMParser::CondContext *ctx) override {
+    return visitChildren(ctx);
+  }
+
+  virtual antlrcpp::Any visitReg(ARMParser::RegContext *ctx) override {
+    return visitChildren(ctx);
+  }
+
+  virtual antlrcpp::Any visitImmediate(ARMParser::ImmediateContext *ctx) override {
+    return visitChildren(ctx);
+  }
+
+  virtual antlrcpp::Any visitLabel(ARMParser::LabelContext *ctx) override {
+    return visitChildren(ctx);
+  }
+
 
 };
 

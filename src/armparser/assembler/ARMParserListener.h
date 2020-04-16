@@ -19,6 +19,27 @@ public:
   virtual void enterCompilationUnit(ARMParser::CompilationUnitContext *ctx) = 0;
   virtual void exitCompilationUnit(ARMParser::CompilationUnitContext *ctx) = 0;
 
+  virtual void enterProgram(ARMParser::ProgramContext *ctx) = 0;
+  virtual void exitProgram(ARMParser::ProgramContext *ctx) = 0;
+
+  virtual void enterStatement(ARMParser::StatementContext *ctx) = 0;
+  virtual void exitStatement(ARMParser::StatementContext *ctx) = 0;
+
+  virtual void enterInstruction(ARMParser::InstructionContext *ctx) = 0;
+  virtual void exitInstruction(ARMParser::InstructionContext *ctx) = 0;
+
+  virtual void enterCond(ARMParser::CondContext *ctx) = 0;
+  virtual void exitCond(ARMParser::CondContext *ctx) = 0;
+
+  virtual void enterReg(ARMParser::RegContext *ctx) = 0;
+  virtual void exitReg(ARMParser::RegContext *ctx) = 0;
+
+  virtual void enterImmediate(ARMParser::ImmediateContext *ctx) = 0;
+  virtual void exitImmediate(ARMParser::ImmediateContext *ctx) = 0;
+
+  virtual void enterLabel(ARMParser::LabelContext *ctx) = 0;
+  virtual void exitLabel(ARMParser::LabelContext *ctx) = 0;
+
 
 };
 

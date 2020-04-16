@@ -22,6 +22,20 @@ public:
    */
     virtual antlrcpp::Any visitCompilationUnit(ARMParser::CompilationUnitContext *context) = 0;
 
+    virtual antlrcpp::Any visitProgram(ARMParser::ProgramContext *context) = 0;
+
+    virtual antlrcpp::Any visitStatement(ARMParser::StatementContext *context) = 0;
+
+    virtual antlrcpp::Any visitInstruction(ARMParser::InstructionContext *context) = 0;
+
+    virtual antlrcpp::Any visitCond(ARMParser::CondContext *context) = 0;
+
+    virtual antlrcpp::Any visitReg(ARMParser::RegContext *context) = 0;
+
+    virtual antlrcpp::Any visitImmediate(ARMParser::ImmediateContext *context) = 0;
+
+    virtual antlrcpp::Any visitLabel(ARMParser::LabelContext *context) = 0;
+
 
 };
 

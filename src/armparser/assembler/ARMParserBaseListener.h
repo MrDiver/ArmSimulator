@@ -21,6 +21,27 @@ public:
   virtual void enterCompilationUnit(ARMParser::CompilationUnitContext * /*ctx*/) override { }
   virtual void exitCompilationUnit(ARMParser::CompilationUnitContext * /*ctx*/) override { }
 
+  virtual void enterProgram(ARMParser::ProgramContext * /*ctx*/) override { }
+  virtual void exitProgram(ARMParser::ProgramContext * /*ctx*/) override { }
+
+  virtual void enterStatement(ARMParser::StatementContext * /*ctx*/) override { }
+  virtual void exitStatement(ARMParser::StatementContext * /*ctx*/) override { }
+
+  virtual void enterInstruction(ARMParser::InstructionContext * /*ctx*/) override { }
+  virtual void exitInstruction(ARMParser::InstructionContext * /*ctx*/) override { }
+
+  virtual void enterCond(ARMParser::CondContext * /*ctx*/) override { }
+  virtual void exitCond(ARMParser::CondContext * /*ctx*/) override { }
+
+  virtual void enterReg(ARMParser::RegContext * /*ctx*/) override { }
+  virtual void exitReg(ARMParser::RegContext * /*ctx*/) override { }
+
+  virtual void enterImmediate(ARMParser::ImmediateContext * /*ctx*/) override { }
+  virtual void exitImmediate(ARMParser::ImmediateContext * /*ctx*/) override { }
+
+  virtual void enterLabel(ARMParser::LabelContext * /*ctx*/) override { }
+  virtual void exitLabel(ARMParser::LabelContext * /*ctx*/) override { }
+
 
   virtual void enterEveryRule(antlr4::ParserRuleContext * /*ctx*/) override { }
   virtual void exitEveryRule(antlr4::ParserRuleContext * /*ctx*/) override { }
