@@ -28,6 +28,8 @@ public:
 
     virtual antlrcpp::Any visitInstruction(ARMParser::InstructionContext *context) = 0;
 
+    virtual antlrcpp::Any visitNop(ARMParser::NopContext *context) = 0;
+
     virtual antlrcpp::Any visitCond(ARMParser::CondContext *context) = 0;
 
     virtual antlrcpp::Any visitReg(ARMParser::RegContext *context) = 0;

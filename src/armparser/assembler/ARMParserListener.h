@@ -28,6 +28,9 @@ public:
   virtual void enterInstruction(ARMParser::InstructionContext *ctx) = 0;
   virtual void exitInstruction(ARMParser::InstructionContext *ctx) = 0;
 
+  virtual void enterNop(ARMParser::NopContext *ctx) = 0;
+  virtual void exitNop(ARMParser::NopContext *ctx) = 0;
+
   virtual void enterCond(ARMParser::CondContext *ctx) = 0;
   virtual void exitCond(ARMParser::CondContext *ctx) = 0;
 

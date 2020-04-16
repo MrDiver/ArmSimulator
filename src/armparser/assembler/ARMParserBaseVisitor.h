@@ -33,6 +33,10 @@ public:
     return visitChildren(ctx);
   }
 
+  virtual antlrcpp::Any visitNop(ARMParser::NopContext *ctx) override {
+    return visitChildren(ctx);
+  }
+
   virtual antlrcpp::Any visitCond(ARMParser::CondContext *ctx) override {
     return visitChildren(ctx);
   }

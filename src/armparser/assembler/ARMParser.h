@@ -17,23 +17,24 @@ public:
     TST = 9, TEQ = 10, CMP = 11, CMN = 12, ORR = 13, MOV = 14, BIC = 15, 
     MVN = 16, MUL = 17, MLA = 18, SMULL = 19, UMULL = 20, SMLAL = 21, UMLAL = 22, 
     LDR = 23, STR = 24, PUSH = 25, POP = 26, FB = 27, BL = 28, BLX = 29, 
-    BX = 30, BXJ = 31, EQ = 32, NE = 33, CS = 34, CC = 35, MI = 36, PL = 37, 
-    VS = 38, VC = 39, HI = 40, LS = 41, GE = 42, LT = 43, GT = 44, LE = 45, 
-    AL = 46, UPDATEFLAG = 47, PRIVILEGE = 48, DOUBLEWORD = 49, HALFWORD = 50, 
-    SIGNEDHALFWORD = 51, SIGNEDBYTE = 52, LABEL = 53, LOCALLABEL = 54, SPACE = 55, 
-    TOSKIP = 56, R0 = 57, R1 = 58, R2 = 59, R3 = 60, R4 = 61, R5 = 62, R6 = 63, 
-    R7 = 64, R8 = 65, R9 = 66, R10 = 67, R11 = 68, R12 = 69, R13 = 70, R14 = 71, 
-    R15 = 72, LSLI = 73, LSRI = 74, ASRI = 75, RORI = 76, RRXI = 77, HASH = 78, 
-    HEX = 79, NUMBER = 80, WSPARAM = 81, NEWLINE = 82, COMMA = 83, LBRACKET = 84, 
-    RBRACKET = 85, LBRACE = 86, RBRACE = 87, SPECIALRBRACKET = 88, LABELREF = 89
+    BX = 30, BXJ = 31, NOP = 32, EQ = 33, NE = 34, CS = 35, CC = 36, MI = 37, 
+    PL = 38, VS = 39, VC = 40, HI = 41, LS = 42, GE = 43, LT = 44, GT = 45, 
+    LE = 46, AL = 47, UPDATEFLAG = 48, PRIVILEGE = 49, DOUBLEWORD = 50, 
+    HALFWORD = 51, SIGNEDHALFWORD = 52, SIGNEDBYTE = 53, LABEL = 54, LOCALLABEL = 55, 
+    SPACE = 56, TOSKIP = 57, NL = 58, R0 = 59, R1 = 60, R2 = 61, R3 = 62, 
+    R4 = 63, R5 = 64, R6 = 65, R7 = 66, R8 = 67, R9 = 68, R10 = 69, R11 = 70, 
+    R12 = 71, R13 = 72, R14 = 73, R15 = 74, LSLI = 75, LSRI = 76, ASRI = 77, 
+    RORI = 78, RRXI = 79, HASH = 80, HEX = 81, NUMBER = 82, WSPARAM = 83, 
+    NEWLINE = 84, COMMA = 85, LBRACKET = 86, RBRACKET = 87, LBRACE = 88, 
+    RBRACE = 89, SPECIALRBRACKET = 90, LABELREF = 91
   };
 
   enum {
     RuleCompilationUnit = 0, RuleProgram = 1, RuleStatement = 2, RuleInstruction = 3, 
-    RuleCond = 4, RuleReg = 5, RuleImmediate = 6, RuleLabel = 7, RuleBranch_instruction = 8, 
-    RuleData_processing_instruction = 9, RuleShifter_operand = 10, RuleShift_operation = 11, 
-    RuleShiftopcode = 12, RuleMultiply_instruction = 13, RuleLoad_store_instruction = 14, 
-    RuleAddressing_mode = 15
+    RuleNop = 4, RuleCond = 5, RuleReg = 6, RuleImmediate = 7, RuleLabel = 8, 
+    RuleBranch_instruction = 9, RuleData_processing_instruction = 10, RuleShifter_operand = 11, 
+    RuleShift_operation = 12, RuleShiftopcode = 13, RuleMultiply_instruction = 14, 
+    RuleLoad_store_instruction = 15, RuleAddressing_mode = 16
   };
 
   ARMParser(antlr4::TokenStream *input);
@@ -50,6 +51,7 @@ public:
   class ProgramContext;
   class StatementContext;
   class InstructionContext;
+  class NopContext;
   class CondContext;
   class RegContext;
   class ImmediateContext;
@@ -101,6 +103,7 @@ public:
     virtual size_t getRuleIndex() const override;
     InstructionContext *instruction();
     LabelContext *label();
+    antlr4::tree::TerminalNode *NL();
 
     virtual void enterRule(antlr4::tree::ParseTreeListener *listener) override;
     virtual void exitRule(antlr4::tree::ParseTreeListener *listener) override;
@@ -119,6 +122,7 @@ public:
     Multiply_instructionContext *multiply_instruction();
     Branch_instructionContext *branch_instruction();
     Load_store_instructionContext *load_store_instruction();
+    NopContext *nop();
 
     virtual void enterRule(antlr4::tree::ParseTreeListener *listener) override;
     virtual void exitRule(antlr4::tree::ParseTreeListener *listener) override;
@@ -128,6 +132,21 @@ public:
   };
 
   InstructionContext* instruction();
+
+  class  NopContext : public antlr4::ParserRuleContext {
+  public:
+    NopContext(antlr4::ParserRuleContext *parent, size_t invokingState);
+    virtual size_t getRuleIndex() const override;
+    antlr4::tree::TerminalNode *NOP();
+
+    virtual void enterRule(antlr4::tree::ParseTreeListener *listener) override;
+    virtual void exitRule(antlr4::tree::ParseTreeListener *listener) override;
+
+    virtual antlrcpp::Any accept(antlr4::tree::ParseTreeVisitor *visitor) override;
+   
+  };
+
+  NopContext* nop();
 
   class  CondContext : public antlr4::ParserRuleContext {
   public:

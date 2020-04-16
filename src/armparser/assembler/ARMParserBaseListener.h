@@ -30,6 +30,9 @@ public:
   virtual void enterInstruction(ARMParser::InstructionContext * /*ctx*/) override { }
   virtual void exitInstruction(ARMParser::InstructionContext * /*ctx*/) override { }
 
+  virtual void enterNop(ARMParser::NopContext * /*ctx*/) override { }
+  virtual void exitNop(ARMParser::NopContext * /*ctx*/) override { }
+
   virtual void enterCond(ARMParser::CondContext * /*ctx*/) override { }
   virtual void exitCond(ARMParser::CondContext * /*ctx*/) override { }
 

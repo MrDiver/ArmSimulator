@@ -75,6 +75,9 @@ BLX             : B L X;
 BX              : B X;
 BXJ             : B X J;
 
+//No instruction
+NOP: N O P;
+
 // Conditions
 EQ : E Q;
 NE : N E;
@@ -104,8 +107,8 @@ LABEL: '.'?[a-zA-Z_]+ ':'->mode(DEFAULT_MODE);
 LOCALLABEL:[0-9][0-9]? ':'->mode(DEFAULT_MODE);
 
 SPACE: (' '|'\t') ->mode(ParameterMode);
-TOSKIP: (COMMENT | COMMENTM | '\r'? '\n')+->skip;
-
+TOSKIP: (COMMENT | COMMENTM )+->skip;
+NL: '\r'? '\n';
 
 
 
