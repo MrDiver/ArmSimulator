@@ -49,6 +49,86 @@ public:
     return visitChildren(ctx);
   }
 
+  virtual antlrcpp::Any visitBranchToLabel(ARMParser::BranchToLabelContext *ctx) override {
+    return visitChildren(ctx);
+  }
+
+  virtual antlrcpp::Any visitBranchToRegister(ARMParser::BranchToRegisterContext *ctx) override {
+    return visitChildren(ctx);
+  }
+
+  virtual antlrcpp::Any visitMoveOp(ARMParser::MoveOpContext *ctx) override {
+    return visitChildren(ctx);
+  }
+
+  virtual antlrcpp::Any visitCompareOp(ARMParser::CompareOpContext *ctx) override {
+    return visitChildren(ctx);
+  }
+
+  virtual antlrcpp::Any visitArithmeticOp(ARMParser::ArithmeticOpContext *ctx) override {
+    return visitChildren(ctx);
+  }
+
+  virtual antlrcpp::Any visitOp2immediate(ARMParser::Op2immediateContext *ctx) override {
+    return visitChildren(ctx);
+  }
+
+  virtual antlrcpp::Any visitOp2register(ARMParser::Op2registerContext *ctx) override {
+    return visitChildren(ctx);
+  }
+
+  virtual antlrcpp::Any visitOp2inlineShift(ARMParser::Op2inlineShiftContext *ctx) override {
+    return visitChildren(ctx);
+  }
+
+  virtual antlrcpp::Any visitShiftByImmediate(ARMParser::ShiftByImmediateContext *ctx) override {
+    return visitChildren(ctx);
+  }
+
+  virtual antlrcpp::Any visitShiftByRegister(ARMParser::ShiftByRegisterContext *ctx) override {
+    return visitChildren(ctx);
+  }
+
+  virtual antlrcpp::Any visitRotateWithExtend(ARMParser::RotateWithExtendContext *ctx) override {
+    return visitChildren(ctx);
+  }
+
+  virtual antlrcpp::Any visitShiftopcode(ARMParser::ShiftopcodeContext *ctx) override {
+    return visitChildren(ctx);
+  }
+
+  virtual antlrcpp::Any visitNormalMul(ARMParser::NormalMulContext *ctx) override {
+    return visitChildren(ctx);
+  }
+
+  virtual antlrcpp::Any visitLongMul(ARMParser::LongMulContext *ctx) override {
+    return visitChildren(ctx);
+  }
+
+  virtual antlrcpp::Any visitFirstLoadStore(ARMParser::FirstLoadStoreContext *ctx) override {
+    return visitChildren(ctx);
+  }
+
+  virtual antlrcpp::Any visitSecondLoadStore(ARMParser::SecondLoadStoreContext *ctx) override {
+    return visitChildren(ctx);
+  }
+
+  virtual antlrcpp::Any visitPushPopMakro(ARMParser::PushPopMakroContext *ctx) override {
+    return visitChildren(ctx);
+  }
+
+  virtual antlrcpp::Any visitNormalAddressing(ARMParser::NormalAddressingContext *ctx) override {
+    return visitChildren(ctx);
+  }
+
+  virtual antlrcpp::Any visitPreIndexedAddressing(ARMParser::PreIndexedAddressingContext *ctx) override {
+    return visitChildren(ctx);
+  }
+
+  virtual antlrcpp::Any visitPostIndexedAddressing(ARMParser::PostIndexedAddressingContext *ctx) override {
+    return visitChildren(ctx);
+  }
+
 
 };
 

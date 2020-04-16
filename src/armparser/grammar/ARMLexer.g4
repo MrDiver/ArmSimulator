@@ -3,38 +3,36 @@
 */
 
 lexer grammar ARMLexer;
-WSSTD : ([ \t\n]| COMMENT | COMMENTM)+ -> skip,mode(CommandMode);
-
-
-mode CommandMode;
-
-
-// Conditions
-EQ : E Q;
-NE : N E;
-CS : C S;
-CC : C C;
-MI : M I;
-PL : P L;
-VS : V S;
-VC : V C;
-HI : H I;
-LS : L S;
-GE : G E;
-LT : L T;
-GT : G T;
-LE : L E;
-AL : A L;
-UPDATEFLAG: S;
-
-BYTEACCESS      : B ;
-PRIVILEGE       : T ;
-DOUBLEWORD      : D ;
-HALFWORD        : H ;
-SIGNEDHALFWORD  :S H;
-SIGNEDBYTE      :S B;
-
-
+//WSSTD : ([ \t\r\n]| COMMENT | COMMENTM)+ -> skip,mode(CommandMode);
+fragment A : [aA];
+fragment B : [bB];
+fragment C : [cC];
+fragment D : [dD];
+fragment E : [eE];
+fragment F : [fF];
+fragment G : [gG];
+fragment H : [hH];
+fragment I : [iI];
+fragment J : [jJ];
+fragment K : [kK];
+fragment L : [lL];
+fragment M : [mM];
+fragment N : [nN];
+fragment O : [oO];
+fragment P : [pP];
+fragment Q : [qQ];
+fragment R : [rR];
+fragment S : [sS];
+fragment T : [tT];
+fragment U : [uU];
+fragment V : [vV];
+fragment W : [wW];
+fragment X : [xX];
+fragment Y : [yY];
+fragment Z : [zZ];
+fragment COMMENTM : '/*' .*? '*/'; // .*? matches anything until the first */
+fragment COMMENT : '//' .*? '\n';
+//mode CommandMode;
 
 //Data Processing Operations
 AND: A N D;
@@ -67,19 +65,49 @@ UMLAL : U M L A L;
 //load and store operations
 LDR : L D R;
 STR : S T R;
+PUSH: 'push'-> mode(ParameterMode);
+POP: 'pop'-> mode(ParameterMode);
 
 //Branch operations
-Branch          : B;
-BranchAndLink   : B L;
+FB              : B;
+BL              : B L;
 BLX             : B L X;
 BX              : B X;
 BXJ             : B X J;
 
-LABEL: '.'?[a-zA-Z_]+;
-LOCALLABEL:[0-9][0-9]?;
-COLON: ':'->mode(DEFAULT_MODE);
+// Conditions
+EQ : E Q;
+NE : N E;
+CS : C S;
+CC : C C;
+MI : M I;
+PL : P L;
+VS : V S;
+VC : V C;
+HI : H I;
+LS : L S;
+GE : G E;
+LT : L T;
+GT : G T;
+LE : L E;
+AL : A L;
+UPDATEFLAG: S;
 
-SPACE: ' '->mode(ParameterMode);
+//BYTEACCESS      : B ;
+PRIVILEGE       : T ;
+DOUBLEWORD      : D ;
+HALFWORD        : H ;
+SIGNEDHALFWORD  :S H;
+SIGNEDBYTE      :S B;
+
+LABEL: '.'?[a-zA-Z_]+ ':'->mode(DEFAULT_MODE);
+LOCALLABEL:[0-9][0-9]? ':'->mode(DEFAULT_MODE);
+
+SPACE: (' '|'\t') ->mode(ParameterMode);
+TOSKIP: (COMMENT | COMMENTM | '\r'? '\n')+->skip;
+
+
+
 
 mode ParameterMode;
 
@@ -115,38 +143,12 @@ HEX: '0' X ([0-9a-fA-F])+;
 NUMBER: '-'? [0-9]+ ;
 
 WSPARAM: ([ \t]| COMMENT | COMMENTM)+ -> skip;
-NEWLINE: '\n' -> skip,mode(DEFAULT_MODE);
+NEWLINE: '\r'? '\n' -> skip,mode(DEFAULT_MODE);
 COMMA: ',';
 LBRACKET: '[';
 RBRACKET: ']';
+LBRACE: '{';
+RBRACE: '}';
 SPECIALRBRACKET: ']!';
 LABELREF: '.'?[a-zA-Z_]+;
 
-fragment A : [aA];
-fragment B : [bB];
-fragment C : [cC];
-fragment D : [dD];
-fragment E : [eE];
-fragment F : [fF];
-fragment G : [gG];
-fragment H : [hH];
-fragment I : [iI];
-fragment J : [jJ];
-fragment K : [kK];
-fragment L : [lL];
-fragment M : [mM];
-fragment N : [nN];
-fragment O : [oO];
-fragment P : [pP];
-fragment Q : [qQ];
-fragment R : [rR];
-fragment S : [sS];
-fragment T : [tT];
-fragment U : [uU];
-fragment V : [vV];
-fragment W : [wW];
-fragment X : [xX];
-fragment Y : [yY];
-fragment Z : [zZ];
-fragment COMMENTM : '/*' .*? '*/'; // .*? matches anything until the first */
-fragment COMMENT : '//' .*? '\n';
