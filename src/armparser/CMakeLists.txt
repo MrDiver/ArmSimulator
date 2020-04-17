@@ -37,3 +37,6 @@ add_executable(armparser
         walker/CommandVisitor.h
         )
 
+add_library(antlr SHARED lib/antlr4-runtime.lib)
+set_target_properties(antlr PROPERTIES LINKER_LANGUAGE CXX)
+target_link_libraries(armparser antlr)
