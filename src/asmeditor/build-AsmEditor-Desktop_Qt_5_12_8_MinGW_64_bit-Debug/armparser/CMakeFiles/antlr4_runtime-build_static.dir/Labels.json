@@ -1,0 +1,22 @@
+{
+	"sources" : 
+	[
+		{
+			"file" : "H:/MyStuff/PrivateProjects/CPPProjects/ArmSimulator/src/asmeditor/build-AsmEditor-Desktop_Qt_5_12_8_MinGW_64_bit-Debug/armparser/CMakeFiles/antlr4_runtime-build_static"
+		},
+		{
+			"file" : "H:/MyStuff/PrivateProjects/CPPProjects/ArmSimulator/src/asmeditor/build-AsmEditor-Desktop_Qt_5_12_8_MinGW_64_bit-Debug/armparser/CMakeFiles/antlr4_runtime-build_static.rule"
+		},
+		{
+			"file" : "H:/MyStuff/PrivateProjects/CPPProjects/ArmSimulator/src/asmeditor/build-AsmEditor-Desktop_Qt_5_12_8_MinGW_64_bit-Debug/armparser/antlr4_runtime/src/antlr4_runtime-stamp/antlr4_runtime-build_static.rule"
+		}
+	],
+	"target" : 
+	{
+		"labels" : 
+		[
+			"antlr4_runtime"
+		],
+		"name" : "antlr4_runtime-build_static"
+	}
+}

@@ -1,5 +1,5 @@
 
-// Generated from H:/MyStuff/PrivateProjects/CPPProjects/ArmSimulator/src/armparser/grammar\ARMLexer.g4 by ANTLR 4.8
+// Generated from H:/MyStuff/PrivateProjects/CPPProjects/TEST - Kopie/grammar\ARMLexer.g4 by ANTLR 4.8
 
 
 #include "ARMLexer.h"

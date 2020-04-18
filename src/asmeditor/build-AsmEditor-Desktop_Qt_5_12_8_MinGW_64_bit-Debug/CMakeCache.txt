@@ -72,6 +72,32 @@ CMAKE_CXX_STANDARD_LIBRARIES:STRING=-lkernel32 -luser32 -lgdi32 -lwinspool -lshe
 //No help, variable specified on the command line.
 CMAKE_C_COMPILER:STRING=H:/Programme/QT/Tools/mingw730_64/bin/gcc.exe
 
+//A wrapper around 'ar' adding the appropriate '--plugin' option
+// for the GCC compiler
+CMAKE_C_COMPILER_AR:FILEPATH=H:/Programme/QT/Tools/mingw730_64/bin/gcc-ar.exe
+
+//A wrapper around 'ranlib' adding the appropriate '--plugin' option
+// for the GCC compiler
+CMAKE_C_COMPILER_RANLIB:FILEPATH=H:/Programme/QT/Tools/mingw730_64/bin/gcc-ranlib.exe
+
+//Flags used by the C compiler during all build types.
+CMAKE_C_FLAGS:STRING=
+
+//Flags used by the C compiler during DEBUG builds.
+CMAKE_C_FLAGS_DEBUG:STRING=-g
+
+//Flags used by the C compiler during MINSIZEREL builds.
+CMAKE_C_FLAGS_MINSIZEREL:STRING=-Os -DNDEBUG
+
+//Flags used by the C compiler during RELEASE builds.
+CMAKE_C_FLAGS_RELEASE:STRING=-O3 -DNDEBUG
+
+//Flags used by the C compiler during RELWITHDEBINFO builds.
+CMAKE_C_FLAGS_RELWITHDEBINFO:STRING=-O2 -g -DNDEBUG
+
+//Libraries linked by default with all C applications.
+CMAKE_C_STANDARD_LIBRARIES:STRING=-lkernel32 -luser32 -lgdi32 -lwinspool -lshell32 -lole32 -loleaut32 -luuid -lcomdlg32 -ladvapi32
+
 //Path to a program.
 CMAKE_DLLTOOL:FILEPATH=H:/Programme/QT/Tools/mingw730_64/bin/dlltool.exe
 
@@ -226,6 +252,30 @@ CMAKE_STRIP:FILEPATH=H:/Programme/QT/Tools/mingw730_64/bin/strip.exe
 // Studio IDE projects all commands are done without /nologo.
 CMAKE_VERBOSE_MAKEFILE:BOOL=FALSE
 
+//Git command line client
+GIT_EXECUTABLE:FILEPATH=C:/Program Files/Git/cmd/git.exe
+
+//Path to a program.
+Java_IDLJ_EXECUTABLE:FILEPATH=H:/Programme/jdk-9.0.4/bin/idlj.exe
+
+//Path to a program.
+Java_JARSIGNER_EXECUTABLE:FILEPATH=H:/Programme/jdk-9.0.4/bin/jarsigner.exe
+
+//Path to a program.
+Java_JAR_EXECUTABLE:FILEPATH=H:/Programme/jdk-9.0.4/bin/jar.exe
+
+//Path to a program.
+Java_JAVAC_EXECUTABLE:FILEPATH=H:/Programme/jdk-9.0.4/bin/javac.exe
+
+//Path to a program.
+Java_JAVADOC_EXECUTABLE:FILEPATH=H:/Programme/jdk-9.0.4/bin/javadoc.exe
+
+//Path to a program.
+Java_JAVAH_EXECUTABLE:FILEPATH=H:/Programme/jdk-9.0.4/bin/javah.exe
+
+//Path to a program.
+Java_JAVA_EXECUTABLE:FILEPATH=C:/Program Files/Java/jre1.8.0_241/bin/java.exe
+
 //No help, variable specified on the command line.
 QT_QMAKE_EXECUTABLE:STRING=H:/Programme/QT/5.12.8/mingw73_64/bin/qmake.exe
 
@@ -240,6 +290,12 @@ Qt5Widgets_DIR:PATH=H:/Programme/QT/5.12.8/mingw73_64/lib/cmake/Qt5Widgets
 
 //The directory containing a CMake configuration file for Qt5.
 Qt5_DIR:PATH=H:/Programme/QT/5.12.8/mingw73_64/lib/cmake/Qt5
+
+//Value Computed by CMake
+TEST_BINARY_DIR:STATIC=H:/MyStuff/PrivateProjects/CPPProjects/ArmSimulator/src/asmeditor/build-AsmEditor-Desktop_Qt_5_12_8_MinGW_64_bit-Debug/armparser
+
+//Value Computed by CMake
+TEST_SOURCE_DIR:STATIC=H:/MyStuff/PrivateProjects/CPPProjects/ArmSimulator/src/asmeditor/AsmEditor/armparser
 
 
 ########################
@@ -282,6 +338,24 @@ CMAKE_CXX_FLAGS_RELEASE-ADVANCED:INTERNAL=1
 CMAKE_CXX_FLAGS_RELWITHDEBINFO-ADVANCED:INTERNAL=1
 //ADVANCED property for variable: CMAKE_CXX_STANDARD_LIBRARIES
 CMAKE_CXX_STANDARD_LIBRARIES-ADVANCED:INTERNAL=1
+//ADVANCED property for variable: CMAKE_C_COMPILER
+CMAKE_C_COMPILER-ADVANCED:INTERNAL=1
+//ADVANCED property for variable: CMAKE_C_COMPILER_AR
+CMAKE_C_COMPILER_AR-ADVANCED:INTERNAL=1
+//ADVANCED property for variable: CMAKE_C_COMPILER_RANLIB
+CMAKE_C_COMPILER_RANLIB-ADVANCED:INTERNAL=1
+//ADVANCED property for variable: CMAKE_C_FLAGS
+CMAKE_C_FLAGS-ADVANCED:INTERNAL=1
+//ADVANCED property for variable: CMAKE_C_FLAGS_DEBUG
+CMAKE_C_FLAGS_DEBUG-ADVANCED:INTERNAL=1
+//ADVANCED property for variable: CMAKE_C_FLAGS_MINSIZEREL
+CMAKE_C_FLAGS_MINSIZEREL-ADVANCED:INTERNAL=1
+//ADVANCED property for variable: CMAKE_C_FLAGS_RELEASE
+CMAKE_C_FLAGS_RELEASE-ADVANCED:INTERNAL=1
+//ADVANCED property for variable: CMAKE_C_FLAGS_RELWITHDEBINFO
+CMAKE_C_FLAGS_RELWITHDEBINFO-ADVANCED:INTERNAL=1
+//ADVANCED property for variable: CMAKE_C_STANDARD_LIBRARIES
+CMAKE_C_STANDARD_LIBRARIES-ADVANCED:INTERNAL=1
 //ADVANCED property for variable: CMAKE_DLLTOOL
 CMAKE_DLLTOOL-ADVANCED:INTERNAL=1
 //Executable file format
@@ -386,4 +460,22 @@ CMAKE_STATIC_LINKER_FLAGS_RELWITHDEBINFO-ADVANCED:INTERNAL=1
 CMAKE_STRIP-ADVANCED:INTERNAL=1
 //ADVANCED property for variable: CMAKE_VERBOSE_MAKEFILE
 CMAKE_VERBOSE_MAKEFILE-ADVANCED:INTERNAL=1
+//Details about finding ANTLR
+FIND_PACKAGE_MESSAGE_DETAILS_ANTLR:INTERNAL=[H:/MyStuff/PrivateProjects/CPPProjects/ArmSimulator/src/asmeditor/AsmEditor/armparser/external/antlr-4.8-complete.jar][C:/Program Files/Java/jre1.8.0_241/bin/java.exe][v4.8()]
+//ADVANCED property for variable: GIT_EXECUTABLE
+GIT_EXECUTABLE-ADVANCED:INTERNAL=1
+//ADVANCED property for variable: Java_IDLJ_EXECUTABLE
+Java_IDLJ_EXECUTABLE-ADVANCED:INTERNAL=1
+//ADVANCED property for variable: Java_JARSIGNER_EXECUTABLE
+Java_JARSIGNER_EXECUTABLE-ADVANCED:INTERNAL=1
+//ADVANCED property for variable: Java_JAR_EXECUTABLE
+Java_JAR_EXECUTABLE-ADVANCED:INTERNAL=1
+//ADVANCED property for variable: Java_JAVAC_EXECUTABLE
+Java_JAVAC_EXECUTABLE-ADVANCED:INTERNAL=1
+//ADVANCED property for variable: Java_JAVADOC_EXECUTABLE
+Java_JAVADOC_EXECUTABLE-ADVANCED:INTERNAL=1
+//ADVANCED property for variable: Java_JAVAH_EXECUTABLE
+Java_JAVAH_EXECUTABLE-ADVANCED:INTERNAL=1
+//ADVANCED property for variable: Java_JAVA_EXECUTABLE
+Java_JAVA_EXECUTABLE-ADVANCED:INTERNAL=1
 

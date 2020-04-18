@@ -99,7 +99,7 @@ multiply_instruction : opcode=MUL cond ? UPDATEFLAG? SPACE reg COMMA reg COMMA r
 //TODO IMPLEMENT ALL
 load_store_instruction : opcode=(LDR|STR) cond? FB? PRIVILEGE? SPACE reg COMMA addressing_mode #firstLoadStore
                        | opcode=(LDR|STR) cond? (DOUBLEWORD|HALFWORD|SIGNEDHALFWORD|SIGNEDBYTE) SPACE reg COMMA addressing_mode #secondLoadStore
-                       | makro=(PUSH|POP) '{' reg (',' reg)* '}' #pushPopMakro
+                       | makro=(PUSH|POP) LBRACE reg (COMMA reg)* RBRACE #pushPopMakro
                        ;
 
 
@@ -107,6 +107,6 @@ load_store_instruction : opcode=(LDR|STR) cond? FB? PRIVILEGE? SPACE reg COMMA a
 //TODO: A3.13 Semaphore Instructions
 
 //TODO: OPTIMIZE
-addressing_mode : '[' baseRegister=reg (',' shifter_operand )? ']'  #normalAddressing
-                | '[' baseRegister=reg (',' shifter_operand )? ']!' #preIndexedAddressing
-                | '[' baseRegister=reg ']' ',' shifter_operand     #postIndexedAddressing;
+addressing_mode : LBRACKET baseRegister=reg (COMMA shifter_operand )? RBRACKET #normalAddressing
+                | LBRACKET baseRegister=reg (COMMA shifter_operand )? SPECIALRBRACKET #preIndexedAddressing
+                | LBRACKET baseRegister=reg RBRACKET COMMA shifter_operand     #postIndexedAddressing;

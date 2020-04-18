@@ -1,0 +1,22 @@
+{
+	"sources" : 
+	[
+		{
+			"file" : "/home/user/MyStuff/PrivateProjects/CPPProjects/TEST - Kopie/build-linux/CMakeFiles/antlr4_runtime-build_shared"
+		},
+		{
+			"file" : "/home/user/MyStuff/PrivateProjects/CPPProjects/TEST - Kopie/build-linux/CMakeFiles/antlr4_runtime-build_shared.rule"
+		},
+		{
+			"file" : "/home/user/MyStuff/PrivateProjects/CPPProjects/TEST - Kopie/build-linux/antlr4_runtime/src/antlr4_runtime-stamp/antlr4_runtime-build_shared.rule"
+		}
+	],
+	"target" : 
+	{
+		"labels" : 
+		[
+			"antlr4_runtime"
+		],
+		"name" : "antlr4_runtime-build_shared"
+	}
+}

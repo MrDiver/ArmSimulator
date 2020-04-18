@@ -25,7 +25,6 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 #endif()
 
 find_package(Qt5 COMPONENTS Widgets Gui REQUIRED)
-
 if(ANDROID)
   add_library(AsmEditor SHARED
       mainwindow.cpp
@@ -40,6 +39,7 @@ if(ANDROID)
       managers/filemanager.h
       managers//filemanager.cpp
       Resources.qrc
+      ${Parser_SRC}
   )
 else()
   add_executable(AsmEditor

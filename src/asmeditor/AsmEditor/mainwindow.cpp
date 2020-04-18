@@ -22,6 +22,7 @@ MainWindow::MainWindow(QWidget *parent) :
     connect(ui->actionUndo,&QAction::triggered,codeArea,&QPlainTextEdit::undo);
     connect(ui->actionRedo,&QAction::triggered,codeArea,&QPlainTextEdit::redo);
     connect(ui->actionAdd_Breakpoint,&QAction::triggered,codeArea,&CodeArea::addBreakpoint);
+
 }
 
 MainWindow::~MainWindow()

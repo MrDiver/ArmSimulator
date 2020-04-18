@@ -1,0 +1,6 @@
+/home/user/MyStuff/PrivateProjects/CPPProjects/TEST - Kopie/build-linux/CMakeFiles/rebuild_cache.dir
+/home/user/MyStuff/PrivateProjects/CPPProjects/TEST - Kopie/build-linux/CMakeFiles/antlr4_runtime-build_static.dir
+/home/user/MyStuff/PrivateProjects/CPPProjects/TEST - Kopie/build-linux/CMakeFiles/parser.dir
+/home/user/MyStuff/PrivateProjects/CPPProjects/TEST - Kopie/build-linux/CMakeFiles/antlr4_runtime.dir
+/home/user/MyStuff/PrivateProjects/CPPProjects/TEST - Kopie/build-linux/CMakeFiles/antlr4_runtime-build_shared.dir
+/home/user/MyStuff/PrivateProjects/CPPProjects/TEST - Kopie/build-linux/CMakeFiles/edit_cache.dir

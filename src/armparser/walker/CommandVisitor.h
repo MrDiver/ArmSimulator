@@ -2,15 +2,17 @@
 // Created by Prodigy on 17.04.2020.
 //
 
-#ifndef SRC_COMMANDVISITOR_H
-#define SRC_COMMANDVISITOR_H
+#ifndef ARMPARSER_COMMANDVISITOR_H
+#define ARMPARSER_COMMANDVISITOR_H
 
+#include "CommandVisitor.h"
 #include "ARMParserBaseVisitor.h"
-
-class CommandVisitor
-{
+class CommandVisitor : public assembler::ARMParserBaseVisitor{
 public:
-    CommandVisitor();
+    CommandVisitor(){
+        std::cout << "HELLO VISITOR" << std::endl;
+    }
 };
 
-#endif //SRC_COMMANDVISITOR_H
+
+#endif //ARMPARSER_COMMANDVISITOR_H

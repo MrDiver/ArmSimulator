@@ -1,0 +1,6 @@
+# Target labels
+ antlr4_runtime
+# Source files and their labels
+H:/MyStuff/PrivateProjects/CPPProjects/ArmSimulator/src/armparser/build/ReleaseWin/CMakeFiles/antlr4_runtime-build_shared
+H:/MyStuff/PrivateProjects/CPPProjects/ArmSimulator/src/armparser/build/ReleaseWin/CMakeFiles/antlr4_runtime-build_shared.rule
+H:/MyStuff/PrivateProjects/CPPProjects/ArmSimulator/src/armparser/build/ReleaseWin/antlr4_runtime/src/antlr4_runtime-stamp/antlr4_runtime-build_shared.rule

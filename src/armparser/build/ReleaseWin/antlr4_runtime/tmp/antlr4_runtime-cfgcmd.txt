@@ -1,0 +1,1 @@
+cmd='C:/Users/Prodigy/AppData/Local/JetBrains/Toolbox/apps/CLion/ch-0/201.6668.126/bin/cmake/win/bin/cmake.exe;-GCodeBlocks - MinGW Makefiles;-C<TMP_DIR>/antlr4_runtime-cache-$<CONFIG>.cmake;<SOURCE_DIR><SOURCE_SUBDIR>'
