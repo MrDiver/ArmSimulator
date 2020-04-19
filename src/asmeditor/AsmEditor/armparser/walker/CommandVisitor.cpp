@@ -4,13 +4,16 @@
 
 #include "CommandVisitor.h"
 #include <functional>
-
+#include <iostream>
 SourceLocation toSL(antlr4::ParserRuleContext* ctx){
     return SourceLocation(ctx->getStart()->getLine(),ctx->getStart()->getCharPositionInLine(),ctx->getStop()->getLine(),ctx->getStop()->getCharPositionInLine());
 }
 
 antlrcpp::Any CommandVisitor::visitMoveOp(assembler::ARMParser::MoveOpContext *ctx){
-    Condition cond = CommandVisitor::visit(ctx->cond()).as<Condition>();
+    Condition cond = Condition::AL;
+    if(ctx->cond())
+        cond = CommandVisitor::visit(ctx->cond()).as<Condition>();
+    std::cout << cond << std::endl;
     bool updateFlag = ctx->UPDATEFLAG()!=nullptr;
     Set::Opcode opcode;
     if(ctx->MOV())
@@ -71,15 +74,18 @@ antlrcpp::Any CommandVisitor::visitShiftopcode(assembler::ARMParser::Shiftopcode
         return Aluops::ASR;
     else if(ctx->RORI())
         return Aluops::ROR;
+
+    std::cerr << "Error in CommandVisitor.cpp in visitShiftopcode" << std::endl;
+    return nullptr;
 }
 
 
 
 antlrcpp::Any CommandVisitor::visitImmediate(assembler::ARMParser::ImmediateContext *ctx){
     if(ctx->HEX()){
-        return std::stoul(ctx->HEX()->getText(), nullptr, 16);
+        return (unsigned int)std::stoul(ctx->HEX()->getText(), nullptr, 16);
     }else{
-        return std::stoul(ctx->NUMBER()->getText());
+        return (unsigned int)std::stoul(ctx->NUMBER()->getText());
     }
 }
 

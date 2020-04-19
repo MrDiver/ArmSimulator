@@ -1,0 +1,6 @@
+# Target labels
+ antlr4_runtime
+# Source files and their labels
+H:/MyStuff/PrivateProjects/CPPProjects/ArmSimulator/src/asmeditor/build-AsmEditor-Desktop_Qt_5_12_8_MinGW_64_bit-Release/CMakeFiles/antlr4_runtime-build_static
+H:/MyStuff/PrivateProjects/CPPProjects/ArmSimulator/src/asmeditor/build-AsmEditor-Desktop_Qt_5_12_8_MinGW_64_bit-Release/CMakeFiles/antlr4_runtime-build_static.rule
+H:/MyStuff/PrivateProjects/CPPProjects/ArmSimulator/src/asmeditor/build-AsmEditor-Desktop_Qt_5_12_8_MinGW_64_bit-Release/antlr4_runtime/src/antlr4_runtime-stamp/antlr4_runtime-build_static.rule

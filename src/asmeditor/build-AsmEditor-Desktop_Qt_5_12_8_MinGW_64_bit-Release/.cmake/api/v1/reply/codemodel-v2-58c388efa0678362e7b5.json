@@ -1,0 +1,95 @@
+{
+	"configurations" : 
+	[
+		{
+			"directories" : 
+			[
+				{
+					"build" : ".",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.7"
+					},
+					"projectIndex" : 0,
+					"source" : ".",
+					"targetIndexes" : 
+					[
+						0,
+						1,
+						2,
+						3,
+						4
+					]
+				}
+			],
+			"name" : "Release",
+			"projects" : 
+			[
+				{
+					"directoryIndexes" : 
+					[
+						0
+					],
+					"name" : "AsmEditor",
+					"targetIndexes" : 
+					[
+						0,
+						1,
+						2,
+						3,
+						4
+					]
+				}
+			],
+			"targets" : 
+			[
+				{
+					"directoryIndex" : 0,
+					"id" : "AsmEditor::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-AsmEditor-Release-4d6492b0329bfbd73f09.json",
+					"name" : "AsmEditor",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "AsmEditor_autogen::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-AsmEditor_autogen-Release-9387ae55005ddabadced.json",
+					"name" : "AsmEditor_autogen",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "antlr4_runtime::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-antlr4_runtime-Release-ebffb52cd36241fd30a4.json",
+					"name" : "antlr4_runtime",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "antlr4_runtime-build_shared::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-antlr4_runtime-build_shared-Release-6c5ac0b51e48d0d6a891.json",
+					"name" : "antlr4_runtime-build_shared",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "antlr4_runtime-build_static::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-antlr4_runtime-build_static-Release-6c0abe8f9d7324fd92ef.json",
+					"name" : "antlr4_runtime-build_static",
+					"projectIndex" : 0
+				}
+			]
+		}
+	],
+	"kind" : "codemodel",
+	"paths" : 
+	{
+		"build" : "H:/MyStuff/PrivateProjects/CPPProjects/ArmSimulator/src/asmeditor/build-AsmEditor-Desktop_Qt_5_12_8_MinGW_64_bit-Release",
+		"source" : "H:/MyStuff/PrivateProjects/CPPProjects/ArmSimulator/src/asmeditor/AsmEditor"
+	},
+	"version" : 
+	{
+		"major" : 2,
+		"minor" : 0
+	}
+}

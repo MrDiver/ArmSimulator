@@ -173,6 +173,8 @@ void CodeArea::breakpointClickedEvent(QMouseEvent *event){
 
 void CodeArea::addBreakpoint(){
     int y = this->textCursor().blockNumber();
+    std::cout << breakpoints.size() << std::endl;
+    std::cout << pm->getActiveCodelines()->contains(5) << std::endl;
     if(breakpoints.contains(y)){
         breakpoints.remove(y);
     }else{

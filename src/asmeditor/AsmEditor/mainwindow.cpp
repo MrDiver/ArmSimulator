@@ -11,7 +11,7 @@ MainWindow::MainWindow(QWidget *parent) :
     QListView* list = this->findChild<QListView*>("RecentList");
     QTreeView* tree = this->findChild<QTreeView*>("FolderTree");
     fm = new FileManager(this,list,tree,codeArea);
-    pm = new ProcessorManager(fm);
+    pm = new ProcessorManager(codeArea,ui->CodeOutput,ui->ErrorList);
     connect(ui->actionNew,&QAction::triggered,fm,&FileManager::fileNew);
     connect(ui->actionOpen,&QAction::triggered,fm,&FileManager::fileOpen);
     connect(ui->actionSave,&QAction::triggered,fm,&FileManager::fileSave);
@@ -23,6 +23,7 @@ MainWindow::MainWindow(QWidget *parent) :
     connect(ui->actionUndo,&QAction::triggered,codeArea,&QPlainTextEdit::undo);
     connect(ui->actionRedo,&QAction::triggered,codeArea,&QPlainTextEdit::redo);
     connect(ui->actionAdd_Breakpoint,&QAction::triggered,codeArea,&CodeArea::addBreakpoint);
+    connect(ui->actionCompile,&QAction::triggered,pm,&ProcessorManager::lint);
 }
 
 MainWindow::~MainWindow()

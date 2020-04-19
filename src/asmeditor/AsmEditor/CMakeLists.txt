@@ -8,22 +8,18 @@ set(CMAKE_AUTOUIC ON)
 set(CMAKE_AUTOMOC ON)
 set(CMAKE_AUTORCC ON)
 
-set(CMAKE_CXX_STANDARD 11)
+set(CMAKE_CXX_STANDARD 14)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
 # ANTLR
 list(APPEND CMAKE_MODULE_PATH "${CMAKE_CURRENT_LIST_DIR}/cmake")
 add_definitions(-DANTLR4CPP_STATIC)
+add_definitions(-DQT_NO_KEYWORDS)
 set(ANTLR4_WITH_STATIC_CRT OFF)
 include(ExternalAntlr4Cpp)
 include_directories(${ANTLR4_INCLUDE_DIRS})
 set(ANTLR_EXECUTABLE ${CMAKE_CURRENT_SOURCE_DIR}/external/antlr-4.8-complete.jar)
 find_package(ANTLR REQUIRED)
-
-
-
-
-
 
 #parser
 include_directories(${CMAKE_CURRENT_SOURCE_DIR}/armparser/assembler)
@@ -61,7 +57,7 @@ if(ANDROID)
   )
 else()
   add_executable(AsmEditor
-      ${all} armprocessor/bits.cpp armprocessor/architecture/ALU.cpp)
+      ${all})
 endif()
 
 target_link_libraries(AsmEditor PRIVATE Qt5::Widgets)

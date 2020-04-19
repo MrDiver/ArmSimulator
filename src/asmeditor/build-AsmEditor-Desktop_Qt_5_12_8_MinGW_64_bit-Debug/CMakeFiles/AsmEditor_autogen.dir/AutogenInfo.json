@@ -1,0 +1,271 @@
+{
+	"BUILD_DIR" : "H:/MyStuff/PrivateProjects/CPPProjects/ArmSimulator/src/asmeditor/build-AsmEditor-Desktop_Qt_5_12_8_MinGW_64_bit-Debug/AsmEditor_autogen",
+	"CMAKE_BINARY_DIR" : "H:/MyStuff/PrivateProjects/CPPProjects/ArmSimulator/src/asmeditor/build-AsmEditor-Desktop_Qt_5_12_8_MinGW_64_bit-Debug",
+	"CMAKE_CURRENT_BINARY_DIR" : "H:/MyStuff/PrivateProjects/CPPProjects/ArmSimulator/src/asmeditor/build-AsmEditor-Desktop_Qt_5_12_8_MinGW_64_bit-Debug",
+	"CMAKE_CURRENT_SOURCE_DIR" : "H:/MyStuff/PrivateProjects/CPPProjects/ArmSimulator/src/asmeditor/AsmEditor",
+	"CMAKE_EXECUTABLE" : "C:/msys64/mingw64/bin/cmake.exe",
+	"CMAKE_SOURCE_DIR" : "H:/MyStuff/PrivateProjects/CPPProjects/ArmSimulator/src/asmeditor/AsmEditor",
+	"DEP_FILE" : "",
+	"DEP_FILE_RULE_NAME" : "",
+	"HEADERS" : 
+	[
+		[
+			"H:/MyStuff/PrivateProjects/CPPProjects/ArmSimulator/src/asmeditor/AsmEditor/armparser/assembler/ARMLexer.h",
+			"MU",
+			"WKAIL3TLVA/moc_ARMLexer.cpp"
+		],
+		[
+			"H:/MyStuff/PrivateProjects/CPPProjects/ArmSimulator/src/asmeditor/AsmEditor/armparser/assembler/ARMParser.h",
+			"MU",
+			"WKAIL3TLVA/moc_ARMParser.cpp"
+		],
+		[
+			"H:/MyStuff/PrivateProjects/CPPProjects/ArmSimulator/src/asmeditor/AsmEditor/armparser/assembler/ARMParserBaseListener.h",
+			"MU",
+			"WKAIL3TLVA/moc_ARMParserBaseListener.cpp"
+		],
+		[
+			"H:/MyStuff/PrivateProjects/CPPProjects/ArmSimulator/src/asmeditor/AsmEditor/armparser/assembler/ARMParserBaseVisitor.h",
+			"MU",
+			"WKAIL3TLVA/moc_ARMParserBaseVisitor.cpp"
+		],
+		[
+			"H:/MyStuff/PrivateProjects/CPPProjects/ArmSimulator/src/asmeditor/AsmEditor/armparser/assembler/ARMParserListener.h",
+			"MU",
+			"WKAIL3TLVA/moc_ARMParserListener.cpp"
+		],
+		[
+			"H:/MyStuff/PrivateProjects/CPPProjects/ArmSimulator/src/asmeditor/AsmEditor/armparser/assembler/ARMParserVisitor.h",
+			"MU",
+			"WKAIL3TLVA/moc_ARMParserVisitor.cpp"
+		],
+		[
+			"H:/MyStuff/PrivateProjects/CPPProjects/ArmSimulator/src/asmeditor/AsmEditor/armparser/walker/CommandVisitor.h",
+			"MU",
+			"ZWYF7T77Y4/moc_CommandVisitor.cpp"
+		],
+		[
+			"H:/MyStuff/PrivateProjects/CPPProjects/ArmSimulator/src/asmeditor/AsmEditor/armprocessor/architecture/ALU.h",
+			"MU",
+			"5IZCRFBSVN/moc_ALU.cpp"
+		],
+		[
+			"H:/MyStuff/PrivateProjects/CPPProjects/ArmSimulator/src/asmeditor/AsmEditor/armprocessor/architecture/Aluops.h",
+			"MU",
+			"5IZCRFBSVN/moc_Aluops.cpp"
+		],
+		[
+			"H:/MyStuff/PrivateProjects/CPPProjects/ArmSimulator/src/asmeditor/AsmEditor/armprocessor/architecture/CurrentProgramStatusRegister.h",
+			"MU",
+			"5IZCRFBSVN/moc_CurrentProgramStatusRegister.cpp"
+		],
+		[
+			"H:/MyStuff/PrivateProjects/CPPProjects/ArmSimulator/src/asmeditor/AsmEditor/armprocessor/bits.h",
+			"MU",
+			"N5RIOU76P7/moc_bits.cpp"
+		],
+		[
+			"H:/MyStuff/PrivateProjects/CPPProjects/ArmSimulator/src/asmeditor/AsmEditor/armprocessor/instructions/Condition.h",
+			"MU",
+			"EFGNPXGGDZ/moc_Condition.cpp"
+		],
+		[
+			"H:/MyStuff/PrivateProjects/CPPProjects/ArmSimulator/src/asmeditor/AsmEditor/armprocessor/instructions/Instruction.h",
+			"MU",
+			"EFGNPXGGDZ/moc_Instruction.cpp"
+		],
+		[
+			"H:/MyStuff/PrivateProjects/CPPProjects/ArmSimulator/src/asmeditor/AsmEditor/armprocessor/instructions/SourceLocation.h",
+			"MU",
+			"EFGNPXGGDZ/moc_SourceLocation.cpp"
+		],
+		[
+			"H:/MyStuff/PrivateProjects/CPPProjects/ArmSimulator/src/asmeditor/AsmEditor/armprocessor/processor.h",
+			"MU",
+			"N5RIOU76P7/moc_processor.cpp"
+		],
+		[
+			"H:/MyStuff/PrivateProjects/CPPProjects/ArmSimulator/src/asmeditor/AsmEditor/codearea/BreakPointWidget.h",
+			"MU",
+			"USFMJESNH3/moc_BreakPointWidget.cpp"
+		],
+		[
+			"H:/MyStuff/PrivateProjects/CPPProjects/ArmSimulator/src/asmeditor/AsmEditor/codearea/codearea.h",
+			"MU",
+			"USFMJESNH3/moc_codearea.cpp"
+		],
+		[
+			"H:/MyStuff/PrivateProjects/CPPProjects/ArmSimulator/src/asmeditor/AsmEditor/codearea/highlighter.h",
+			"MU",
+			"USFMJESNH3/moc_highlighter.cpp"
+		],
+		[
+			"H:/MyStuff/PrivateProjects/CPPProjects/ArmSimulator/src/asmeditor/AsmEditor/codearea/linenumberwidget.h",
+			"MU",
+			"USFMJESNH3/moc_linenumberwidget.cpp"
+		],
+		[
+			"H:/MyStuff/PrivateProjects/CPPProjects/ArmSimulator/src/asmeditor/AsmEditor/consolewindow/consolewindow.h",
+			"MU",
+			"O4SWLRXBBP/moc_consolewindow.cpp"
+		],
+		[
+			"H:/MyStuff/PrivateProjects/CPPProjects/ArmSimulator/src/asmeditor/AsmEditor/mainwindow.h",
+			"MU",
+			"EWIEGA46WW/moc_mainwindow.cpp"
+		],
+		[
+			"H:/MyStuff/PrivateProjects/CPPProjects/ArmSimulator/src/asmeditor/AsmEditor/managers/filemanager.h",
+			"MU",
+			"DWVBZFKGEL/moc_filemanager.cpp"
+		],
+		[
+			"H:/MyStuff/PrivateProjects/CPPProjects/ArmSimulator/src/asmeditor/AsmEditor/managers/processormanager.h",
+			"MU",
+			"DWVBZFKGEL/moc_processormanager.cpp"
+		]
+	],
+	"HEADER_EXTENSIONS" : [ "h", "hh", "h++", "hm", "hpp", "hxx", "in", "txx" ],
+	"INCLUDE_DIR" : "H:/MyStuff/PrivateProjects/CPPProjects/ArmSimulator/src/asmeditor/build-AsmEditor-Desktop_Qt_5_12_8_MinGW_64_bit-Debug/AsmEditor_autogen/include",
+	"MOC_COMPILATION_FILE" : "H:/MyStuff/PrivateProjects/CPPProjects/ArmSimulator/src/asmeditor/build-AsmEditor-Desktop_Qt_5_12_8_MinGW_64_bit-Debug/AsmEditor_autogen/mocs_compilation.cpp",
+	"MOC_DEFINITIONS" : 
+	[
+		"ANTLR4CPP_STATIC",
+		"QT_CORE_LIB",
+		"QT_GUI_LIB",
+		"QT_NO_KEYWORDS",
+		"QT_WIDGETS_LIB"
+	],
+	"MOC_DEPEND_FILTERS" : 
+	[
+		[
+			"Q_PLUGIN_METADATA",
+			"[\n][ \t]*Q_PLUGIN_METADATA[ \t]*\\([^\\)]*FILE[ \t]*\"([^\"]+)\""
+		]
+	],
+	"MOC_INCLUDES" : 
+	[
+		"H:/MyStuff/PrivateProjects/CPPProjects/ArmSimulator/src/asmeditor/build-AsmEditor-Desktop_Qt_5_12_8_MinGW_64_bit-Debug",
+		"H:/MyStuff/PrivateProjects/CPPProjects/ArmSimulator/src/asmeditor/AsmEditor",
+		"H:/MyStuff/PrivateProjects/CPPProjects/ArmSimulator/src/asmeditor/build-AsmEditor-Desktop_Qt_5_12_8_MinGW_64_bit-Debug/antlr4_runtime/src/antlr4_runtime/runtime/Cpp/runtime/src",
+		"H:/MyStuff/PrivateProjects/CPPProjects/ArmSimulator/src/asmeditor/AsmEditor/armparser/assembler",
+		"H:/MyStuff/PrivateProjects/CPPProjects/ArmSimulator/src/asmeditor/AsmEditor/armparser/walker",
+		"H:/MyStuff/PrivateProjects/CPPProjects/ArmSimulator/src/asmeditor/AsmEditor/codearea",
+		"H:/MyStuff/PrivateProjects/CPPProjects/ArmSimulator/src/asmeditor/AsmEditor/managers",
+		"H:/MyStuff/PrivateProjects/CPPProjects/ArmSimulator/src/asmeditor/AsmEditor/armparser",
+		"H:/Programme/QT/5.12.8/mingw73_64/include",
+		"H:/Programme/QT/5.12.8/mingw73_64/include/QtWidgets",
+		"H:/Programme/QT/5.12.8/mingw73_64/include/QtGui",
+		"H:/Programme/QT/5.12.8/mingw73_64/include/QtANGLE",
+		"H:/Programme/QT/5.12.8/mingw73_64/include/QtCore",
+		"H:/Programme/QT/5.12.8/mingw73_64/mkspecs/win32-g++",
+		"H:/Programme/QT/Tools/mingw730_64/lib/gcc/x86_64-w64-mingw32/7.3.0/include/c++",
+		"H:/Programme/QT/Tools/mingw730_64/lib/gcc/x86_64-w64-mingw32/7.3.0/include/c++/x86_64-w64-mingw32",
+		"H:/Programme/QT/Tools/mingw730_64/lib/gcc/x86_64-w64-mingw32/7.3.0/include/c++/backward",
+		"H:/Programme/QT/Tools/mingw730_64/lib/gcc/x86_64-w64-mingw32/7.3.0/include",
+		"H:/Programme/QT/Tools/mingw730_64/lib/gcc/x86_64-w64-mingw32/7.3.0/include-fixed",
+		"H:/Programme/QT/Tools/mingw730_64/x86_64-w64-mingw32/include"
+	],
+	"MOC_MACRO_NAMES" : [ "Q_OBJECT", "Q_GADGET", "Q_NAMESPACE", "Q_NAMESPACE_EXPORT" ],
+	"MOC_OPTIONS" : [],
+	"MOC_PATH_PREFIX" : true,
+	"MOC_PREDEFS_CMD" : 
+	[
+		"H:/Programme/QT/Tools/mingw730_64/bin/g++.exe",
+		"-dM",
+		"-E",
+		"-c",
+		"C:/msys64/mingw64/share/cmake-3.17/Modules/CMakeCXXCompilerABI.cpp"
+	],
+	"MOC_PREDEFS_FILE" : "H:/MyStuff/PrivateProjects/CPPProjects/ArmSimulator/src/asmeditor/build-AsmEditor-Desktop_Qt_5_12_8_MinGW_64_bit-Debug/AsmEditor_autogen/moc_predefs.h",
+	"MOC_RELAXED_MODE" : false,
+	"MOC_SKIP" : [],
+	"MULTI_CONFIG" : false,
+	"PARALLEL" : 6,
+	"PARSE_CACHE_FILE" : "H:/MyStuff/PrivateProjects/CPPProjects/ArmSimulator/src/asmeditor/build-AsmEditor-Desktop_Qt_5_12_8_MinGW_64_bit-Debug/CMakeFiles/AsmEditor_autogen.dir/ParseCache.txt",
+	"QT_MOC_EXECUTABLE" : "H:/Programme/QT/5.12.8/mingw73_64/bin/moc.exe",
+	"QT_UIC_EXECUTABLE" : "H:/Programme/QT/5.12.8/mingw73_64/bin/uic.exe",
+	"QT_VERSION_MAJOR" : 5,
+	"QT_VERSION_MINOR" : 12,
+	"SETTINGS_FILE" : "H:/MyStuff/PrivateProjects/CPPProjects/ArmSimulator/src/asmeditor/build-AsmEditor-Desktop_Qt_5_12_8_MinGW_64_bit-Debug/CMakeFiles/AsmEditor_autogen.dir/AutogenUsed.txt",
+	"SOURCES" : 
+	[
+		[
+			"H:/MyStuff/PrivateProjects/CPPProjects/ArmSimulator/src/asmeditor/AsmEditor/armparser/assembler/ARMLexer.cpp",
+			"MU"
+		],
+		[
+			"H:/MyStuff/PrivateProjects/CPPProjects/ArmSimulator/src/asmeditor/AsmEditor/armparser/assembler/ARMParser.cpp",
+			"MU"
+		],
+		[
+			"H:/MyStuff/PrivateProjects/CPPProjects/ArmSimulator/src/asmeditor/AsmEditor/armparser/assembler/ARMParserBaseListener.cpp",
+			"MU"
+		],
+		[
+			"H:/MyStuff/PrivateProjects/CPPProjects/ArmSimulator/src/asmeditor/AsmEditor/armparser/assembler/ARMParserBaseVisitor.cpp",
+			"MU"
+		],
+		[
+			"H:/MyStuff/PrivateProjects/CPPProjects/ArmSimulator/src/asmeditor/AsmEditor/armparser/assembler/ARMParserListener.cpp",
+			"MU"
+		],
+		[
+			"H:/MyStuff/PrivateProjects/CPPProjects/ArmSimulator/src/asmeditor/AsmEditor/armparser/assembler/ARMParserVisitor.cpp",
+			"MU"
+		],
+		[
+			"H:/MyStuff/PrivateProjects/CPPProjects/ArmSimulator/src/asmeditor/AsmEditor/armparser/walker/CommandVisitor.cpp",
+			"MU"
+		],
+		[
+			"H:/MyStuff/PrivateProjects/CPPProjects/ArmSimulator/src/asmeditor/AsmEditor/armprocessor/architecture/ALU.cpp",
+			"MU"
+		],
+		[
+			"H:/MyStuff/PrivateProjects/CPPProjects/ArmSimulator/src/asmeditor/AsmEditor/armprocessor/bits.cpp",
+			"MU"
+		],
+		[
+			"H:/MyStuff/PrivateProjects/CPPProjects/ArmSimulator/src/asmeditor/AsmEditor/armprocessor/instructions/Instruction.cpp",
+			"MU"
+		],
+		[
+			"H:/MyStuff/PrivateProjects/CPPProjects/ArmSimulator/src/asmeditor/AsmEditor/armprocessor/instructions/SourceLocation.cpp",
+			"MU"
+		],
+		[
+			"H:/MyStuff/PrivateProjects/CPPProjects/ArmSimulator/src/asmeditor/AsmEditor/armprocessor/processor.cpp",
+			"MU"
+		],
+		[
+			"H:/MyStuff/PrivateProjects/CPPProjects/ArmSimulator/src/asmeditor/AsmEditor/codearea/codearea.cpp",
+			"MU"
+		],
+		[
+			"H:/MyStuff/PrivateProjects/CPPProjects/ArmSimulator/src/asmeditor/AsmEditor/codearea/highlighter.cpp",
+			"MU"
+		],
+		[
+			"H:/MyStuff/PrivateProjects/CPPProjects/ArmSimulator/src/asmeditor/AsmEditor/consolewindow/consolewindow.cpp",
+			"MU"
+		],
+		[
+			"H:/MyStuff/PrivateProjects/CPPProjects/ArmSimulator/src/asmeditor/AsmEditor/mainwindow.cpp",
+			"MU"
+		],
+		[
+			"H:/MyStuff/PrivateProjects/CPPProjects/ArmSimulator/src/asmeditor/AsmEditor/managers/filemanager.cpp",
+			"MU"
+		],
+		[
+			"H:/MyStuff/PrivateProjects/CPPProjects/ArmSimulator/src/asmeditor/AsmEditor/managers/processormanager.cpp",
+			"MU"
+		]
+	],
+	"UIC_OPTIONS" : [],
+	"UIC_SEARCH_PATHS" : [],
+	"UIC_SKIP" : [],
+	"UIC_UI_FILES" : [],
+	"VERBOSITY" : 0
+}

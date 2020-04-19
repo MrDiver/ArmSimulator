@@ -118,7 +118,7 @@
          <bool>false</bool>
         </property>
         <property name="currentIndex">
-         <number>1</number>
+         <number>0</number>
         </property>
         <property name="elideMode">
          <enum>Qt::ElideNone</enum>
@@ -135,7 +135,7 @@
          </attribute>
          <layout class="QHBoxLayout" name="horizontalLayout">
           <item>
-           <widget class="QPlainTextEdit" name="CodeOutput"/>
+           <widget class="ConsoleWindow" name="CodeOutput"/>
           </item>
          </layout>
         </widget>
@@ -251,6 +251,7 @@
    <addaction name="actionStep"/>
    <addaction name="actionReset"/>
    <addaction name="actionAdd_Breakpoint"/>
+   <addaction name="actionCompile"/>
   </widget>
   <action name="actionNew">
    <property name="text">
@@ -345,14 +346,6 @@
     <string>F8</string>
    </property>
   </action>
-  <action name="actionRemove_Breakpoint">
-   <property name="text">
-    <string>Remove Breakpoint</string>
-   </property>
-   <property name="shortcut">
-    <string>F8</string>
-   </property>
-  </action>
   <action name="actionOpen_Folder">
    <property name="enabled">
     <bool>false</bool>
@@ -380,12 +373,25 @@
     <string>Ctrl+Shift+Z</string>
    </property>
   </action>
+  <action name="actionCompile">
+   <property name="text">
+    <string>Compile</string>
+   </property>
+   <property name="shortcut">
+    <string>F4</string>
+   </property>
+  </action>
  </widget>
  <customwidgets>
   <customwidget>
    <class>CodeArea</class>
    <extends>QPlainTextEdit</extends>
    <header>codearea.h</header>
+  </customwidget>
+  <customwidget>
+   <class>ConsoleWindow</class>
+   <extends>QPlainTextEdit</extends>
+   <header>consolewindow/consolewindow.h</header>
   </customwidget>
  </customwidgets>
  <resources/>

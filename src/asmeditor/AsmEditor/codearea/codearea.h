@@ -6,7 +6,7 @@
 #include <QPainter>
 #include <QTextBlock>
 #include <QTextDocumentFragment>
-
+class ProcessorManager;
 class Highlighter;
 class CodeArea : public QPlainTextEdit
 {
@@ -18,17 +18,25 @@ public:
     int breakpointsWidth();
     void breakpointAreaPaintEvent(QPaintEvent* event);
     void breakpointClickedEvent(QMouseEvent *event);
-protected:
-    void resizeEvent(QResizeEvent *e) override;
-public slots:
+    QWidget* breakPointWidget;
+
+    void setProcessorManager(ProcessorManager* pm){
+        this->pm = pm;
+    }
+
+public Q_SLOTS:
     void blocksChanged(int newCount);
     void updateRequested(const QRect& rect,int dy);
     void addBreakpoint();
+
+protected:
+    void resizeEvent(QResizeEvent *e) override;    
 private:
     QWidget* lineNumberWidget;
-    QWidget* breakPointWidget;
     Highlighter* highlighter;
     QSet<int> breakpoints;
+    ProcessorManager* pm;
+    bool pmIsSet = false;
 };
 
 #endif // CODEAREA_H

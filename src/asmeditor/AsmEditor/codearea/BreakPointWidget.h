@@ -3,6 +3,7 @@
 
 #include <QWidget>
 #include "codearea.h"
+#include "processormanager.h"
 class BreakPointWidget : public QWidget
 {
     Q_OBJECT
