@@ -1,2 +1,0 @@
-C:\msys64\mingw32\bin\ar.exe qc libparserlib.a  CMakeFiles/parserlib.dir/assembler/ARMLexer.cpp.obj CMakeFiles/parserlib.dir/assembler/ARMParser.cpp.obj CMakeFiles/parserlib.dir/assembler/ARMParserBaseListener.cpp.obj CMakeFiles/parserlib.dir/assembler/ARMParserBaseVisitor.cpp.obj CMakeFiles/parserlib.dir/assembler/ARMParserListener.cpp.obj CMakeFiles/parserlib.dir/assembler/ARMParserVisitor.cpp.obj
-C:\msys64\mingw32\bin\ranlib.exe libparserlib.a

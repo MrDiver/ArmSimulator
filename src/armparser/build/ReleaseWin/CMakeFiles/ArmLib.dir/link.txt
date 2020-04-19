@@ -1,2 +1,0 @@
-C:\msys64\mingw32\bin\ar.exe qc libArmLib.a  CMakeFiles/ArmLib.dir/assembler/ARMLexer.cpp.obj CMakeFiles/ArmLib.dir/assembler/ARMParser.cpp.obj CMakeFiles/ArmLib.dir/assembler/ARMParserBaseListener.cpp.obj CMakeFiles/ArmLib.dir/assembler/ARMParserBaseVisitor.cpp.obj CMakeFiles/ArmLib.dir/assembler/ARMParserListener.cpp.obj CMakeFiles/ArmLib.dir/assembler/ARMParserVisitor.cpp.obj
-C:\msys64\mingw32\bin\ranlib.exe libArmLib.a

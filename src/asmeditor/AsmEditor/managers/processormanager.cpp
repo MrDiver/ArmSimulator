@@ -1,6 +1,11 @@
 #include "processormanager.h"
-
-ProcessorManager::ProcessorManager(QObject *parent) : QObject(parent)
+#include "antlr4-runtime.h"
+ProcessorManager::ProcessorManager(FileManager* fm) :fm(fm)
 {
+    //p = new Processor;
+}
 
+ProcessorManager::~ProcessorManager()
+{
+    //delete p;
 }

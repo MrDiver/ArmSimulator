@@ -6,8 +6,11 @@
 #define ASMEDITOR_SOURCELOCATION_H
 
 
-class SourceLocation {
-
+class SourceLocation{
+public:
+    int startline,startcol,endline,endcol;
+    SourceLocation();
+    SourceLocation(int startline,int startcol,int endline,int endcol);
 };
 
 

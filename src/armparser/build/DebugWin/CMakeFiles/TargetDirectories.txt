@@ -1,6 +1,0 @@
-H:/MyStuff/PrivateProjects/CPPProjects/ArmSimulator/src/armparser/build/DebugWin/CMakeFiles/antlr4_runtime.dir
-H:/MyStuff/PrivateProjects/CPPProjects/ArmSimulator/src/armparser/build/DebugWin/CMakeFiles/rebuild_cache.dir
-H:/MyStuff/PrivateProjects/CPPProjects/ArmSimulator/src/armparser/build/DebugWin/CMakeFiles/antlr4_runtime-build_static.dir
-H:/MyStuff/PrivateProjects/CPPProjects/ArmSimulator/src/armparser/build/DebugWin/CMakeFiles/antlr4_runtime-build_shared.dir
-H:/MyStuff/PrivateProjects/CPPProjects/ArmSimulator/src/armparser/build/DebugWin/CMakeFiles/parserlib.dir
-H:/MyStuff/PrivateProjects/CPPProjects/ArmSimulator/src/armparser/build/DebugWin/CMakeFiles/edit_cache.dir
