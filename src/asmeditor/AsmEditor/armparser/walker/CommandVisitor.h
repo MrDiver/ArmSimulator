@@ -5,7 +5,6 @@
 #ifndef ARMPARSER_COMMANDVISITOR_H
 #define ARMPARSER_COMMANDVISITOR_H
 
-#include "CommandVisitor.h"
 #include "ARMParserBaseVisitor.h"
 #include <vector>
 #include "armprocessor/instructions/Instruction.h"
@@ -13,7 +12,7 @@
 class CommandVisitor : public assembler::ARMParserBaseVisitor{
 public:
     std::vector<Instruction> program;
-    std::map<std::string,int> labels;
+    std::map<std::string,unsigned int> labels;
 
     //data_processing_instruction
     antlrcpp::Any visitMoveOp(assembler::ARMParser::MoveOpContext *ctx) override;

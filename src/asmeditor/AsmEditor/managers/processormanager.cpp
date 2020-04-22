@@ -1,6 +1,7 @@
 #include "processormanager.h"
 #include "antlr4-runtime.h"
-
+#include <set>
+#include "highlighter.h"
 using namespace antlr4;
 using namespace assembler;
 
@@ -8,16 +9,16 @@ ProcessorManager::ProcessorManager(CodeArea* ca,ConsoleWindow* cw,QListWidget* e
 {
     p = new Processor;
     cw->print("Initialized Successfully");
-    currentLines = new QSet<int>;
+    currentLines = QSet<int>();
 }
 
 ProcessorManager::~ProcessorManager()
 {
     delete p;
-    delete currentLines;
+    //currentLines;
 }
 
-QSet<int>* ProcessorManager::getActiveCodelines(){
+QSet<int> ProcessorManager::getActiveCodelines(){
     return currentLines;
 }
 
@@ -26,17 +27,53 @@ void ProcessorManager::lint(){
         ARMLexer lexer(&input);
         CommonTokenStream tokens(&lexer);
         ARMParser parser(&tokens);
+        //TODO: add error listener
+        ca->highlighter->currentLine = 0;
+        if(parser.getNumberOfSyntaxErrors()>0){
+            return;
+        }
         tree::ParseTree *tree = parser.compilationUnit();
         CommandVisitor cv;
         cv.visit(tree);
         std::vector<Instruction> program = cv.program;
+        if(program.size()<=0||cv.labels.size()<=0){
+            cw->clear();
+            cw->print("No viable program found Commands:"+std::to_string(program.size())+" Labels:"+std::to_string(cv.labels.size()));
+            ca->highlighter->rehighlight();
+            return;
+        }
         cw->clear();
         cw->print("Output:");
-        cw->print(std::to_string(program.size()));
-        currentLines->clear();
+
+
+
+        currentLines.clear();
         for(Instruction i: program) {
-            currentLines->insert(i.sourceLocation.startline);
-            cw->print(i.spelling);
-            cw->print(std::to_string(i.sourceLocation.startline));
+            currentLines.insert(i.sourceLocation.startline);
         }
+
+        p->load(program,cv.labels,"main");
+        resetProgram();
+}
+
+void ProcessorManager::runProgram(){
+    while(!p->isDone){
+        stepProgram();
+    }
+}
+void ProcessorManager::stepProgram(){
+    p->tick();
+    if(p->regs[15]<0|| p->regs[15]>=p->program.size())
+    {
+        return;
+    }
+    ca->highlighter->currentLine = p->program.at(p->regs[15]).sourceLocation.startline;
+    ca->highlighter->rehighlight();
+}
+void ProcessorManager::resetProgram(){
+    p->reset();
+    ca->highlighter->currentLine = p->program.at(p->startInstruction).sourceLocation.startline;
+    ca->highlighter->rehighlight();
+    //TODO: Something is wrong here
+    //cw->print("start:"+std::to_string(p->program.at(p->startInstruction).sourceLocation.startline));
 }

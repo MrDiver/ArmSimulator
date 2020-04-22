@@ -10,19 +10,31 @@ SourceLocation toSL(antlr4::ParserRuleContext* ctx){
 }
 
 antlrcpp::Any CommandVisitor::visitMoveOp(assembler::ARMParser::MoveOpContext *ctx){
+    std::cout << "\n\n\n\n" << std::endl;
     Condition cond = Condition::AL;
     if(ctx->cond())
         cond = CommandVisitor::visit(ctx->cond()).as<Condition>();
-    std::cout << cond << std::endl;
+
     bool updateFlag = ctx->UPDATEFLAG()!=nullptr;
     Set::Opcode opcode;
     if(ctx->MOV())
         opcode = Set::Opcode::MOV;
     else
         opcode = Set::Opcode::MVN;
-    unsigned int rd = CommandVisitor::visit(ctx->reg()).as<unsigned int>();
-    ShiftOperand op2 = CommandVisitor::visit(ctx->shifter_operand()).as<ShiftOperand>();
 
+    if(!ctx->reg())
+        return -1;
+    if(!ctx->shifter_operand())
+        return -1;
+
+    unsigned int rd = CommandVisitor::visitReg(ctx->reg());
+    if(rd == 16)
+        return -1;
+
+    antlrcpp::Any test = CommandVisitor::visit(ctx->shifter_operand());
+    if(!test.is<ShiftOperand>())
+        return -1;
+    ShiftOperand op2 = test.as<ShiftOperand>();
     Instruction inst = Set::moveOp(opcode,cond,updateFlag,rd,op2,toSL(ctx),ctx->getText());
     program.push_back(inst);
     return inst;
@@ -35,37 +47,51 @@ antlrcpp::Any CommandVisitor::visitMoveOp(assembler::ARMParser::MoveOpContext *c
  ===================*/
 
 antlrcpp::Any CommandVisitor::visitOp2immediate(assembler::ARMParser::Op2immediateContext *ctx){
-    unsigned int op2 = CommandVisitor::visit(ctx->immediate()).as<unsigned int>();
+    std::cout << "visitOp2immediate" << std::endl;
+    unsigned int op2 = CommandVisitor::visitImmediate(ctx->immediate());
     return Set::shifter::immediate(op2);
 }
 antlrcpp::Any CommandVisitor::visitOp2register(assembler::ARMParser::Op2registerContext *ctx){
-    unsigned int op2 = CommandVisitor::visit(ctx->reg()).as<unsigned int>();
+    std::cout << "visitOp2Reg" << std::endl;
+    unsigned int op2 = CommandVisitor::visitReg(ctx->reg());
     return Set::shifter::reg(op2);
 }
 
 antlrcpp::Any CommandVisitor::visitOp2inlineShift(assembler::ARMParser::Op2inlineShiftContext *ctx){
-    unsigned int op2 = CommandVisitor::visit(ctx->reg()).as<unsigned int>();
-    std::function<ShiftOperand (unsigned int)> tmp = CommandVisitor::visit(ctx->shift_operation()).as<std::function<ShiftOperand (unsigned int)>>();
+    std::cout << "visitOp2inlineShift" << std::endl;
+    unsigned int op2 = CommandVisitor::visitReg(ctx->reg());
+
+    antlrcpp::Any test = CommandVisitor::visit(ctx->shift_operation());
+    if(!test.is<std::function<ShiftOperand (unsigned int)>>()){
+        std::cerr << "Shift operation not found" << std::endl;
+        return std::error_condition();
+    }
+
+    std::function<ShiftOperand (unsigned int)> tmp = test.as<std::function<ShiftOperand (unsigned int)>>();
     ShiftOperand shift_operation = tmp.operator()(op2);
     return shift_operation;
 }
 
 antlrcpp::Any CommandVisitor::visitShiftByImmediate(assembler::ARMParser::ShiftByImmediateContext *ctx){
-    Aluops shiftopcode = CommandVisitor::visit(ctx->shiftopcode()).as<Aluops>();
+    std::cout << "visitShiftByImmediate" << std::endl;
+    Aluops shiftopcode = CommandVisitor::visitShiftopcode(ctx->shiftopcode());
     unsigned int imm = CommandVisitor::visit(ctx->immediate()).as<unsigned int>();
-    return [imm,shiftopcode](unsigned int index){return Set::shifter::inlineShift(index,shiftopcode,imm);};
+    return (std::function<ShiftOperand (unsigned int)>)[imm,shiftopcode](unsigned int index){return Set::shifter::inlineShift(index,shiftopcode,imm);};
 }
 
 antlrcpp::Any CommandVisitor::visitShiftByRegister(assembler::ARMParser::ShiftByRegisterContext *ctx){
+    std::cout << "visitShiftByRegister" << std::endl;
     Aluops shiftopcode = CommandVisitor::visit(ctx->shiftopcode()).as<Aluops>();
     unsigned int rm = CommandVisitor::visit(ctx->reg()).as<unsigned int>();
-    return [rm,shiftopcode](unsigned int index){return Set::shifter::inlineShiftReg(index,shiftopcode,rm);};
+    return (std::function<ShiftOperand (unsigned int)>)[rm,shiftopcode](unsigned int index){return Set::shifter::inlineShiftReg(index,shiftopcode,rm);};
 }
 antlrcpp::Any CommandVisitor::visitRotateWithExtend(assembler::ARMParser::RotateWithExtendContext */*ctx*/){
-    return [](unsigned int index){return Set::shifter::inlineShift(index,Aluops::RRX,0);};
+    std::cout << "visitRotateWithExtend" << std::endl;
+    return (std::function<ShiftOperand (unsigned int)>)[](unsigned int index){return Set::shifter::inlineShift(index,Aluops::RRX,0);};
 }
 
 antlrcpp::Any CommandVisitor::visitShiftopcode(assembler::ARMParser::ShiftopcodeContext *ctx) {
+    std::cout << "visitShiftopcode" << std::endl;
     if(ctx->LSLI())
         return Aluops::LSL;
     else if(ctx->LSRI())
@@ -82,14 +108,18 @@ antlrcpp::Any CommandVisitor::visitShiftopcode(assembler::ARMParser::Shiftopcode
 
 
 antlrcpp::Any CommandVisitor::visitImmediate(assembler::ARMParser::ImmediateContext *ctx){
+    std::cout << "visitImmediate" << std::endl;
     if(ctx->HEX()){
         return (unsigned int)std::stoul(ctx->HEX()->getText(), nullptr, 16);
-    }else{
+    }else if(ctx->NUMBER()){
         return (unsigned int)std::stoul(ctx->NUMBER()->getText());
     }
+    std::cerr << "no immediate value found" << std::endl;
+    return (unsigned int)0;
 }
 
 antlrcpp::Any CommandVisitor::visitCond(assembler::ARMParser::CondContext *ctx){
+    std::cout << "visitCond" << std::endl;
     if(ctx->EQ())
         return Condition::EQ;
     else if (ctx->NE())
@@ -125,7 +155,8 @@ antlrcpp::Any CommandVisitor::visitCond(assembler::ARMParser::CondContext *ctx){
 }
 
 antlrcpp::Any CommandVisitor::visitReg(assembler::ARMParser::RegContext *ctx) {
-    unsigned int n;
+    std::cout << "visitReg" << std::endl;
+    unsigned int n = 16;
     if(ctx->R0())
         n=0;
     else if(ctx->R1())
@@ -158,12 +189,17 @@ antlrcpp::Any CommandVisitor::visitReg(assembler::ARMParser::RegContext *ctx) {
         n=14;
     else if(ctx->R15())
         n=15;
+    std::cout << "visitReg returning (unsigned int)" << n << std::endl;
     return n;
 }
 
 antlrcpp::Any CommandVisitor::visitLabel(assembler::ARMParser::LabelContext *ctx){
+    std::cout << "visitLabel" << std::endl;
     std::string label = ctx->LABEL()->getText();
+    std::cout << "got label text" << std::endl;
     label = label.substr(0,label.length()-1);
+    std::cout << "made substring" << std::endl;
     labels.insert(std::make_pair(label,program.size()));
+    std::cout << "inserted label" << std::endl;
     return label;
 }

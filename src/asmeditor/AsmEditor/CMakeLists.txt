@@ -45,6 +45,7 @@ file(GLOB all
     "**/**/*.ui"
     "**/**/*.qrc"
 )
+
 include_directories(${CMAKE_CURRENT_SOURCE_DIR}/codearea)
 include_directories(${CMAKE_CURRENT_SOURCE_DIR}/managers)
 include_directories(${CMAKE_CURRENT_SOURCE_DIR}/armparser)

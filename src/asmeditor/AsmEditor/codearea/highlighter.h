@@ -5,12 +5,12 @@
 #include <QTextDocument>
 #include <QRegularExpression>
 
-class Highlighter : QSyntaxHighlighter
+class Highlighter : public QSyntaxHighlighter
 {
     Q_OBJECT
 public:
     Highlighter(QTextDocument *parent = nullptr);
-
+    int currentLine = 0;
 protected:
     void highlightBlock(const QString &text) override;
 
@@ -32,6 +32,7 @@ private:
     QTextCharFormat numberFormat;
     QTextCharFormat labelFormat;
     QTextCharFormat functionFormat;
+    QTextCharFormat currentLineFormat;
 
 };
 

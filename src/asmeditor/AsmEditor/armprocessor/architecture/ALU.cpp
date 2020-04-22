@@ -82,3 +82,7 @@ unsigned int ALU::calcU(Aluops op,unsigned int a,unsigned int b){
 
     return result;
 }
+
+void ALU::reset(){
+    updateFlags = false;
+}

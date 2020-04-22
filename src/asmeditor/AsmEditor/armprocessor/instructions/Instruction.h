@@ -13,12 +13,12 @@
 
 class Processor;
 
-#define ShiftOperand std::function<unsigned int (Processor&)>
-#define Routine std::function<void (Processor&)>
+#define ShiftOperand std::function<unsigned int (Processor*)>
+#define Routine std::function<void (Processor*)>
 class Instruction{
 public:
     Condition cond;
-    Routine routine = [](Processor& p){};
+    Routine routine = [](Processor* p){};
     SourceLocation sourceLocation;
     std::string spelling;
 
@@ -26,7 +26,7 @@ public:
                 std::string spelling) : cond(cond), routine(std::move(routine)), sourceLocation(sourceLocation),
                                                spelling(std::move(spelling)) {}
 
-    void execute(Processor& p);
+    void execute(Processor* p);
 };
 
 namespace Set{

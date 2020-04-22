@@ -23,7 +23,7 @@ public:
     void setProcessorManager(ProcessorManager* pm){
         this->pm = pm;
     }
-
+    Highlighter* highlighter;
 public Q_SLOTS:
     void blocksChanged(int newCount);
     void updateRequested(const QRect& rect,int dy);
@@ -33,7 +33,7 @@ protected:
     void resizeEvent(QResizeEvent *e) override;    
 private:
     QWidget* lineNumberWidget;
-    Highlighter* highlighter;
+
     QSet<int> breakpoints;
     ProcessorManager* pm;
     bool pmIsSet = false;

@@ -8,23 +8,26 @@
 #include "armparser/assembler/ARMParser.h"
 #include "armparser/walker/CommandVisitor.h"
 #include "armprocessor/processor.h"
-#include <QVector>
+
 class ProcessorManager : public QObject
 {
     Q_OBJECT
 public:
     ProcessorManager(CodeArea* ca,ConsoleWindow* cw,QListWidget* errorList);
     ~ProcessorManager();
-    QSet<int>* getActiveCodelines();
+    QSet<int> getActiveCodelines();
 private:
     CodeArea* ca;
     Processor* p;
     ConsoleWindow* cw;
     QListWidget* errorList;
-    QSet<int>* currentLines;
+    QSet<int> currentLines;
 
 public Q_SLOTS:
     void lint();
+    void runProgram();
+    void stepProgram();
+    void resetProgram();
 };
 
 #endif // PROCESSORMANAGER_H

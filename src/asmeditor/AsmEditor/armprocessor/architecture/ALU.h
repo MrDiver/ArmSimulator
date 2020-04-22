@@ -15,7 +15,7 @@ public:
     CPSR* cpsr;
     bool updateFlags=false;
     ALU(CPSR* cpsr);
-
+    void reset();
     unsigned int calcU(Aluops op,unsigned int a,unsigned int b);
 };
 
