@@ -1,6 +1,8 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
 
+#include "highlighter.h"
+
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::MainWindow)
@@ -11,6 +13,9 @@ MainWindow::MainWindow(QWidget *parent) :
     QListView* list = this->findChild<QListView*>("RecentList");
     QTreeView* tree = this->findChild<QTreeView*>("FolderTree");
     fm = new FileManager(this,list,tree,codeArea);
+    pm = new ProcessorManager(codeArea,ui->CodeOutput,ui->ErrorList);
+    codeArea->setProcessorManager(pm);
+
     connect(ui->actionNew,&QAction::triggered,fm,&FileManager::fileNew);
     connect(ui->actionOpen,&QAction::triggered,fm,&FileManager::fileOpen);
     connect(ui->actionSave,&QAction::triggered,fm,&FileManager::fileSave);
@@ -22,6 +27,12 @@ MainWindow::MainWindow(QWidget *parent) :
     connect(ui->actionUndo,&QAction::triggered,codeArea,&QPlainTextEdit::undo);
     connect(ui->actionRedo,&QAction::triggered,codeArea,&QPlainTextEdit::redo);
     connect(ui->actionAdd_Breakpoint,&QAction::triggered,codeArea,&CodeArea::addBreakpoint);
+    connect(ui->actionCompile,&QAction::triggered,pm,&ProcessorManager::lint);
+
+    //connect(ui->Code,&QPlainTextEdit::textChanged,pm,&ProcessorManager::lint);
+    connect(ui->actionRun,&QAction::triggered,pm,&ProcessorManager::runProgram);
+    connect(ui->actionStep,&QAction::triggered,pm,&ProcessorManager::stepProgram);
+    connect(ui->actionReset,&QAction::triggered,pm,&ProcessorManager::resetProgram);
 }
 
 MainWindow::~MainWindow()

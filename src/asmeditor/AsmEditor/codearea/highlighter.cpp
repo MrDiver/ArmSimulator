@@ -55,6 +55,9 @@ Highlighter::Highlighter(QTextDocument* parent)
 
     commentStartExpression = QRegularExpression(QStringLiteral("/\\*"));
     commentEndExpression = QRegularExpression(QStringLiteral("\\*/"));
+
+    currentLineFormat.setBackground(Qt::yellow);
+    currentLineFormat.setProperty(QTextFormat::FullWidthSelection,true);
 }
 
 
@@ -66,7 +69,6 @@ void Highlighter::highlightBlock(const QString &text){
             setFormat(match.capturedStart(),match.capturedLength(),rule.format);
         }
     }
-
     setCurrentBlockState(0);
 
     int startIndex = 0;
@@ -87,5 +89,9 @@ void Highlighter::highlightBlock(const QString &text){
         setFormat(startIndex, commentLength, multiLineCommentFormat);
         startIndex = text.indexOf(commentStartExpression, startIndex + commentLength);
     }
-}
 
+    if(currentBlock().blockNumber()+1 == currentLine){
+        setFormat(0,currentBlock().length()-1,currentLineFormat);
+    }
+
+}

@@ -3,7 +3,7 @@
 #include "BreakPointWidget.h"
 #include "linenumberwidget.h"
 #include "highlighter.h"
-
+#include <set>
 QFont sourceCodePro;
 QFont sourceCodeProIT;
 CodeArea::CodeArea(QWidget *parent):QPlainTextEdit(parent)
@@ -54,6 +54,8 @@ void CodeArea::blocksChanged(int newBlockCount){
             breakpoints.remove(b);
         }
     }
+    highlighter->currentLine=0;
+    highlighter->rehighlight();
 }
 
 void CodeArea::updateRequested(const QRect &rect,int dy){
@@ -154,11 +156,12 @@ void CodeArea::breakpointClickedEvent(QMouseEvent *event){
 
     while(block.isValid()){
         if(block.isVisible()&&top<=y&&bottom>=y){
+            QSet<int> lines = pm->getActiveCodelines();
             if(breakpoints.contains(block.blockNumber())){
                 breakpoints.remove(block.blockNumber());
                 break;
             }
-            else{
+            else if(lines.contains(block.blockNumber()+1)){
                 breakpoints.insert(block.blockNumber());
                 break;
             }
@@ -173,9 +176,10 @@ void CodeArea::breakpointClickedEvent(QMouseEvent *event){
 
 void CodeArea::addBreakpoint(){
     int y = this->textCursor().blockNumber();
+    QSet<int> lines = pm->getActiveCodelines();
     if(breakpoints.contains(y)){
         breakpoints.remove(y);
-    }else{
+    }else if(lines.contains(y+1)){
         breakpoints.insert(y);
     }
     breakPointWidget->update();

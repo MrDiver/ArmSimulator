@@ -1,3 +1,5 @@
 src/.idea/
-
+src/armparser/.idea
 src/gen/
+src/asmeditor/buildRelWithDeb
+src/asmeditor/build-AsmEditor-Desktop-Debug

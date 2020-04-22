@@ -28,7 +28,7 @@ private:
     void save(QString name);
     void open(QString name);
     QStandardItemModel* itemModel;
-public slots:
+public Q_SLOTS:
     void fileNew();
     void fileOpen();
     void folderOpen();

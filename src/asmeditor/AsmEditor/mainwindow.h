@@ -5,10 +5,7 @@
 
 #include "codearea/codearea.h"
 #include "managers/filemanager.h"
-
-class CodeArea;
-class FileManager;
-
+#include "managers/processormanager.h"
 namespace Ui {
 class MainWindow;
 }
@@ -25,6 +22,7 @@ private:
     CodeArea* codeArea;
     QVector<QString> recent;
     FileManager* fm;
+    ProcessorManager* pm;
 };
 
 #endif // MAINWINDOW_H
