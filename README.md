@@ -1,14 +1,11 @@
-# ArmSimulator V 0.1
+# ArmSimulator V 0.2
 
 This project is for educational purposes.
 The final product will represent a Simulator for basic ARM processor behavior. The first version aims at comepletely emulating the ARMv4 infrastructure and the complete instruction set.
 
 ### Planned Features
 - More Commands
-- Fixing the whitespace issue ( you can't add any whitespace before a command)
-- Register Preview
 - Memory Preview
-- Using the added console output window
 - Adding an error listener to the parser for error highlighting
 - Using the error list to indicate Errors inside of commands
 - Add basic patterns in the menu for easy access and insertion in the code (WHILE, FOR, IF ELSE, SWITCH)
@@ -25,8 +22,11 @@ The final product will represent a Simulator for basic ARM processor behavior. T
 - Compiling the program to a high level instruction sequence for the processor
 - Almost complete arm instruction set recognition for the ArmParser
 - Implemented commands
-  - MOV, MVN
+  - MOV, MVN, CMP, CMN, TST, TEQ, ADD, SUB, RSB, ADC, SBC, RSC, AND, BIC, EOR, ORR, B, BL, BX
 - Conditional execution
+- Register Preview
+- Endless loop prevention by only allowing a certain amount of instructions per run
+- Console output window displays return value at last instruction
 
 ### Gui
 - Marking the line that is going to be executed on a step command
@@ -47,7 +47,11 @@ The final product will represent a Simulator for basic ARM processor behavior. T
 ### File management
 ![](Resources/gui/folder.gif)
 ### Debugger preview
+![](Resources/gui/testprog.gif)
 ![](Resources/gui/gui.gif)
+![](Resources/gui/error.gif)
+### Endless Loop Prevention
+![](Resources/gui/infinite.gif)
 
 
 ## Fun with Lexing
