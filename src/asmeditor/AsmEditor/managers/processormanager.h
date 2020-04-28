@@ -1,6 +1,8 @@
 #ifndef PROCESSORMANAGER_H
 #define PROCESSORMANAGER_H
 
+
+#include <QTableWidget>
 #include "filemanager.h"
 #include "consolewindow/consolewindow.h"
 #include "antlr4-runtime.h"
@@ -13,7 +15,7 @@ class ProcessorManager : public QObject
 {
     Q_OBJECT
 public:
-    ProcessorManager(CodeArea* ca,ConsoleWindow* cw,QListWidget* errorList);
+    ProcessorManager(CodeArea* ca,ConsoleWindow* cw,QListWidget* errorList,QTableWidget* regsTable);
     ~ProcessorManager();
     QSet<int> getActiveCodelines();
 private:
@@ -21,7 +23,10 @@ private:
     Processor* p;
     ConsoleWindow* cw;
     QListWidget* errorList;
+    QTableWidget* regsTable;
     QSet<int> currentLines;
+    void updateRegs();
+    bool runningMode = false;
 
 public Q_SLOTS:
     void lint();

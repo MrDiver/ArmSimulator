@@ -16,6 +16,11 @@ public:
 
     //data_processing_instruction
     antlrcpp::Any visitMoveOp(assembler::ARMParser::MoveOpContext *ctx) override;
+    antlrcpp::Any visitCompareOp(assembler::ARMParser::CompareOpContext *ctx) override;
+    antlrcpp::Any visitArithmeticOp(assembler::ARMParser::ArithmeticOpContext *ctx) override;
+
+    //branch_instruction
+    antlrcpp::Any visitBranchToLabel(assembler::ARMParser::BranchToLabelContext *ctx) override;
 
     //shifter_operand
     antlrcpp::Any visitOp2immediate(assembler::ARMParser::Op2immediateContext *ctx) override;

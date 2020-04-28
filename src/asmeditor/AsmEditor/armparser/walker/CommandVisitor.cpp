@@ -9,8 +9,15 @@ SourceLocation toSL(antlr4::ParserRuleContext* ctx){
     return SourceLocation(ctx->getStart()->getLine(),ctx->getStart()->getCharPositionInLine(),ctx->getStop()->getLine(),ctx->getStop()->getCharPositionInLine());
 }
 
+
+/*=========================
+ *
+ *      Data processing
+ *
+ * ========================
+ */
+
 antlrcpp::Any CommandVisitor::visitMoveOp(assembler::ARMParser::MoveOpContext *ctx){
-    std::cout << "\n\n\n\n" << std::endl;
     Condition cond = Condition::AL;
     if(ctx->cond())
         cond = CommandVisitor::visit(ctx->cond()).as<Condition>();
@@ -40,6 +47,120 @@ antlrcpp::Any CommandVisitor::visitMoveOp(assembler::ARMParser::MoveOpContext *c
     return inst;
 }
 
+antlrcpp::Any CommandVisitor::visitCompareOp(assembler::ARMParser::CompareOpContext *ctx){
+    Condition cond = Condition::AL;
+    if(ctx->cond())
+        cond = CommandVisitor::visit(ctx->cond()).as<Condition>();
+
+    Set::Opcode opcode;
+    if(ctx->CMP())
+        opcode = Set::Opcode::CMP;
+    else if (ctx->CMN())
+        opcode = Set::Opcode::CMN;
+    else if (ctx->TST())
+        opcode = Set::Opcode::TST;
+    else if (ctx->TEQ())
+        opcode = Set::Opcode::TEQ;
+
+    if(!ctx->reg())
+        return -1;
+    if(!ctx->shifter_operand())
+        return -1;
+
+    unsigned int rd = CommandVisitor::visitReg(ctx->reg());
+    if(rd == 16)
+        return -1;
+
+    antlrcpp::Any test = CommandVisitor::visit(ctx->shifter_operand());
+    if(!test.is<ShiftOperand>())
+        return -1;
+    ShiftOperand op2 = test.as<ShiftOperand>();
+    Instruction inst = Set::compareOp(opcode,cond,rd,op2,toSL(ctx),ctx->getText());
+
+    program.push_back(inst);
+    return inst;
+}
+
+antlrcpp::Any CommandVisitor::visitArithmeticOp(assembler::ARMParser::ArithmeticOpContext *ctx){
+    Condition cond = Condition::AL;
+    if(ctx->cond())
+        cond = CommandVisitor::visit(ctx->cond()).as<Condition>();
+
+    bool updateFlag = ctx->UPDATEFLAG()!=nullptr;
+    Set::Opcode opcode;
+    if(ctx->ADD())
+        opcode = Set::Opcode::ADD;
+    else if (ctx->SUB())
+        opcode = Set::Opcode::SUB;
+    else if (ctx->RSB())
+        opcode = Set::Opcode::RSB;
+    else if (ctx->ADC())
+        opcode = Set::Opcode::ADC;
+    else if (ctx->SBC())
+        opcode = Set::Opcode::SBC;
+    else if (ctx->RSC())
+        opcode = Set::Opcode::RSC;
+    else if (ctx->AND())
+        opcode = Set::Opcode::AND;
+    else if (ctx->BIC())
+        opcode = Set::Opcode::BIC;
+    else if (ctx->EOR())
+        opcode = Set::Opcode::EOR;
+    else if (ctx->ORR())
+        opcode = Set::Opcode::ORR;
+
+    if(!ctx->reg().at(0))
+        return -1;
+    if(!ctx->reg().at(1))
+        return -1;
+    if(!ctx->shifter_operand())
+        return -1;
+
+
+    unsigned int rd = CommandVisitor::visitReg(ctx->reg().at(0));
+    if(rd == 16)
+        return -1;
+    unsigned int rn = CommandVisitor::visitReg(ctx->reg().at(1));
+    if(rd == 16)
+        return -1;
+
+    antlrcpp::Any test = CommandVisitor::visit(ctx->shifter_operand());
+    if(!test.is<ShiftOperand>())
+        return -1;
+    ShiftOperand op2 = test.as<ShiftOperand>();
+    Instruction inst = Set::arithmeticOp(opcode,cond,updateFlag,rd,rn,op2,toSL(ctx),ctx->getText());
+
+    program.push_back(inst);
+    return inst;
+}
+
+
+/*==================
+ *
+ *  Branch Operation
+ *
+ ===================*/
+antlrcpp::Any CommandVisitor::visitBranchToLabel(assembler::ARMParser::BranchToLabelContext *ctx){
+    Condition cond = Condition::AL;
+    if(ctx->cond())
+        cond = CommandVisitor::visit(ctx->cond()).as<Condition>();
+    Set::Opcode opcode;
+    if(ctx->FB())
+        opcode = Set::Opcode::B;
+    else if (ctx->BL())
+        opcode = Set::Opcode::BL;
+    else
+        std::cerr << "Unsupported branch instruction found" << std::endl;
+
+    if(!ctx->LABELREF())
+        return -1;
+
+    std::string label = ctx->LABELREF()->getText();
+    Instruction inst = Set::branchToLabel(opcode,cond,label,toSL(ctx),ctx->getText());
+    program.push_back(inst);
+    return inst;
+}
+
 /*==================
  *
  *  Shift operand
@@ -47,18 +168,18 @@ antlrcpp::Any CommandVisitor::visitMoveOp(assembler::ARMParser::MoveOpContext *c
  ===================*/
 
 antlrcpp::Any CommandVisitor::visitOp2immediate(assembler::ARMParser::Op2immediateContext *ctx){
-    std::cout << "visitOp2immediate" << std::endl;
+//    std::cout << "visitOp2immediate" << std::endl;
     unsigned int op2 = CommandVisitor::visitImmediate(ctx->immediate());
     return Set::shifter::immediate(op2);
 }
 antlrcpp::Any CommandVisitor::visitOp2register(assembler::ARMParser::Op2registerContext *ctx){
-    std::cout << "visitOp2Reg" << std::endl;
+//    std::cout << "visitOp2Reg" << std::endl;
     unsigned int op2 = CommandVisitor::visitReg(ctx->reg());
     return Set::shifter::reg(op2);
 }
 
 antlrcpp::Any CommandVisitor::visitOp2inlineShift(assembler::ARMParser::Op2inlineShiftContext *ctx){
-    std::cout << "visitOp2inlineShift" << std::endl;
+//    std::cout << "visitOp2inlineShift" << std::endl;
     unsigned int op2 = CommandVisitor::visitReg(ctx->reg());
 
     antlrcpp::Any test = CommandVisitor::visit(ctx->shift_operation());
@@ -73,25 +194,25 @@ antlrcpp::Any CommandVisitor::visitOp2inlineShift(assembler::ARMParser::Op2inlin
 }
 
 antlrcpp::Any CommandVisitor::visitShiftByImmediate(assembler::ARMParser::ShiftByImmediateContext *ctx){
-    std::cout << "visitShiftByImmediate" << std::endl;
+//    std::cout << "visitShiftByImmediate" << std::endl;
     Aluops shiftopcode = CommandVisitor::visitShiftopcode(ctx->shiftopcode());
     unsigned int imm = CommandVisitor::visit(ctx->immediate()).as<unsigned int>();
     return (std::function<ShiftOperand (unsigned int)>)[imm,shiftopcode](unsigned int index){return Set::shifter::inlineShift(index,shiftopcode,imm);};
 }
 
 antlrcpp::Any CommandVisitor::visitShiftByRegister(assembler::ARMParser::ShiftByRegisterContext *ctx){
-    std::cout << "visitShiftByRegister" << std::endl;
+//    std::cout << "visitShiftByRegister" << std::endl;
     Aluops shiftopcode = CommandVisitor::visit(ctx->shiftopcode()).as<Aluops>();
     unsigned int rm = CommandVisitor::visit(ctx->reg()).as<unsigned int>();
     return (std::function<ShiftOperand (unsigned int)>)[rm,shiftopcode](unsigned int index){return Set::shifter::inlineShiftReg(index,shiftopcode,rm);};
 }
 antlrcpp::Any CommandVisitor::visitRotateWithExtend(assembler::ARMParser::RotateWithExtendContext */*ctx*/){
-    std::cout << "visitRotateWithExtend" << std::endl;
+//    std::cout << "visitRotateWithExtend" << std::endl;
     return (std::function<ShiftOperand (unsigned int)>)[](unsigned int index){return Set::shifter::inlineShift(index,Aluops::RRX,0);};
 }
 
 antlrcpp::Any CommandVisitor::visitShiftopcode(assembler::ARMParser::ShiftopcodeContext *ctx) {
-    std::cout << "visitShiftopcode" << std::endl;
+//    std::cout << "visitShiftopcode" << std::endl;
     if(ctx->LSLI())
         return Aluops::LSL;
     else if(ctx->LSRI())
@@ -108,7 +229,7 @@ antlrcpp::Any CommandVisitor::visitShiftopcode(assembler::ARMParser::Shiftopcode
 
 
 antlrcpp::Any CommandVisitor::visitImmediate(assembler::ARMParser::ImmediateContext *ctx){
-    std::cout << "visitImmediate" << std::endl;
+//    std::cout << "visitImmediate" << std::endl;
     if(ctx->HEX()){
         return (unsigned int)std::stoul(ctx->HEX()->getText(), nullptr, 16);
     }else if(ctx->NUMBER()){
@@ -119,7 +240,7 @@ antlrcpp::Any CommandVisitor::visitImmediate(assembler::ARMParser::ImmediateCont
 }
 
 antlrcpp::Any CommandVisitor::visitCond(assembler::ARMParser::CondContext *ctx){
-    std::cout << "visitCond" << std::endl;
+//    std::cout << "visitCond" << std::endl;
     if(ctx->EQ())
         return Condition::EQ;
     else if (ctx->NE())
@@ -155,7 +276,7 @@ antlrcpp::Any CommandVisitor::visitCond(assembler::ARMParser::CondContext *ctx){
 }
 
 antlrcpp::Any CommandVisitor::visitReg(assembler::ARMParser::RegContext *ctx) {
-    std::cout << "visitReg" << std::endl;
+//    std::cout << "visitReg" << std::endl;
     unsigned int n = 16;
     if(ctx->R0())
         n=0;
@@ -189,17 +310,17 @@ antlrcpp::Any CommandVisitor::visitReg(assembler::ARMParser::RegContext *ctx) {
         n=14;
     else if(ctx->R15())
         n=15;
-    std::cout << "visitReg returning (unsigned int)" << n << std::endl;
+//    std::cout << "visitReg returning (unsigned int)" << n << std::endl;
     return n;
 }
 
 antlrcpp::Any CommandVisitor::visitLabel(assembler::ARMParser::LabelContext *ctx){
-    std::cout << "visitLabel" << std::endl;
+//    std::cout << "visitLabel" << std::endl;
     std::string label = ctx->LABEL()->getText();
-    std::cout << "got label text" << std::endl;
+//    std::cout << "got label text" << std::endl;
     label = label.substr(0,label.length()-1);
-    std::cout << "made substring" << std::endl;
+//    std::cout << "made substring" << std::endl;
     labels.insert(std::make_pair(label,program.size()));
-    std::cout << "inserted label" << std::endl;
+//    std::cout << "inserted label" << std::endl;
     return label;
 }

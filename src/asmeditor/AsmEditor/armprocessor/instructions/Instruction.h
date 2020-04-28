@@ -6,6 +6,8 @@
 #define ASMEDITOR_INSTRUCTION_H
 #include <string>
 #include <functional>
+#include <bitset>
+#include <iostream>
 #include <utility>
 #include "SourceLocation.h"
 #include "Condition.h"
@@ -24,19 +26,28 @@ public:
 
     Instruction(Condition cond, Routine routine, const SourceLocation &sourceLocation,
                 std::string spelling) : cond(cond), routine(std::move(routine)), sourceLocation(sourceLocation),
-                                               spelling(std::move(spelling)) {}
+                                               spelling(std::move(spelling))
+    {
+        std::bitset<32> c(cond);
+        c = c<<28;
+        bits = bits | c;
+    }
 
     void execute(Processor* p);
+    std::bitset<32> bits;
 };
 
 namespace Set{
     enum Opcode{
         MOV,MVN,
-        CMP,CMN,TST,TEQ
+        CMP,CMN,TST,TEQ,
+        ADD,SUB,RSB,ADC,SBC,RSC,AND,BIC,EOR,ORR,
+        B,BL,BX
     };
     Instruction moveOp(Opcode op,Condition cond,bool updateFlags,unsigned int rd,const ShiftOperand& rm,SourceLocation sl,std::string spelling ="");
     Instruction compareOp(Opcode op,Condition cond,unsigned int rn,const ShiftOperand& rm,SourceLocation sl,std::string spelling ="");
-
+    Instruction arithmeticOp(Opcode op, Condition cond, bool updateFlags, unsigned int rd,unsigned int rn, const ShiftOperand &rm, SourceLocation sl,std::string spelling);
+    Instruction branchToLabel(Opcode op, Condition cond,std::string label, SourceLocation sl,std::string spelling);
     namespace shifter{
         ShiftOperand immediate(unsigned int imm);
         ShiftOperand reg(unsigned int index);

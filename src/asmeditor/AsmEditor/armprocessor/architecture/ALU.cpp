@@ -5,7 +5,6 @@
 #include "ALU.h"
 #include "../bits.h"
 #include "cmath"
-
 ALU::ALU(CPSR* cpsr){
     this->cpsr = cpsr;
 }
@@ -79,7 +78,6 @@ unsigned int ALU::calcU(Aluops op,unsigned int a,unsigned int b){
         //TODO: implement shift
     }
     updateFlags = false;
-
     return result;
 }
 

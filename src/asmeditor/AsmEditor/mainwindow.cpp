@@ -12,8 +12,9 @@ MainWindow::MainWindow(QWidget *parent) :
     codeArea = this->findChild<CodeArea*>("Code");
     QListView* list = this->findChild<QListView*>("RecentList");
     QTreeView* tree = this->findChild<QTreeView*>("FolderTree");
+    QTableWidget* regsTable = this->findChild<QTableWidget*>("RegisterTable");
     fm = new FileManager(this,list,tree,codeArea);
-    pm = new ProcessorManager(codeArea,ui->CodeOutput,ui->ErrorList);
+    pm = new ProcessorManager(codeArea,ui->CodeOutput,ui->ErrorList,regsTable);
     codeArea->setProcessorManager(pm);
 
     connect(ui->actionNew,&QAction::triggered,fm,&FileManager::fileNew);
