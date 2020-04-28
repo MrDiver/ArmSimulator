@@ -176,6 +176,18 @@ namespace Set {
         return instruction;
     }
 
+    Instruction branchToRegister(Opcode op, Condition cond,unsigned int rd, SourceLocation sl,std::string spelling){
+        Routine f = [rd](Processor *p){
+            unsigned int dest = p->regs[rd];
+            if(rd == 14&&dest==0)
+                p->isDone = true;
+            p->regs[14] = p->regs[15];
+            p->regs[15] = dest;
+        };
+        Instruction instruction(cond, f, sl, std::move(spelling));
+        return instruction;
+    }
+
     namespace shifter{
         ShiftOperand immediate(unsigned int imm){
             return (ShiftOperand)[imm](Processor* /*unused*/){return imm;};

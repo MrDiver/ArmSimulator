@@ -26,6 +26,8 @@ QSet<int> ProcessorManager::getActiveCodelines(){
 
 std::string trim(const std::string& line)
 {
+    if(line.size()==0)
+        return line;
     const char* WhiteSpace = " \t\v";
     std::size_t start = line.find_first_not_of(WhiteSpace);
     return start == line.size() ? std::string() : line.substr(start, line.size() - start + 1);
@@ -87,8 +89,9 @@ void ProcessorManager::lint(){
 }
 
 void ProcessorManager::runProgram(){
+    errorOccured = false;
     unsigned int i = 0;
-    while(!p->isDone){
+    while((!p->isDone)&&(!errorOccured)){
         stepProgram();
         i++;
         if(i>1000)
@@ -111,22 +114,33 @@ std::string int_to_hex( T i )
 }
 
 void ProcessorManager::stepProgram(){
+    errorOccured = false;
     p->tick();
     //updating the register table on the interface
     updateRegs();
 
     //stopping if program has finished
-    if(p->regs[15]<0|| p->regs[15]>=p->program.size())
+    if(p->isDone)
     {
         cw->clear();
         cw->print("Return Value: "+ std::to_string(p->regs[0]));
         ca->highlighter->rehighlight();
         return;
     }
+
+    if(p->regs[15]<0|| p->regs[15]>=p->program.size())
+    {
+        errorOccured = true;
+        cw->clear();
+        cw->print("Something went terribly wrong. No instruction found at "+std::to_string(p->regs[15]));
+        return;
+    }
+
     ca->highlighter->currentLine = p->program.at(p->regs[15]).sourceLocation.startline;
     ca->highlighter->rehighlight();
 }
 void ProcessorManager::resetProgram(){
+    errorOccured = false;
     p->reset();
     updateRegs();
     if(p->program.size()==0){

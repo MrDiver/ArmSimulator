@@ -21,6 +21,7 @@ public:
 
     //branch_instruction
     antlrcpp::Any visitBranchToLabel(assembler::ARMParser::BranchToLabelContext *ctx) override;
+    antlrcpp::Any visitBranchToRegister(assembler::ARMParser::BranchToRegisterContext *ctx) override;
 
     //shifter_operand
     antlrcpp::Any visitOp2immediate(assembler::ARMParser::Op2immediateContext *ctx) override;

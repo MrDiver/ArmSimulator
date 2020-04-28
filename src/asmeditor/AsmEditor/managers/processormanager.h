@@ -26,7 +26,7 @@ private:
     QTableWidget* regsTable;
     QSet<int> currentLines;
     void updateRegs();
-    bool runningMode = false;
+    bool errorOccured = false;
 
 public Q_SLOTS:
     void lint();

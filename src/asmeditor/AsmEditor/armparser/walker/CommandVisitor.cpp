@@ -161,6 +161,23 @@ antlrcpp::Any CommandVisitor::visitBranchToLabel(assembler::ARMParser::BranchToL
     return inst;
 }
 
+
+antlrcpp::Any CommandVisitor::visitBranchToRegister(assembler::ARMParser::BranchToRegisterContext *ctx){
+    Condition cond = Condition::AL;
+    if(ctx->cond())
+        cond = CommandVisitor::visit(ctx->cond()).as<Condition>();
+
+    if(!ctx->reg())
+        return -1;
+
+    unsigned int rd = CommandVisitor::visitReg(ctx->reg());
+    if(rd == 16)
+        return -1;
+
+    Instruction inst = Set::branchToRegister(Set::Opcode::BX,cond,rd,toSL(ctx),ctx->getText());
+    program.push_back(inst);
+    return inst;
+}
 /*==================
  *
  *  Shift operand
@@ -316,11 +333,16 @@ antlrcpp::Any CommandVisitor::visitReg(assembler::ARMParser::RegContext *ctx) {
 
 antlrcpp::Any CommandVisitor::visitLabel(assembler::ARMParser::LabelContext *ctx){
 //    std::cout << "visitLabel" << std::endl;
-    std::string label = ctx->LABEL()->getText();
-//    std::cout << "got label text" << std::endl;
-    label = label.substr(0,label.length()-1);
-//    std::cout << "made substring" << std::endl;
-    labels.insert(std::make_pair(label,program.size()));
-//    std::cout << "inserted label" << std::endl;
-    return label;
+    if(ctx->LABEL())
+    {
+        std::string label = ctx->LABEL()->getText();
+        label = label.substr(0,label.length()-1);
+        labels.insert(std::make_pair(label,program.size()));
+        return label;
+    }else{
+        std::string label = ctx->LOCALLABEL()->getText();
+        label = label.substr(0,label.length()-1);
+        labels.insert(std::make_pair(label,program.size()));
+        return label;
+    }
 }

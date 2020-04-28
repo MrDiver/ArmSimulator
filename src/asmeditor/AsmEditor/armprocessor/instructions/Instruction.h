@@ -48,6 +48,8 @@ namespace Set{
     Instruction compareOp(Opcode op,Condition cond,unsigned int rn,const ShiftOperand& rm,SourceLocation sl,std::string spelling ="");
     Instruction arithmeticOp(Opcode op, Condition cond, bool updateFlags, unsigned int rd,unsigned int rn, const ShiftOperand &rm, SourceLocation sl,std::string spelling);
     Instruction branchToLabel(Opcode op, Condition cond,std::string label, SourceLocation sl,std::string spelling);
+    Instruction branchToRegister(Opcode op, Condition cond,unsigned int rd, SourceLocation sl,std::string spelling);
+
     namespace shifter{
         ShiftOperand immediate(unsigned int imm);
         ShiftOperand reg(unsigned int index);
