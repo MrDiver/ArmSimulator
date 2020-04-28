@@ -33,7 +33,7 @@ The final product will represent a Simulator for basic ARM processor behavior. T
 - Basic Syntax highlighting for the ARM assembly language
 - Cstyle Comments everywhere
 
-![](Resources/gui/syntaxhighlighting.png)
+![](Resources/gui/features.png)
 
 - Adding breakpoints via mouse and context menu
 - working console window ( currently not used but its printing "Output:" and is tested to be working)
@@ -44,15 +44,15 @@ The final product will represent a Simulator for basic ARM processor behavior. T
 - A list that displays recent files that can be opened with clicking on them
 
 ## Preview Gifs
-### File management
-![](Resources/gui/folder.gif)
+
 ### Debugger preview
 ![](Resources/gui/testprog.gif)
-![](Resources/gui/gui.gif)
 ![](Resources/gui/error.gif)
 ### Endless Loop Prevention
 ![](Resources/gui/infinite.gif)
 
+### File management
+![](Resources/gui/folder.gif)
 
 ## Fun with Lexing
 ### The basic behavior of the Lexer for correctly parsing ARM assembly files
