@@ -54,7 +54,7 @@ int Processor::tick(){
         return 0;
     }else{
         std::cout << "pc no valid instruction" << std::endl;
-        isDone = true;
+        //isDone = true;
         return -regs[15];
     }
 }
@@ -65,7 +65,7 @@ unsigned int Processor::getCurrentLine(){
         Instruction inst = program.at(regs[15]);
         return inst.sourceLocation.startline;
     }else{
-        isDone = true;
+        //isDone = true;
         return -1;
     }
 }

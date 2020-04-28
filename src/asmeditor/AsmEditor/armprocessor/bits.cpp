@@ -3,6 +3,7 @@
 //
 #include "bits.h"
 #include <cmath>
+#include <iomanip>
 namespace Bits{
     unsigned int generateBitMask(unsigned int length){
         return pow(2,length)-1;

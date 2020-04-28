@@ -86,16 +86,16 @@ namespace Set {
             unsigned int op2 = rm.operator()(p);
             switch (op) {
                 case CMP:
-                    p->alu->calcU(SUB, p->regs[rn], op2);
+                    p->alu->calcU(Aluops::SUB, p->regs[rn], op2);
                     break;
                 case CMN:
-                    p->alu->calcU(ADD, p->regs[rn], op2);
+                    p->alu->calcU(Aluops::ADD, p->regs[rn], op2);
                     break;
                 case TST:
-                    p->alu->calcU(AND, p->regs[rn], op2);
+                    p->alu->calcU(Aluops::AND, p->regs[rn], op2);
                     break;
                 case TEQ:
-                    p->alu->calcU(XOR, p->regs[rn], op2);
+                    p->alu->calcU(Aluops::XOR, p->regs[rn], op2);
                     break;
                 default:
                     p->errors.emplace_back("Error at compareOp in Instruction.h unsupported instruction", sl);
@@ -103,6 +103,87 @@ namespace Set {
             }
         };
 
+        Instruction instruction(cond, f, sl, std::move(spelling));
+        return instruction;
+    }
+
+    Instruction arithmeticOp(Opcode op, Condition cond, bool updateFlags, unsigned int rd,unsigned int rn, const ShiftOperand &rm, SourceLocation sl,
+                       std::string spelling) {
+        Routine f = [op, updateFlags, rd,rn, rm, sl](Processor *p) {
+            p->alu->updateFlags = updateFlags;
+            unsigned int op2 = rm.operator()(p);
+            unsigned int res = 0;
+            switch (op) {
+            case ADD:
+                res = p->alu->calcU(Aluops::ADD,p->regs[rn],op2);
+                break;
+            case SUB:
+                res = p->alu->calcU(Aluops::SUB,p->regs[rn],op2);
+                break;
+            case RSB:
+                res = p->alu->calcU(Aluops::SUB,op2,p->regs[rn]);
+                break;
+            case ADC:
+                res = p->alu->calcU(Aluops::ADC,p->regs[rn],op2);
+                break;
+            case SBC:
+                res = p->alu->calcU(Aluops::SBC,p->regs[rn],op2);
+                break;
+            case RSC:
+                res = p->alu->calcU(Aluops::SBC,op2,p->regs[rn]);
+                break;
+            case AND:
+                res = p->alu->calcU(Aluops::AND,p->regs[rn],op2);
+                break;
+            case BIC:
+                res = p->alu->calcU(Aluops::BIC,p->regs[rn],op2);
+                break;
+            case EOR:
+                res = p->alu->calcU(Aluops::XOR,p->regs[rn],op2);
+                break;
+            case ORR:
+                res = p->alu->calcU(Aluops::OR,p->regs[rn],op2);
+                break;
+            default:
+                p->errors.emplace_back("Error at arithmeticOp in Instruction.h unsupported instruction", sl);
+                return;
+            }
+
+            p->regs[rd] = res;
+        };
+        Instruction instruction(cond, f, sl, std::move(spelling));
+        return instruction;
+    };
+
+    Instruction branchToLabel(Opcode op, Condition cond,std::string label, SourceLocation sl,
+                              std::string spelling)
+    {
+        Routine f = [op,label,sl](Processor *p){
+            unsigned int dest = p->labels.at(label);
+            switch(op){
+            case B: p->regs[15] = dest;
+                    break;
+            case BL:
+                    p->regs[14] = p->regs[15];
+                    p->regs[15] = dest;
+                    break;
+            default:
+                p->errors.emplace_back("Error at branchToLabel in Instruction.h unsupported instruction", sl);
+                return;
+            }
+        };
+        Instruction instruction(cond, f, sl, std::move(spelling));
+        return instruction;
+    }
+
+    Instruction branchToRegister(Opcode op, Condition cond,unsigned int rd, SourceLocation sl,std::string spelling){
+        Routine f = [rd](Processor *p){
+            unsigned int dest = p->regs[rd];
+            if(rd == 14&&dest==0)
+                p->isDone = true;
+            p->regs[14] = p->regs[15];
+            p->regs[15] = dest;
+        };
         Instruction instruction(cond, f, sl, std::move(spelling));
         return instruction;
     }
