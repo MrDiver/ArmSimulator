@@ -6,11 +6,29 @@
 using namespace antlr4;
 using namespace assembler;
 
-ProcessorManager::ProcessorManager(CodeArea* ca,ConsoleWindow* cw,QListWidget* errorList,QTableWidget* regsTable) :ca(ca),cw(cw),errorList(errorList),regsTable(regsTable)
+template< typename T >
+std::string int_to_hex( T i )
+{
+    std::stringstream stream;
+    stream << "0x"
+           << std::setfill ('0') << std::setw(sizeof(T)*2)
+           << std::hex << i;
+    return stream.str();
+}
+
+
+ProcessorManager::ProcessorManager(CodeArea* ca,ConsoleWindow* cw,QListWidget* errorList,QTableWidget* regsTable,QTableWidget* memoryTable) :ca(ca),cw(cw),errorList(errorList),regsTable(regsTable),memoryTable(memoryTable)
 {
     p = new Processor;
     cw->print("Initialized Successfully");
     currentLines = QSet<int>();
+    memoryTable->setRowCount(MEMSIZE);
+    QList<QString> sl;
+    for(int i = 0;i < MEMSIZE; i++){
+        std::string rhex = int_to_hex(i*4);
+        sl.append(QString::fromStdString(rhex));
+    }
+    memoryTable->setVerticalHeaderLabels(QStringList(sl));
 }
 
 ProcessorManager::~ProcessorManager()
@@ -68,7 +86,14 @@ void ProcessorManager::lint(){
         CommandVisitor cv;
         cv.visit(tree);
         std::vector<Instruction> program = cv.program;
-        if(program.size()<=0||cv.labels.size()<=0){
+        if(cv.labels.find(cv.startLabel) == cv.labels.end()){
+            cw->clear();
+            cw->print("Start label was not found:"+std::to_string(program.size())+" Labels:"+std::to_string(cv.labels.size()));
+            ca->highlighter->rehighlight();
+            return;
+        }
+
+        if( program.size()<=0||cv.labels.size()<=0){
             cw->clear();
             cw->print("No viable program found Commands:"+std::to_string(program.size())+" Labels:"+std::to_string(cv.labels.size()));
             ca->highlighter->rehighlight();
@@ -77,14 +102,12 @@ void ProcessorManager::lint(){
         cw->clear();
         cw->print("Output:");
 
-
-
         currentLines.clear();
         for(Instruction i: program) {
             currentLines.insert(i.sourceLocation.startline);
         }
 
-        p->load(program,cv.labels,"main");
+        p->load(program,cv.labels,cv.startLabel,cv.dataToValue);
         resetProgram();
 }
 
@@ -103,15 +126,6 @@ void ProcessorManager::runProgram(){
     //cw->print("Return Value: "+ std::to_string(p->regs[0]));
 }
 
-template< typename T >
-std::string int_to_hex( T i )
-{
-    std::stringstream stream;
-    stream << "0x"
-           << std::setfill ('0') << std::setw(sizeof(T)*2)
-           << std::hex << i;
-    return stream.str();
-}
 
 void ProcessorManager::stepProgram(){
     errorOccured = false;
@@ -119,6 +133,7 @@ void ProcessorManager::stepProgram(){
     //updating the register table on the interface
     updateRegs();
 
+    updateMemory();
     //stopping if program has finished
     if(p->isDone)
     {
@@ -143,6 +158,7 @@ void ProcessorManager::resetProgram(){
     errorOccured = false;
     p->reset();
     updateRegs();
+    updateMemory();
     if(p->program.size()==0){
         return;
     }
@@ -151,6 +167,16 @@ void ProcessorManager::resetProgram(){
     cw->clear();
     //TODO: Something is wrong here
     //cw->print("start:"+std::to_string(p->program.at(p->startInstruction).sourceLocation.startline));
+}
+
+void ProcessorManager::updateMemory(){
+    for(int i = 0; i < MEMSIZE; i++){
+        unsigned int r = p->memory[i];
+        std::string rhex = int_to_hex(r);
+        memoryTable->setItem(i,0,new QTableWidgetItem(QString::fromStdString(std::to_string(r))));
+        memoryTable->setItem(i,1,new QTableWidgetItem(QString::fromStdString(rhex)));
+        memoryTable->setItem(i,2,new QTableWidgetItem(QString::fromStdString(std::bitset<32>(r).to_string())));
+    }
 }
 
 void ProcessorManager::updateRegs(){

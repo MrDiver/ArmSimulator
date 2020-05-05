@@ -13,6 +13,10 @@ class CommandVisitor : public assembler::ARMParserBaseVisitor{
 public:
     std::vector<Instruction> program;
     std::map<std::string,unsigned int> labels;
+    std::map<std::string,unsigned int> dataToValue;
+    std::string startLabel = "main";
+    //sections
+    antlrcpp::Any visitGlobalSection(assembler::ARMParser::GlobalSectionContext *ctx) override;
 
     //data_processing_instruction
     antlrcpp::Any visitMoveOp(assembler::ARMParser::MoveOpContext *ctx) override;
@@ -22,6 +26,15 @@ public:
     //branch_instruction
     antlrcpp::Any visitBranchToLabel(assembler::ARMParser::BranchToLabelContext *ctx) override;
     antlrcpp::Any visitBranchToRegister(assembler::ARMParser::BranchToRegisterContext *ctx) override;
+
+    //load_and_store
+    antlrcpp::Any visitFirstLoadStore(assembler::ARMParser::FirstLoadStoreContext *ctx) override;
+    antlrcpp::Any visitSecondLoadStore(assembler::ARMParser::SecondLoadStoreContext *ctx) override;
+    antlrcpp::Any visitPushPopMakro(assembler::ARMParser::PushPopMakroContext *ctx) override;
+
+    antlrcpp::Any visitNormalAddressing(assembler::ARMParser::NormalAddressingContext *ctx) override;
+    antlrcpp::Any visitPreIndexedAddressing(assembler::ARMParser::PreIndexedAddressingContext *ctx) override;
+    antlrcpp::Any visitPostIndexedAddressing(assembler::ARMParser::PostIndexedAddressingContext *ctx) override;
 
     //shifter_operand
     antlrcpp::Any visitOp2immediate(assembler::ARMParser::Op2immediateContext *ctx) override;

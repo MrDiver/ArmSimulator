@@ -15,7 +15,7 @@ class ProcessorManager : public QObject
 {
     Q_OBJECT
 public:
-    ProcessorManager(CodeArea* ca,ConsoleWindow* cw,QListWidget* errorList,QTableWidget* regsTable);
+    ProcessorManager(CodeArea* ca,ConsoleWindow* cw,QListWidget* errorList,QTableWidget* regsTable,QTableWidget* memoryTable);
     ~ProcessorManager();
     QSet<int> getActiveCodelines();
 private:
@@ -24,8 +24,10 @@ private:
     ConsoleWindow* cw;
     QListWidget* errorList;
     QTableWidget* regsTable;
+    QTableWidget* memoryTable;
     QSet<int> currentLines;
     void updateRegs();
+    void updateMemory();
     bool errorOccured = false;
 
 public Q_SLOTS:

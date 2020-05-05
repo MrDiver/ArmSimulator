@@ -9,6 +9,20 @@ SourceLocation toSL(antlr4::ParserRuleContext* ctx){
     return SourceLocation(ctx->getStart()->getLine(),ctx->getStart()->getCharPositionInLine(),ctx->getStop()->getLine(),ctx->getStop()->getCharPositionInLine());
 }
 
+/*=========================
+ *
+ *      Sections
+ *
+ * ========================
+ */
+antlrcpp::Any CommandVisitor::visitGlobalSection(assembler::ARMParser::GlobalSectionContext *ctx){
+    if(ctx->LABELREF())
+    {
+        this->startLabel = ctx->LABELREF()->getText();
+    }else
+        return -1;
+    return 0;
+}
 
 /*=========================
  *
@@ -178,6 +192,135 @@ antlrcpp::Any CommandVisitor::visitBranchToRegister(assembler::ARMParser::Branch
     program.push_back(inst);
     return inst;
 }
+
+
+/*==================
+ *
+ *  load and store
+ *
+ ===================*/
+
+antlrcpp::Any CommandVisitor::visitFirstLoadStore(assembler::ARMParser::FirstLoadStoreContext *ctx){
+    Condition cond = Condition::AL;
+    if(ctx->cond())
+        cond = CommandVisitor::visit(ctx->cond()).as<Condition>();
+
+    Set::Opcode opcode;
+    if(ctx->LDR())
+        opcode = Set::Opcode::LDR;
+    else
+        opcode = Set::Opcode::STR;
+
+    if(!ctx->reg())
+        return -1;
+
+    unsigned int rd = CommandVisitor::visitReg(ctx->reg());
+    if(rd == 16)
+        return -1;
+
+    if(!ctx->LABELREF())
+        return -1;
+    std::string label = ctx->LABELREF()->getText();
+    Instruction inst = Set::labelLoadStore(opcode,cond,rd,label,toSL(ctx),ctx->getText());
+    program.push_back(inst);
+    return inst;
+}
+
+antlrcpp::Any CommandVisitor::visitSecondLoadStore(assembler::ARMParser::SecondLoadStoreContext *ctx){
+    std::cout << "secondLoadStore" << std::endl;
+    Condition cond = Condition::AL;
+    if(ctx->cond())
+        cond = CommandVisitor::visit(ctx->cond()).as<Condition>();
+
+    Set::Opcode opcode;
+    if(ctx->LDR())
+        opcode = Set::Opcode::LDR;
+    else
+        opcode = Set::Opcode::STR;
+
+    TypeCondition tc = NORMAL;
+
+    if(ctx->DOUBLEWORD()){
+        tc = DOUBLEWORD;
+    }else if(ctx->HALFWORD()){
+        tc = HALFWORD;
+    }else if(ctx->SIGNEDHALFWORD()){
+        tc = SHALFWORD;
+    }else if(ctx->SIGNEDBYTE()){
+        tc = SBYTE;
+    }else if(ctx->FB()){
+        tc = BYTE;
+    }
+
+    //yeah this can be shorter but this is fine too
+    bool privilege = false;
+    if(ctx->PRIVILEGE())
+        privilege = true;
+
+    if(!ctx->reg())
+        return -1;
+
+    unsigned int rd = CommandVisitor::visitReg(ctx->reg());
+    if(rd == 16)
+        return -1;
+
+    antlrcpp::Any test = CommandVisitor::visit(ctx->addressing_mode());
+    if(!test.is<AddressingOperand>())
+        return -1;
+    AddressingOperand addm = test.as<AddressingOperand>();
+
+    Instruction inst = Set::loadStore(opcode,cond,tc,privilege,rd,addm,toSL(ctx),ctx->getText());
+    program.push_back(inst);
+    return inst;
+}
+antlrcpp::Any CommandVisitor::visitPushPopMakro(assembler::ARMParser::PushPopMakroContext *ctx){
+    return NULL;
+}
+
+antlrcpp::Any CommandVisitor::visitNormalAddressing(assembler::ARMParser::NormalAddressingContext *ctx){
+    unsigned int rn = CommandVisitor::visitReg(ctx->reg());
+    if(rn == 16)
+        return -1;
+    if(!ctx->shifter_operand())
+        return Set::addressing::normal(rn,0);
+
+    antlrcpp::Any test = CommandVisitor::visit(ctx->shifter_operand());
+    if(!test.is<ShiftOperand>())
+        return -1;
+    ShiftOperand op2 = test.as<ShiftOperand>();
+
+    return Set::addressing::normal(rn,op2);
+}
+antlrcpp::Any CommandVisitor::visitPreIndexedAddressing(assembler::ARMParser::PreIndexedAddressingContext *ctx){
+    unsigned int rn = CommandVisitor::visitReg(ctx->reg());
+    if(rn == 16)
+        return -1;
+    if(!ctx->shifter_operand())
+        return Set::addressing::preUpdate(rn,0);
+
+    antlrcpp::Any test = CommandVisitor::visit(ctx->shifter_operand());
+    if(!test.is<ShiftOperand>())
+        return -1;
+    ShiftOperand op2 = test.as<ShiftOperand>();
+
+    return Set::addressing::preUpdate(rn,op2);
+}
+antlrcpp::Any CommandVisitor::visitPostIndexedAddressing(assembler::ARMParser::PostIndexedAddressingContext *ctx){
+    unsigned int rn = CommandVisitor::visitReg(ctx->reg());
+    if(rn == 16)
+        return -1;
+    if(!ctx->shifter_operand())
+        return Set::addressing::postUpdate(rn,0);
+
+    antlrcpp::Any test = CommandVisitor::visit(ctx->shifter_operand());
+    if(!test.is<ShiftOperand>())
+        return -1;
+    ShiftOperand op2 = test.as<ShiftOperand>();
+
+    return Set::addressing::postUpdate(rn,op2);
+}
+
+
 /*==================
  *
  *  Shift operand

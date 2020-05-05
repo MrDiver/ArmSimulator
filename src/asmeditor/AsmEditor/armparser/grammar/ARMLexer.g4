@@ -34,6 +34,11 @@ fragment COMMENTM : '/*' .*? '*/'; // .*? matches anything until the first */
 fragment COMMENT : '//' .*? '\n';
 //mode CommandMode;
 
+GLOBAL: '.global';
+DATA: '.data';
+TEXT: '.text';
+
+
 //Data Processing Operations
 AND: A N D;
 EOR: E O R;
@@ -103,7 +108,7 @@ HALFWORD        : H ;
 SIGNEDHALFWORD  :S H;
 SIGNEDBYTE      :S B;
 
-LABEL: '.'?[a-zA-Z_]+ ':'->mode(DEFAULT_MODE);
+LABEL: '.'?[a-zA-Z_] ([0-9] | [a-zA-Z_])* ':'->mode(DEFAULT_MODE);
 LOCALLABEL:[0-9][0-9]? ':'->mode(DEFAULT_MODE);
 
 SPACE: (' '|'\t') ->mode(ParameterMode);
@@ -111,9 +116,9 @@ TOSKIP: (COMMENT | COMMENTM )+->skip;
 NL: '\r'? '\n';
 
 
-
 mode ParameterMode;
-
+WORD: '.word';
+BYTE: '.byte';
 
 R0: R '0';
 R1: R '1';
@@ -124,10 +129,10 @@ R5: R '5';
 R6: R '6';
 R7: R '7';
 R8: R '8';
-R9: R '9';
+R9: (R '9'|S B);
 R10: R '10';
 R11: R '11';
-R12: R '12';
+R12: (R '12'|I P);
 R13: (R '13')|(S P);
 R14: (R '14')|(L R);
 R15: (R '15')|(P C);
@@ -153,5 +158,5 @@ RBRACKET: ']';
 LBRACE: '{';
 RBRACE: '}';
 SPECIALRBRACKET: ']!';
-LABELREF: '.'?[a-zA-Z_]+;
-
+LABELREF: '.'?[a-zA-Z_] ([0-9] | [a-zA-Z_])*;
+STRING: '\\"' (.)+? '\\"';

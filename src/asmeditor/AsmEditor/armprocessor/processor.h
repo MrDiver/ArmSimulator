@@ -6,6 +6,7 @@
 #include "armprocessor/architecture/CurrentProgramStatusRegister.h"
 #include "armprocessor/architecture/ALU.h"
 #include "armprocessor/instructions/Instruction.h"
+#define MEMSIZE 1024
 class Processor
 {
 public:
@@ -14,13 +15,14 @@ public:
     CPSR* cpsr;
     ALU* alu;
     unsigned int regs[16];
-    unsigned int memory[1024];
+    unsigned int memory[MEMSIZE];
     //std::vector<std::pair<std::string,SourceLocation>> errors;
     std::vector<Instruction> program;
     std::vector<std::pair<std::string,SourceLocation>> errors;
     std::map<std::string,unsigned int> labels;
+    std::map<std::string,unsigned int> dataToAddress;
     unsigned int startInstruction = 0;
-    void load(std::vector<Instruction> program,std::map<std::string,unsigned int> labels,std::string startLabel);
+    void load(std::vector<Instruction> program,std::map<std::string,unsigned int> labels,std::string startLabel,std::map<std::string,unsigned int> dataToValue);
     int tick();
     void reset();
     unsigned int getCurrentLine();

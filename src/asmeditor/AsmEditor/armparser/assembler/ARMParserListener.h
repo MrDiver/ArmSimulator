@@ -1,5 +1,5 @@
 
-// Generated from H:/MyStuff/PrivateProjects/CPPProjects/TEST - Kopie/grammar\ARMParser.g4 by ANTLR 4.8
+// Generated from H:/MyStuff/PrivateProjects/CPPProjects/ArmSimulator/src/asmeditor/AsmEditor/armparser/grammar\ARMParser.g4 by ANTLR 4.8
 
 #pragma once
 
@@ -42,6 +42,24 @@ public:
 
   virtual void enterLabel(ARMParser::LabelContext *ctx) = 0;
   virtual void exitLabel(ARMParser::LabelContext *ctx) = 0;
+
+  virtual void enterGlobalSection(ARMParser::GlobalSectionContext *ctx) = 0;
+  virtual void exitGlobalSection(ARMParser::GlobalSectionContext *ctx) = 0;
+
+  virtual void enterDataSection(ARMParser::DataSectionContext *ctx) = 0;
+  virtual void exitDataSection(ARMParser::DataSectionContext *ctx) = 0;
+
+  virtual void enterTextSection(ARMParser::TextSectionContext *ctx) = 0;
+  virtual void exitTextSection(ARMParser::TextSectionContext *ctx) = 0;
+
+  virtual void enterVariable(ARMParser::VariableContext *ctx) = 0;
+  virtual void exitVariable(ARMParser::VariableContext *ctx) = 0;
+
+  virtual void enterDatatype(ARMParser::DatatypeContext *ctx) = 0;
+  virtual void exitDatatype(ARMParser::DatatypeContext *ctx) = 0;
+
+  virtual void enterValue(ARMParser::ValueContext *ctx) = 0;
+  virtual void exitValue(ARMParser::ValueContext *ctx) = 0;
 
   virtual void enterBranchToLabel(ARMParser::BranchToLabelContext *ctx) = 0;
   virtual void exitBranchToLabel(ARMParser::BranchToLabelContext *ctx) = 0;

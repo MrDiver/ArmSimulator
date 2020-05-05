@@ -17,6 +17,7 @@ class Processor;
 
 #define ShiftOperand std::function<unsigned int (Processor*)>
 #define Routine std::function<void (Processor*)>
+#define AddressingOperand std::function<unsigned int (Processor*)>
 class Instruction{
 public:
     Condition cond;
@@ -42,19 +43,27 @@ namespace Set{
         MOV,MVN,
         CMP,CMN,TST,TEQ,
         ADD,SUB,RSB,ADC,SBC,RSC,AND,BIC,EOR,ORR,
-        B,BL,BX
+        B,BL,BX,
+        LDR,STR
     };
     Instruction moveOp(Opcode op,Condition cond,bool updateFlags,unsigned int rd,const ShiftOperand& rm,SourceLocation sl,std::string spelling ="");
     Instruction compareOp(Opcode op,Condition cond,unsigned int rn,const ShiftOperand& rm,SourceLocation sl,std::string spelling ="");
     Instruction arithmeticOp(Opcode op, Condition cond, bool updateFlags, unsigned int rd,unsigned int rn, const ShiftOperand &rm, SourceLocation sl,std::string spelling);
     Instruction branchToLabel(Opcode op, Condition cond,std::string label, SourceLocation sl,std::string spelling);
     Instruction branchToRegister(Opcode op, Condition cond,unsigned int rd, SourceLocation sl,std::string spelling);
-
+    Instruction labelLoadStore(Opcode op,Condition cond,unsigned int rd,std::string label, SourceLocation sl,std::string spelling);
+    Instruction loadStore(Opcode op,Condition cond,TypeCondition typeCond,bool privilege,unsigned int rd,AddressingOperand addop, SourceLocation sl,std::string spelling);
     namespace shifter{
         ShiftOperand immediate(unsigned int imm);
         ShiftOperand reg(unsigned int index);
         ShiftOperand inlineShift(unsigned int index,Aluops shiftop,unsigned val);
         ShiftOperand inlineShiftReg(unsigned int index,Aluops shiftop,unsigned int reg);
+    }
+
+    namespace addressing{
+        AddressingOperand normal(unsigned int rn,ShiftOperand shift);
+        AddressingOperand preUpdate(unsigned int rn,ShiftOperand shift);
+        AddressingOperand postUpdate(unsigned int rn,ShiftOperand shift);
     }
 }
 

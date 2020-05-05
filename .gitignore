@@ -3,3 +3,5 @@ src/armparser/.idea
 src/gen/
 src/asmeditor/build-AsmEditor-Desktop-Debug
 src/asmeditor/RelWithDebInfo/
+src/asmeditor/winrelease/
+src/asmeditor/build

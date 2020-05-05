@@ -5,7 +5,7 @@ compilationUnit: program? EOF;
 
 program: (statement)+;
 
-statement: instruction | label | NL;
+statement: instruction | section | variable | label | NL;
 
 instruction : data_processing_instruction
             | multiply_instruction
@@ -22,6 +22,12 @@ cond: EQ| NE | CS | CC | MI | PL | VS | VC | HI | LS | GE | LT | GT | LE | AL;
 reg: R0|R1|R2|R3|R4|R5|R6|R7|R8|R9|R10|R11|R12|R13|R14|R15;
 immediate : HASH (HEX|NUMBER);
 label: (LOCALLABEL | LABEL);
+
+section: (GLOBAL SPACE LABELREF) #globalSection | DATA #dataSection | TEXT #textSection ;
+variable: LABEL SPACE* datatype value;
+
+datatype: WORD | BYTE;
+value: (HEX|NUMBER) | LABELREF;
 
 /* ==================================
 
@@ -97,8 +103,8 @@ multiply_instruction : opcode=MUL cond ? UPDATEFLAG? SPACE reg COMMA reg COMMA r
    ==================================*/
 
 //TODO IMPLEMENT ALL
-load_store_instruction : opcode=(LDR|STR) cond? FB? PRIVILEGE? SPACE reg COMMA addressing_mode #firstLoadStore
-                       | opcode=(LDR|STR) cond? (DOUBLEWORD|HALFWORD|SIGNEDHALFWORD|SIGNEDBYTE) SPACE reg COMMA addressing_mode #secondLoadStore
+load_store_instruction : opcode=(LDR|STR) cond? SPACE reg COMMA LABELREF #firstLoadStore
+                       | opcode=(LDR|STR)  (DOUBLEWORD|HALFWORD|SIGNEDHALFWORD|SIGNEDBYTE|FB)? cond? PRIVILEGE? SPACE reg COMMA addressing_mode #secondLoadStore
                        | makro=(PUSH|POP) LBRACE reg (COMMA reg)* RBRACE #pushPopMakro
                        ;
 
