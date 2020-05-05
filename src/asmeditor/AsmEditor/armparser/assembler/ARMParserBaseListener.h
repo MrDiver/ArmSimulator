@@ -1,5 +1,5 @@
 
-// Generated from H:/MyStuff/PrivateProjects/CPPProjects/TEST - Kopie/grammar\ARMParser.g4 by ANTLR 4.8
+// Generated from H:/MyStuff/PrivateProjects/CPPProjects/ArmSimulator/src/asmeditor/AsmEditor/armparser/grammar\ARMParser.g4 by ANTLR 4.8
 
 #pragma once
 
@@ -44,6 +44,24 @@ public:
 
   virtual void enterLabel(ARMParser::LabelContext * /*ctx*/) override { }
   virtual void exitLabel(ARMParser::LabelContext * /*ctx*/) override { }
+
+  virtual void enterGlobalSection(ARMParser::GlobalSectionContext * /*ctx*/) override { }
+  virtual void exitGlobalSection(ARMParser::GlobalSectionContext * /*ctx*/) override { }
+
+  virtual void enterDataSection(ARMParser::DataSectionContext * /*ctx*/) override { }
+  virtual void exitDataSection(ARMParser::DataSectionContext * /*ctx*/) override { }
+
+  virtual void enterTextSection(ARMParser::TextSectionContext * /*ctx*/) override { }
+  virtual void exitTextSection(ARMParser::TextSectionContext * /*ctx*/) override { }
+
+  virtual void enterVariable(ARMParser::VariableContext * /*ctx*/) override { }
+  virtual void exitVariable(ARMParser::VariableContext * /*ctx*/) override { }
+
+  virtual void enterDatatype(ARMParser::DatatypeContext * /*ctx*/) override { }
+  virtual void exitDatatype(ARMParser::DatatypeContext * /*ctx*/) override { }
+
+  virtual void enterValue(ARMParser::ValueContext * /*ctx*/) override { }
+  virtual void exitValue(ARMParser::ValueContext * /*ctx*/) override { }
 
   virtual void enterBranchToLabel(ARMParser::BranchToLabelContext * /*ctx*/) override { }
   virtual void exitBranchToLabel(ARMParser::BranchToLabelContext * /*ctx*/) override { }

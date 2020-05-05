@@ -13,8 +13,9 @@ MainWindow::MainWindow(QWidget *parent) :
     QListView* list = this->findChild<QListView*>("RecentList");
     QTreeView* tree = this->findChild<QTreeView*>("FolderTree");
     QTableWidget* regsTable = this->findChild<QTableWidget*>("RegisterTable");
+    QTableWidget* memoryTable = this->findChild<QTableWidget*>("MemoryTable");
     fm = new FileManager(this,list,tree,codeArea);
-    pm = new ProcessorManager(codeArea,ui->CodeOutput,ui->ErrorList,regsTable);
+    pm = new ProcessorManager(codeArea,ui->CodeOutput,ui->ErrorList,regsTable,memoryTable);
     codeArea->setProcessorManager(pm);
 
     connect(ui->actionNew,&QAction::triggered,fm,&FileManager::fileNew);

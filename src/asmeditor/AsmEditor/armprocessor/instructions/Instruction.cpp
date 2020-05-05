@@ -188,6 +188,46 @@ namespace Set {
         return instruction;
     }
 
+    Instruction labelLoadStore(Opcode op,Condition cond,unsigned int rd,std::string label, SourceLocation sl,std::string spelling){
+        Routine f = [op,rd,label,sl](Processor *p){
+            if(op == Opcode::LDR){
+                unsigned int address = p->dataToAddress.at(label);
+                if(address>=MEMSIZE||address < 0){
+                    p->errors.emplace_back("Error at label load instruction in Instruction.h adress out of bounds", sl);
+                    return;
+                }
+                p->regs[rd] = p->memory[address];
+            }
+        };
+        Instruction instruction(cond, f,sl,std::move(spelling));
+        return instruction;
+    }
+
+    Instruction loadStore(Opcode op,Condition cond,TypeCondition typeCond,bool privilege,unsigned int rd,AddressingOperand addop, SourceLocation sl,std::string spelling){
+        Routine f = [op,rd,addop,sl](Processor *p){
+            if(op == Opcode::LDR){
+                unsigned int address = addop.operator()(p);
+                unsigned int tmp = address/4;
+                if(tmp>=MEMSIZE||tmp < 0){
+                    p->errors.emplace_back("Error at load instruction in Instruction.h adress out of bounds", sl);
+                    return;
+                }
+                p->regs[rd] = p->memory[tmp];
+            }
+            else if(op == Opcode::STR){
+                unsigned int address = addop.operator()(p);
+                unsigned int tmp = address/4;
+                if(tmp>=MEMSIZE||tmp < 0){
+                    p->errors.emplace_back("Error at load instruction in Instruction.h adress out of bounds", sl);
+                    return;
+                }
+                p->memory[tmp] = p->regs[rd];
+            }
+        };
+        Instruction instruction(cond, f,sl,std::move(spelling));
+        return instruction;
+    }
+
     namespace shifter{
         ShiftOperand immediate(unsigned int imm){
             return (ShiftOperand)[imm](Processor* /*unused*/){return imm;};
@@ -208,6 +248,38 @@ namespace Set {
                 unsigned int a = index < 16 ? p->regs[index] : -1;
                 unsigned int b = index < 16 ? p->regs[val] : -1;
                 return p->alu->calcU(shiftop,a,b);
+            };
+        }
+    }
+
+    namespace addressing{
+        AddressingOperand normal(unsigned int rn,ShiftOperand shift){
+            return (AddressingOperand)[rn,shift](Processor* p){
+                unsigned int op2 = 0;
+                if(shift)
+                    op2 = shift.operator()(p);
+                unsigned addr = p->regs[rn] + op2;
+                return addr;
+            };
+        }
+        AddressingOperand preUpdate(unsigned int rn,ShiftOperand shift){
+            return (AddressingOperand)[rn,shift](Processor* p){
+                unsigned int op2 = 0;
+                if(shift)
+                    op2 = shift.operator()(p);
+                unsigned addr = p->regs[rn] + op2;
+                p->regs[rn] = addr;
+                return addr;
+            };
+        }
+        AddressingOperand postUpdate(unsigned int rn,ShiftOperand shift){
+            return (AddressingOperand)[rn,shift](Processor* p){
+                unsigned int op2 = 0;
+                if(shift)
+                    op2 = shift.operator()(p);
+                unsigned addr = p->regs[rn];
+                p->regs[rn] += op2;
+                return addr;
             };
         }
     }

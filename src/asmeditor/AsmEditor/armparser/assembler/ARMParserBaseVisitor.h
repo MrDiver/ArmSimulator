@@ -1,5 +1,5 @@
 
-// Generated from H:/MyStuff/PrivateProjects/CPPProjects/TEST - Kopie/grammar\ARMParser.g4 by ANTLR 4.8
+// Generated from H:/MyStuff/PrivateProjects/CPPProjects/ArmSimulator/src/asmeditor/AsmEditor/armparser/grammar\ARMParser.g4 by ANTLR 4.8
 
 #pragma once
 
@@ -50,6 +50,30 @@ public:
   }
 
   virtual antlrcpp::Any visitLabel(ARMParser::LabelContext *ctx) override {
+    return visitChildren(ctx);
+  }
+
+  virtual antlrcpp::Any visitGlobalSection(ARMParser::GlobalSectionContext *ctx) override {
+    return visitChildren(ctx);
+  }
+
+  virtual antlrcpp::Any visitDataSection(ARMParser::DataSectionContext *ctx) override {
+    return visitChildren(ctx);
+  }
+
+  virtual antlrcpp::Any visitTextSection(ARMParser::TextSectionContext *ctx) override {
+    return visitChildren(ctx);
+  }
+
+  virtual antlrcpp::Any visitVariable(ARMParser::VariableContext *ctx) override {
+    return visitChildren(ctx);
+  }
+
+  virtual antlrcpp::Any visitDatatype(ARMParser::DatatypeContext *ctx) override {
+    return visitChildren(ctx);
+  }
+
+  virtual antlrcpp::Any visitValue(ARMParser::ValueContext *ctx) override {
     return visitChildren(ctx);
   }
 

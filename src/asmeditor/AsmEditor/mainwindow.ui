@@ -174,7 +174,7 @@
         <bool>false</bool>
        </property>
        <property name="currentIndex">
-        <number>0</number>
+        <number>1</number>
        </property>
        <widget class="QWidget" name="RegisterTab">
         <attribute name="title">
@@ -633,6 +633,27 @@
         <attribute name="title">
          <string>Memory</string>
         </attribute>
+        <layout class="QGridLayout" name="gridLayout_3">
+         <item row="0" column="0">
+          <widget class="QTableWidget" name="MemoryTable">
+           <column>
+            <property name="text">
+             <string>Decimal</string>
+            </property>
+           </column>
+           <column>
+            <property name="text">
+             <string>Hex</string>
+            </property>
+           </column>
+           <column>
+            <property name="text">
+             <string>Binary</string>
+            </property>
+           </column>
+          </widget>
+         </item>
+        </layout>
        </widget>
       </widget>
      </widget>

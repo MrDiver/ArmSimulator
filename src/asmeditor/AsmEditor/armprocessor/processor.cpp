@@ -7,6 +7,7 @@
 Processor::Processor(){
     cpsr = new CPSR();
     alu = new ALU(cpsr);
+    this-> dataToAddress = std::map<std::string,unsigned int>();
 }
 
 Processor::~Processor() {
@@ -14,7 +15,7 @@ Processor::~Processor() {
     delete alu;
 }
 
-void Processor::load(std::vector<Instruction> program,std::map<std::string,unsigned int> labels,std::string startLabel){
+void Processor::load(std::vector<Instruction> program,std::map<std::string,unsigned int> labels,std::string startLabel,std::map<std::string,unsigned int> dataToValue){
     this->labels = labels;
     this->program = program;
     this->isDone = false;
@@ -32,6 +33,21 @@ void Processor::load(std::vector<Instruction> program,std::map<std::string,unsig
         if(l.first.compare(startLabel)==0){
             startInstruction = l.second;
         }
+    }
+
+    for(unsigned int i = 0; i < program.size(); i++){
+        //TODO: find error in conversion
+        std::cout << "Instruction" << program.at(i).bits << std::endl;
+        memory[i] = (unsigned int)program.at(i).bits.to_ulong();
+    }
+    unsigned int i = 0;
+    for(std::pair<std::string,unsigned int> pair : dataToValue){
+        unsigned int addr = MEMSIZE-i-1;
+        std::string label = pair.first;
+        unsigned int value = pair.second;
+        memory[addr] = value;
+        dataToAddress.emplace(std::pair<std::string,unsigned int>(label,addr));
+        i++;
     }
 }
 //returns a negative pc if the instruction was not found

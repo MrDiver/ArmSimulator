@@ -1,5 +1,21 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
+  <component name="ANTLRGenerationPreferences">
+    <option name="perGrammarGenerationSettings">
+      <list>
+        <PerGrammarGenerationSettings>
+          <option name="fileName" value="$PROJECT_DIR$/armparser/grammar/ARMParser.g4" />
+          <option name="autoGen" value="true" />
+          <option name="outputDir" value="H:\MyStuff\PrivateProjects\CPPProjects\ArmSimulator\src\asmeditor\AsmEditor\armparser" />
+          <option name="libDir" value="H:\MyStuff\PrivateProjects\CPPProjects\ArmSimulator\src\asmeditor\AsmEditor\armparser\grammar" />
+          <option name="encoding" value="" />
+          <option name="pkg" value="assembler" />
+          <option name="language" value="Cpp" />
+          <option name="generateVisitor" value="true" />
+        </PerGrammarGenerationSettings>
+      </list>
+    </option>
+  </component>
   <component name="CMakeWorkspace" PROJECT_DIR="$PROJECT_DIR$" />
   <component name="JavaScriptSettings">
     <option name="languageLevel" value="ES6" />

@@ -4,6 +4,11 @@ Highlighter::Highlighter(QTextDocument* parent)
 {
     HighlightingRule rule;
 
+    labelFormat.setForeground(Qt::darkMagenta);
+    rule.pattern = QRegularExpression(QStringLiteral(".global|([a-zA-Z_]([0-9]|[a-zA-Z_])+:)|(.?[a-zA-Z_]([0-9]|[a-zA-Z_])+)"),QRegularExpression::CaseInsensitiveOption);
+    rule.format = labelFormat;
+    rules.append(rule);
+
     keywordFormat.setForeground(Qt::darkBlue);
     keywordFormat.setFontWeight(QFont::Bold);
     const QString keywords[] ={"adc","add","and","b","bic","bkpt","bl","blx","bx","cdp","cdp2","clz","cmn","cmn","cmp","eor","ldc","ldc2","ldm","ldr","mcr","mcr2","mcrr","mla","mov","mrc","mrc2","mrrc","mrs","msr","mul","mvn","orr","qadd","qdadd","qdsub","qsub","rsb","rsc","sbc","stm","str","sub","swi","swp","teq","tst"};
@@ -22,6 +27,8 @@ Highlighter::Highlighter(QTextDocument* parent)
         rule.format = keywordFormat;
         rules.append(rule);
     }
+
+
 
 
     functionFormat.setFontItalic(true);
@@ -46,10 +53,7 @@ Highlighter::Highlighter(QTextDocument* parent)
     rule.format = numberFormat;
     rules.append(rule);
 
-    labelFormat.setForeground(Qt::darkMagenta);
-    rule.pattern = QRegularExpression(QStringLiteral("[a-z]+:"),QRegularExpression::CaseInsensitiveOption);
-    rule.format = labelFormat;
-    rules.append(rule);
+
 
     multiLineCommentFormat.setForeground(Qt::red);
 

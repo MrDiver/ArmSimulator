@@ -1,5 +1,5 @@
 
-// Generated from H:/MyStuff/PrivateProjects/CPPProjects/TEST - Kopie/grammar\ARMParser.g4 by ANTLR 4.8
+// Generated from H:/MyStuff/PrivateProjects/CPPProjects/ArmSimulator/src/asmeditor/AsmEditor/armparser/grammar\ARMParser.g4 by ANTLR 4.8
 
 #pragma once
 
@@ -37,6 +37,18 @@ public:
     virtual antlrcpp::Any visitImmediate(ARMParser::ImmediateContext *context) = 0;
 
     virtual antlrcpp::Any visitLabel(ARMParser::LabelContext *context) = 0;
+
+    virtual antlrcpp::Any visitGlobalSection(ARMParser::GlobalSectionContext *context) = 0;
+
+    virtual antlrcpp::Any visitDataSection(ARMParser::DataSectionContext *context) = 0;
+
+    virtual antlrcpp::Any visitTextSection(ARMParser::TextSectionContext *context) = 0;
+
+    virtual antlrcpp::Any visitVariable(ARMParser::VariableContext *context) = 0;
+
+    virtual antlrcpp::Any visitDatatype(ARMParser::DatatypeContext *context) = 0;
+
+    virtual antlrcpp::Any visitValue(ARMParser::ValueContext *context) = 0;
 
     virtual antlrcpp::Any visitBranchToLabel(ARMParser::BranchToLabelContext *context) = 0;
 
