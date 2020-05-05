@@ -5,6 +5,7 @@ The final product will represent a Simulator for basic ARM processor behavior. T
 
 ### Planned Features
 - More Commands
+- Working breakpoints (Yeah they are still making trouble but will be there in v0.4)
 - Adding an error listener to the parser for error highlighting
 - Using the error list to indicate Errors inside of commands
 - Add basic patterns in the menu for easy access and insertion in the code (WHILE, FOR, IF ELSE, SWITCH)
