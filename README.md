@@ -5,7 +5,6 @@ The final product will represent a Simulator for basic ARM processor behavior. T
 
 ### Planned Features
 - More Commands
-- Memory Preview
 - Adding an error listener to the parser for error highlighting
 - Using the error list to indicate Errors inside of commands
 - Add basic patterns in the menu for easy access and insertion in the code (WHILE, FOR, IF ELSE, SWITCH)
@@ -22,9 +21,10 @@ The final product will represent a Simulator for basic ARM processor behavior. T
 - Compiling the program to a high level instruction sequence for the processor
 - Almost complete arm instruction set recognition for the ArmParser
 - Implemented commands
-  - MOV, MVN, CMP, CMN, TST, TEQ, ADD, SUB, RSB, ADC, SBC, RSC, AND, BIC, EOR, ORR, B, BL, BX
+  - MOV, MVN, CMP, CMN, TST, TEQ, ADD, SUB, RSB, ADC, SBC, RSC, AND, BIC, EOR, ORR, B, BL, BX, LDR, STR
 - Conditional execution
 - Register Preview
+- Memory Preview
 - Endless loop prevention by only allowing a certain amount of instructions per run
 - Console output window displays return value at last instruction
 
