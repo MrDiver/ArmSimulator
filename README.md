@@ -1,13 +1,11 @@
-# ArmSimulator V 0.3
+# ArmSimulator V 0.4
 
 This project is for educational purposes.
 The final product will represent a Simulator for basic ARM processor behavior. The first version aims at comepletely emulating the ARMv4 infrastructure and the complete instruction set.
 
 ### Planned Features
 - More Commands
-- Working breakpoints (Yeah they are still making trouble but will be there in v0.4)
 - Adding an error listener to the parser for error highlighting
-- Using the error list to indicate Errors inside of commands
 - Add basic patterns in the menu for easy access and insertion in the code (WHILE, FOR, IF ELSE, SWITCH)
 
 ### Far future plans
@@ -21,8 +19,9 @@ The final product will represent a Simulator for basic ARM processor behavior. T
 ### General
 - Compiling the program to a high level instruction sequence for the processor
 - Almost complete arm instruction set recognition for the ArmParser
+- Working breakpoints finally they arrived for everyone !!!
 - Implemented commands
-  - MOV, MVN, CMP, CMN, TST, TEQ, ADD, SUB, RSB, ADC, SBC, RSC, AND, BIC, EOR, ORR, B, BL, BX, LDR, STR
+  - MOV, MVN, CMP, CMN, TST, TEQ, ADD, SUB, RSB, ADC, SBC, RSC, AND, BIC, EOR, ORR, B, BL, BX, LDR, STR, MUL
 - Conditional execution
 - Register Preview
 - Memory Preview
@@ -32,6 +31,7 @@ The final product will represent a Simulator for basic ARM processor behavior. T
 ### Gui
 - Marking the line that is going to be executed on a step command
 - Basic Syntax highlighting for the ARM assembly language
+- Using the error list to indicate Errors inside of commands during execution
 - Cstyle Comments everywhere
 
 ![](Resources/gui/features.png)
