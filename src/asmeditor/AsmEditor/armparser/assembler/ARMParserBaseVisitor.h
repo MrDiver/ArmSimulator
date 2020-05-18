@@ -73,7 +73,19 @@ public:
     return visitChildren(ctx);
   }
 
-  virtual antlrcpp::Any visitValue(ARMParser::ValueContext *ctx) override {
+  virtual antlrcpp::Any visitNumberVal(ARMParser::NumberValContext *ctx) override {
+    return visitChildren(ctx);
+  }
+
+  virtual antlrcpp::Any visitLabelVal(ARMParser::LabelValContext *ctx) override {
+    return visitChildren(ctx);
+  }
+
+  virtual antlrcpp::Any visitStringVal(ARMParser::StringValContext *ctx) override {
+    return visitChildren(ctx);
+  }
+
+  virtual antlrcpp::Any visitNumber(ARMParser::NumberContext *ctx) override {
     return visitChildren(ctx);
   }
 

@@ -29,6 +29,7 @@ ProcessorManager::ProcessorManager(CodeArea* ca,ConsoleWindow* cw,QListWidget* e
         sl.append(QString::fromStdString(rhex));
     }
     memoryTable->setVerticalHeaderLabels(QStringList(sl));
+    hitBreakpoint = false;
 }
 
 ProcessorManager::~ProcessorManager()
@@ -107,14 +108,21 @@ void ProcessorManager::lint(){
             currentLines.insert(i.sourceLocation.startline);
         }
 
-        p->load(program,cv.labels,cv.startLabel,cv.dataToValue);
         resetProgram();
+        p->load(program,cv.labels,cv.startLabel,cv.dataToValue,cv.dataToReference);
+        updateMemory();
 }
 
 void ProcessorManager::runProgram(){
     errorOccured = false;
     unsigned int i = 0;
+    unsigned int startingLine = p->getCurrentLine()-1;
     while((!p->isDone)&&(!errorOccured)){
+        if(ca->getBreakpoints().contains(p->getCurrentLine()-1)&&p->getCurrentLine()-1!=startingLine)
+        {
+            cw->print("Hit breakpoint");
+            break;
+        }
         stepProgram();
         i++;
         if(i>1000)
@@ -128,12 +136,13 @@ void ProcessorManager::runProgram(){
 
 
 void ProcessorManager::stepProgram(){
+    if(ca->getBreakpoints().contains(p->getCurrentLine()))
     errorOccured = false;
     p->tick();
     //updating the register table on the interface
     updateRegs();
-
     updateMemory();
+    updateError();
     //stopping if program has finished
     if(p->isDone)
     {
@@ -167,6 +176,15 @@ void ProcessorManager::resetProgram(){
     cw->clear();
     //TODO: Something is wrong here
     //cw->print("start:"+std::to_string(p->program.at(p->startInstruction).sourceLocation.startline));
+}
+
+void ProcessorManager::updateError(){
+    if(errorList->count() != (int)p->errors.size()){
+        errorList->clear();
+        for(std::pair<std::string,SourceLocation> e: p->errors){
+            errorList->addItem(QString::fromStdString(e.first+" at "+e.second.toString()));
+        }
+    }
 }
 
 void ProcessorManager::updateMemory(){

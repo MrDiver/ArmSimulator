@@ -13,7 +13,8 @@ class CommandVisitor : public assembler::ARMParserBaseVisitor{
 public:
     std::vector<Instruction> program;
     std::map<std::string,unsigned int> labels;
-    std::map<std::string,unsigned int> dataToValue;
+    std::map<std::string,std::vector<unsigned int>> dataToValue;
+    std::map<std::string,std::string> dataToReference;
     std::string startLabel = "main";
     //sections
     antlrcpp::Any visitGlobalSection(assembler::ARMParser::GlobalSectionContext *ctx) override;
@@ -35,6 +36,17 @@ public:
     antlrcpp::Any visitNormalAddressing(assembler::ARMParser::NormalAddressingContext *ctx) override;
     antlrcpp::Any visitPreIndexedAddressing(assembler::ARMParser::PreIndexedAddressingContext *ctx) override;
     antlrcpp::Any visitPostIndexedAddressing(assembler::ARMParser::PostIndexedAddressingContext *ctx) override;
+
+    //variables
+    antlrcpp::Any visitVariable(assembler::ARMParser::VariableContext *ctx) override;
+    antlrcpp::Any visitNumberVal(assembler::ARMParser::NumberValContext *ctx) override;
+    antlrcpp::Any visitLabelVal(assembler::ARMParser::LabelValContext *ctx) override;
+    antlrcpp::Any visitStringVal(assembler::ARMParser::StringValContext *ctx) override;
+    antlrcpp::Any visitDatatype(assembler::ARMParser::DatatypeContext *ctx) override;
+    antlrcpp::Any visitNumber(assembler::ARMParser::NumberContext *ctx) override;
+
+    //multiplication
+    antlrcpp::Any visitNormalMul(assembler::ARMParser::NormalMulContext *ctx) override;
 
     //shifter_operand
     antlrcpp::Any visitOp2immediate(assembler::ARMParser::Op2immediateContext *ctx) override;

@@ -28,8 +28,9 @@ private:
     QSet<int> currentLines;
     void updateRegs();
     void updateMemory();
+    void updateError();
     bool errorOccured = false;
-
+    bool hitBreakpoint;
 public Q_SLOTS:
     void lint();
     void runProgram();

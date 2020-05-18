@@ -38,13 +38,20 @@ public:
     std::bitset<32> bits;
 };
 
+namespace Data{
+    enum type{
+        BYTE,WORD,ASCIZ
+    };
+}
+
 namespace Set{
     enum Opcode{
         MOV,MVN,
         CMP,CMN,TST,TEQ,
         ADD,SUB,RSB,ADC,SBC,RSC,AND,BIC,EOR,ORR,
         B,BL,BX,
-        LDR,STR
+        LDR,STR,
+        MUL
     };
     Instruction moveOp(Opcode op,Condition cond,bool updateFlags,unsigned int rd,const ShiftOperand& rm,SourceLocation sl,std::string spelling ="");
     Instruction compareOp(Opcode op,Condition cond,unsigned int rn,const ShiftOperand& rm,SourceLocation sl,std::string spelling ="");
@@ -53,6 +60,7 @@ namespace Set{
     Instruction branchToRegister(Opcode op, Condition cond,unsigned int rd, SourceLocation sl,std::string spelling);
     Instruction labelLoadStore(Opcode op,Condition cond,unsigned int rd,std::string label, SourceLocation sl,std::string spelling);
     Instruction loadStore(Opcode op,Condition cond,TypeCondition typeCond,bool privilege,unsigned int rd,AddressingOperand addop, SourceLocation sl,std::string spelling);
+    Instruction normalMultiply(Condition cond,bool updateFlags,unsigned int rd,unsigned int rn,unsigned int rm, SourceLocation sl,std::string spelling);
     namespace shifter{
         ShiftOperand immediate(unsigned int imm);
         ShiftOperand reg(unsigned int index);

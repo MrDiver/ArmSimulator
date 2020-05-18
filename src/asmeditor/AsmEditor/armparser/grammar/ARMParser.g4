@@ -26,9 +26,9 @@ label: (LOCALLABEL | LABEL);
 section: (GLOBAL SPACE LABELREF) #globalSection | DATA #dataSection | TEXT #textSection ;
 variable: LABEL SPACE* datatype value;
 
-datatype: WORD | BYTE;
-value: (HEX|NUMBER) | LABELREF;
-
+datatype: WORD | BYTE | ASCIZ;
+value: number (COMMA number)* #NumberVal | LABELREF #LabelVal| STRING #StringVal;
+number: (HEX|NUMBER);
 /* ==================================
 
           BRANCH INSTRUCTIONS
@@ -68,7 +68,7 @@ shiftopcode: LSLI | LSRI | ASRI | RORI;
         TODO: MORE INSTRUCTIONS FOR MULTIPLICATION
    ==================================*/
 
-multiply_instruction : opcode=MUL cond ? UPDATEFLAG? SPACE reg COMMA reg COMMA reg #normalMul
+multiply_instruction : opcode=MUL cond ? UPDATEFLAG? SPACE rd=reg COMMA rn=reg COMMA rm=reg #normalMul
                      | opcode=(MLA|SMULL|UMULL|SMLAL|UMLAL) cond ? UPDATEFLAG? SPACE reg COMMA reg COMMA reg COMMA reg #longMul;
 
 /* ==================================

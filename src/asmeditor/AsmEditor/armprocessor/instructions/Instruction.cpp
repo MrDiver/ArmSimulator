@@ -155,6 +155,18 @@ namespace Set {
         return instruction;
     };
 
+    Instruction normalMultiply(Condition cond,bool updateFlags,unsigned int rd,unsigned int rn,unsigned int rm,SourceLocation sl,
+                               std::string spelling){
+        Routine f = [updateFlags, rd,rn, rm, sl](Processor *p) {
+            p->alu->updateFlags = updateFlags;
+            unsigned int res = p->alu->calcU(Aluops::MUL,p->regs[rn],p->regs[rm]);
+
+            p->regs[rd] = res;
+        };
+        Instruction instruction(cond, f, sl, std::move(spelling));
+        return instruction;
+    }
+
     Instruction branchToLabel(Opcode op, Condition cond,std::string label, SourceLocation sl,
                               std::string spelling)
     {
@@ -191,6 +203,11 @@ namespace Set {
     Instruction labelLoadStore(Opcode op,Condition cond,unsigned int rd,std::string label, SourceLocation sl,std::string spelling){
         Routine f = [op,rd,label,sl](Processor *p){
             if(op == Opcode::LDR){
+                if(p->dataToAddress.find(label)==p->dataToAddress.end())
+                {
+                    p->errors.emplace_back("No variable in data found with name: "+label,sl);
+                    return;
+                }
                 unsigned int address = p->dataToAddress.at(label);
                 if(address>=MEMSIZE||address < 0){
                     p->errors.emplace_back("Error at label load instruction in Instruction.h adress out of bounds", sl);

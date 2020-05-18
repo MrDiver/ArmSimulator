@@ -387,6 +387,116 @@ antlrcpp::Any CommandVisitor::visitShiftopcode(assembler::ARMParser::Shiftopcode
 }
 
 
+/*==================
+ *
+ *    Variables
+ *
+ ===================*/
+antlrcpp::Any CommandVisitor::visitVariable(assembler::ARMParser::VariableContext *ctx){
+    if(!ctx->LABEL())
+        return -1;
+    if(!ctx->datatype())
+        return -1;
+    if(!ctx->value())
+        return -1;
+    //std::cout << "visit variable"<< std::endl;
+    std::string label = ctx->LABEL()->getText();
+    //std::cout << "got label " << label << std::endl;
+    Data::type type = visit(ctx->datatype());
+    //std::cout << "got datatype "<< type << std::endl;
+    antlrcpp::Any anytype = visit(ctx->value());
+    //std::cout << anytype.is<std::vector<unsigned int>>() << std::endl;
+    //std::cout << anytype.is<unsigned int>() << std::endl;
+    if(anytype.is<std::string>())
+    {
+        std::string s = anytype;
+        dataToReference.emplace(label,s);
+        return 0;
+    }
+    std::vector<unsigned int> data = anytype;
+    //std::cout << "got data"<< std::endl;
+
+    if(type==Data::type::WORD){
+        dataToValue.emplace(label,data);
+    }
+    return 0;
+}
+
+antlrcpp::Any CommandVisitor::visitNumberVal(assembler::ARMParser::NumberValContext *ctx){
+    std::vector<unsigned int> values;
+    //std::cout << "Number Val" << std::endl;
+    //std::cout << "NUM" << std::endl;
+    for(int i = 0; i < (int)ctx->number().size();i++){
+        unsigned int val = visit(ctx->number().at(i));
+        //std::cout << val << std::endl;
+        values.emplace_back(val);
+    }
+    return values;
+}
+
+antlrcpp::Any CommandVisitor::visitLabelVal(assembler::ARMParser::LabelValContext *ctx){
+    //std::cout << "Label Val" << std::endl;
+    if(!ctx->LABELREF())
+        return -1;
+
+    std::string l = ctx->LABELREF()->getText();
+
+    return l;
+}
+antlrcpp::Any CommandVisitor::visitStringVal(assembler::ARMParser::StringValContext *ctx){
+    //std::cout << "String Val" << std::endl;
+    std::vector<unsigned int> values;
+    return values;
+}
+
+antlrcpp::Any CommandVisitor::visitDatatype(assembler::ARMParser::DatatypeContext *ctx){
+    if(ctx->BYTE())
+        return Data::type::BYTE;
+    if(ctx->WORD())
+        return Data::type::WORD;
+    if(ctx->ASCIZ())
+        return Data::type::ASCIZ;
+
+    return Data::type::WORD;
+}
+
+antlrcpp::Any CommandVisitor::visitNumber(assembler::ARMParser::NumberContext *ctx){
+    if(ctx->HEX()){
+        return (unsigned int)std::stoul(ctx->HEX()->getText(), nullptr, 16);
+    }else if(ctx->NUMBER()){
+        return (unsigned int)std::stoul(ctx->NUMBER()->getText());
+    }
+    std::cerr << "no number value found" << std::endl;
+    return (unsigned int)0;
+}
+
+/*==================
+ *
+ *    Multiplication
+ *
+ ===================*/
+
+antlrcpp::Any CommandVisitor::visitNormalMul(assembler::ARMParser::NormalMulContext *ctx){
+    Condition cond = Condition::AL;
+    if(ctx->cond())
+        cond = CommandVisitor::visit(ctx->cond()).as<Condition>();
+
+    bool updateFlag = ctx->UPDATEFLAG()!=nullptr;
+
+    if(!ctx->rd)
+        return -1;
+    if(!ctx->rn)
+        return -1;
+    if(!ctx->rm)
+        return -1;
+    unsigned int rd = visit(ctx->rd);
+    unsigned int rn = visit(ctx->rn);
+    unsigned int rm = visit(ctx->rm);
+
+    Instruction inst = Set::normalMultiply(cond,updateFlag,rd,rn,rm,toSL(ctx),ctx->getText());
+    program.push_back(inst);
+    return inst;
+}
 
 antlrcpp::Any CommandVisitor::visitImmediate(assembler::ARMParser::ImmediateContext *ctx){
 //    std::cout << "visitImmediate" << std::endl;

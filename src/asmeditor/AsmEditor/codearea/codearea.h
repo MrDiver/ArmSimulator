@@ -28,7 +28,7 @@ public Q_SLOTS:
     void blocksChanged(int newCount);
     void updateRequested(const QRect& rect,int dy);
     void addBreakpoint();
-
+    QSet<int> getBreakpoints();
 protected:
     void resizeEvent(QResizeEvent *e) override;    
 private:

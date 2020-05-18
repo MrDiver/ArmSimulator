@@ -184,3 +184,7 @@ void CodeArea::addBreakpoint(){
     }
     breakPointWidget->update();
 }
+
+QSet<int> CodeArea::getBreakpoints(){
+    return this->breakpoints;
+}

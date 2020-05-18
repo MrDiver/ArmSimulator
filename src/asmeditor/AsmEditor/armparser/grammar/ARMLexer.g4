@@ -30,8 +30,9 @@ fragment W : [wW];
 fragment X : [xX];
 fragment Y : [yY];
 fragment Z : [zZ];
-fragment COMMENTM : '/*' .*? '*/'; // .*? matches anything until the first */
-fragment COMMENT : '//' .*? '\n';
+COMMENTM : '/*' .*? '*/' -> skip; // .*? matches anything until the first */
+COMMENT : '//' ~( '\r' | '\n' )* -> skip;
+
 //mode CommandMode;
 
 GLOBAL: '.global';
@@ -112,13 +113,14 @@ LABEL: '.'?[a-zA-Z_] ([0-9] | [a-zA-Z_])* ':'->mode(DEFAULT_MODE);
 LOCALLABEL:[0-9][0-9]? ':'->mode(DEFAULT_MODE);
 
 SPACE: (' '|'\t') ->mode(ParameterMode);
-TOSKIP: (COMMENT | COMMENTM )+->skip;
+//TOSKIP: (COMMENT | COMMENTM )+;
 NL: '\r'? '\n';
 
 
 mode ParameterMode;
 WORD: '.word';
 BYTE: '.byte';
+ASCIZ: '.asciz';
 
 R0: R '0';
 R1: R '1';

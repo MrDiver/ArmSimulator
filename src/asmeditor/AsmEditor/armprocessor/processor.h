@@ -22,7 +22,7 @@ public:
     std::map<std::string,unsigned int> labels;
     std::map<std::string,unsigned int> dataToAddress;
     unsigned int startInstruction = 0;
-    void load(std::vector<Instruction> program,std::map<std::string,unsigned int> labels,std::string startLabel,std::map<std::string,unsigned int> dataToValue);
+    void load(std::vector<Instruction> program,std::map<std::string,unsigned int> labels,std::string startLabel,std::map<std::string,std::vector<unsigned int>> dataToValue,std::map<std::string,std::string> dataToReference);
     int tick();
     void reset();
     unsigned int getCurrentLine();

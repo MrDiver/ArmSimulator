@@ -60,8 +60,17 @@ public:
   virtual void enterDatatype(ARMParser::DatatypeContext * /*ctx*/) override { }
   virtual void exitDatatype(ARMParser::DatatypeContext * /*ctx*/) override { }
 
-  virtual void enterValue(ARMParser::ValueContext * /*ctx*/) override { }
-  virtual void exitValue(ARMParser::ValueContext * /*ctx*/) override { }
+  virtual void enterNumberVal(ARMParser::NumberValContext * /*ctx*/) override { }
+  virtual void exitNumberVal(ARMParser::NumberValContext * /*ctx*/) override { }
+
+  virtual void enterLabelVal(ARMParser::LabelValContext * /*ctx*/) override { }
+  virtual void exitLabelVal(ARMParser::LabelValContext * /*ctx*/) override { }
+
+  virtual void enterStringVal(ARMParser::StringValContext * /*ctx*/) override { }
+  virtual void exitStringVal(ARMParser::StringValContext * /*ctx*/) override { }
+
+  virtual void enterNumber(ARMParser::NumberContext * /*ctx*/) override { }
+  virtual void exitNumber(ARMParser::NumberContext * /*ctx*/) override { }
 
   virtual void enterBranchToLabel(ARMParser::BranchToLabelContext * /*ctx*/) override { }
   virtual void exitBranchToLabel(ARMParser::BranchToLabelContext * /*ctx*/) override { }
