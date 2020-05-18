@@ -37,7 +37,7 @@ void Processor::load(std::vector<Instruction> program,std::map<std::string,unsig
 
     for(unsigned int i = 0; i < program.size(); i++){
         //TODO: find error in conversion
-        std::cout << "Instruction" << program.at(i).bits << std::endl;
+        //std::cout << "Instruction" << program.at(i).bits << std::endl;
         memory[i] = (unsigned int)program.at(i).bits.to_ulong();
     }
     unsigned int i = 0;
@@ -46,19 +46,16 @@ void Processor::load(std::vector<Instruction> program,std::map<std::string,unsig
         std::string label = pair.first;
         label = label.substr(0,label.length()-1);
         std::vector<unsigned int> values = pair.second;
-        std::cout << label << std::endl;
+        //std::cout << label << std::endl;
         for(int j = 0; j < values.size(); j++){
-            std::cout << values.at(j) << ",";
+            //std::cout << values.at(j) << ",";
             memory[addr-(values.size()-1-j)] = values.at(j);
             i++;
         }
         addr = MEMSIZE-i;
-        std::cout << std::endl;
+        //std::cout << std::endl;
         dataToAddress.emplace(std::pair<std::string,unsigned int>(label,addr));
         i++;
-        for(int i = 1000; i <MEMSIZE; i++){
-            std::cout << "mem" << i << ":" << memory[i] << std::endl;
-        }
     }
 
     unsigned int endofprogram = program.size();
