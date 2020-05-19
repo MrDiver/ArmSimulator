@@ -161,10 +161,11 @@ antlrcpp::Any CommandVisitor::visitBranchToLabel(assembler::ARMParser::BranchToL
     Set::Opcode opcode;
     if(ctx->FB())
         opcode = Set::Opcode::B;
-    else if (ctx->BL())
-        opcode = Set::Opcode::BL;
     else
-        std::cerr << "Unsupported branch instruction found" << std::endl;
+        return -1;
+    if (ctx->LINK())
+        opcode = Set::Opcode::BL;
+
 
     if(!ctx->LABELREF())
         return -1;
@@ -227,7 +228,7 @@ antlrcpp::Any CommandVisitor::visitFirstLoadStore(assembler::ARMParser::FirstLoa
 }
 
 antlrcpp::Any CommandVisitor::visitSecondLoadStore(assembler::ARMParser::SecondLoadStoreContext *ctx){
-    std::cout << "secondLoadStore" << std::endl;
+    //std::cout << "secondLoadStore" << std::endl;
     Condition cond = Condition::AL;
     if(ctx->cond())
         cond = CommandVisitor::visit(ctx->cond()).as<Condition>();
@@ -274,7 +275,28 @@ antlrcpp::Any CommandVisitor::visitSecondLoadStore(assembler::ARMParser::SecondL
     return inst;
 }
 antlrcpp::Any CommandVisitor::visitPushPopMakro(assembler::ARMParser::PushPopMakroContext *ctx){
-    return NULL;
+    std::vector<unsigned int> regs;
+    std::cout << "PUSHPOP:" << ctx->reg().size() << std::endl;
+    for(int i = 0; i < (int) ctx->reg().size(); i++){
+        std::cout << i << std::endl;
+        if(ctx->reg().at(i))
+        {
+            unsigned int val = visit(ctx->reg().at(i));
+            std::cout << val << std::endl;
+            regs.push_back(val);
+        }
+    }
+
+    if(ctx->PUSH()){
+        Instruction inst = Set::pushMakro(regs,toSL(ctx),ctx->getText());
+        program.push_back(inst);
+        return inst;
+    }else if(ctx->POP())
+    {
+        Instruction inst = Set::popMakro(regs,toSL(ctx),ctx->getText());
+        program.push_back(inst);
+        return inst;
+    }
 }
 
 antlrcpp::Any CommandVisitor::visitNormalAddressing(assembler::ARMParser::NormalAddressingContext *ctx){

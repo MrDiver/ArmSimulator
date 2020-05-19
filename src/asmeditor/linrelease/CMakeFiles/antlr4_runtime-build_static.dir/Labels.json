@@ -1,0 +1,22 @@
+{
+	"sources" : 
+	[
+		{
+			"file" : "/home/user/MyStuff/PrivateProjects/CPPProjects/ArmSimulator/src/asmeditor/linrelease/CMakeFiles/antlr4_runtime-build_static"
+		},
+		{
+			"file" : "/home/user/MyStuff/PrivateProjects/CPPProjects/ArmSimulator/src/asmeditor/linrelease/CMakeFiles/antlr4_runtime-build_static.rule"
+		},
+		{
+			"file" : "/home/user/MyStuff/PrivateProjects/CPPProjects/ArmSimulator/src/asmeditor/linrelease/antlr4_runtime/src/antlr4_runtime-stamp/antlr4_runtime-build_static.rule"
+		}
+	],
+	"target" : 
+	{
+		"labels" : 
+		[
+			"antlr4_runtime"
+		],
+		"name" : "antlr4_runtime-build_static"
+	}
+}

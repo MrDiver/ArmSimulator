@@ -20,6 +20,8 @@ void Processor::load(std::vector<Instruction> program,std::map<std::string,unsig
     this->program = program;
     this->isDone = false;
     this->startInstruction = -1;
+    this->dataToValue = dataToValue;
+    this->dataToReference = dataToReference;
 //    for(Instruction i: program) {
 //        std::cout << std::to_string(i.sourceLocation.startline)+" "+i.spelling << std::endl;
 //    }
@@ -35,43 +37,7 @@ void Processor::load(std::vector<Instruction> program,std::map<std::string,unsig
         }
     }
 
-    for(unsigned int i = 0; i < program.size(); i++){
-        //TODO: find error in conversion
-        //std::cout << "Instruction" << program.at(i).bits << std::endl;
-        memory[i] = (unsigned int)program.at(i).bits.to_ulong();
-    }
-    unsigned int i = 0;
-    for(std::pair<std::string,std::vector<unsigned int>> pair : dataToValue){
-        unsigned int addr = MEMSIZE-i-1;
-        std::string label = pair.first;
-        label = label.substr(0,label.length()-1);
-        std::vector<unsigned int> values = pair.second;
-        //std::cout << label << std::endl;
-        for(int j = 0; j < values.size(); j++){
-            //std::cout << values.at(j) << ",";
-            memory[addr-(values.size()-1-j)] = values.at(j);
-            i++;
-        }
-        addr = MEMSIZE-i;
-        //std::cout << std::endl;
-        dataToAddress.emplace(std::pair<std::string,unsigned int>(label,addr));
-        i++;
-    }
 
-    unsigned int endofprogram = program.size();
-    i=0;
-    for(std::pair<std::string,std::string> pair: dataToReference){
-        unsigned int addressTo = dataToAddress.at(pair.second)*4;
-        memory[endofprogram+i] = addressTo;
-        std::string label = pair.first;
-        label = label.substr(0,label.size()-1);
-        dataToAddress.emplace(label,(endofprogram+i));
-        i++;
-    }
-
-    for(std::pair<std::string,unsigned int> pair : dataToAddress){
-        std::cout << pair.first << ":"<< pair.second << std::endl;
-    }
 }
 //returns a negative pc if the instruction was not found
 int Processor::tick(){
@@ -122,4 +88,42 @@ void Processor::reset(){
         memory[i]=0;
     }
     isDone = false;
+
+    for(unsigned int i = 0; i < program.size(); i++){
+        //TODO: find error in conversion
+        //std::cout << "Instruction" << program.at(i).bits << std::endl;
+        memory[i] = (unsigned int)program.at(i).bits.to_ulong();
+    }
+    unsigned int i = 0;
+    for(std::pair<std::string,std::vector<unsigned int>> pair : dataToValue){
+        unsigned int addr = MEMSIZE-i-1;
+        std::string label = pair.first;
+        label = label.substr(0,label.length()-1);
+        std::vector<unsigned int> values = pair.second;
+        //std::cout << label << std::endl;
+        for(int j = 0; j < (int)values.size(); j++){
+            //std::cout << values.at(j) << ",";
+            memory[addr-(values.size()-1-j)] = values.at(j);
+            i++;
+        }
+        addr = MEMSIZE-i;
+        //std::cout << std::endl;
+        dataToAddress.emplace(std::pair<std::string,unsigned int>(label,addr));
+        i++;
+    }
+
+    unsigned int endofprogram = program.size();
+    i=0;
+    for(std::pair<std::string,std::string> pair: dataToReference){
+        unsigned int addressTo = dataToAddress.at(pair.second)*4;
+        memory[endofprogram+i] = addressTo;
+        std::string label = pair.first;
+        label = label.substr(0,label.size()-1);
+        dataToAddress.emplace(label,(endofprogram+i));
+        i++;
+    }
+
+    for(std::pair<std::string,unsigned int> pair : dataToAddress){
+        std::cout << pair.first << ":"<< pair.second << std::endl;
+    }
 }

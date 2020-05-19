@@ -1,0 +1,23 @@
+{
+	"BUILD_DIR" : "/home/user/MyStuff/PrivateProjects/CPPProjects/ArmSimulator/src/asmeditor/linrelease/AsmEditor_autogen",
+	"CMAKE_BINARY_DIR" : "/home/user/MyStuff/PrivateProjects/CPPProjects/ArmSimulator/src/asmeditor/linrelease",
+	"CMAKE_CURRENT_BINARY_DIR" : "/home/user/MyStuff/PrivateProjects/CPPProjects/ArmSimulator/src/asmeditor/linrelease",
+	"CMAKE_CURRENT_SOURCE_DIR" : "/home/user/MyStuff/PrivateProjects/CPPProjects/ArmSimulator/src/asmeditor/AsmEditor",
+	"CMAKE_SOURCE_DIR" : "/home/user/MyStuff/PrivateProjects/CPPProjects/ArmSimulator/src/asmeditor/AsmEditor",
+	"INCLUDE_DIR" : "/home/user/MyStuff/PrivateProjects/CPPProjects/ArmSimulator/src/asmeditor/linrelease/AsmEditor_autogen/include",
+	"INPUTS" : 
+	[
+		"/home/user/MyStuff/PrivateProjects/CPPProjects/ArmSimulator/src/asmeditor/AsmEditor/fonts/SourceCodeVariable-Roman.ttf",
+		"/home/user/MyStuff/PrivateProjects/CPPProjects/ArmSimulator/src/asmeditor/AsmEditor/fonts/SourceCodeVariable-Italic.ttf"
+	],
+	"LOCK_FILE" : "/home/user/MyStuff/PrivateProjects/CPPProjects/ArmSimulator/src/asmeditor/linrelease/CMakeFiles/AsmEditor_autogen.dir/AutoRcc_Resources_EWIEGA46WW_Lock.lock",
+	"MULTI_CONFIG" : false,
+	"OPTIONS" : [ "-name", "Resources" ],
+	"OUTPUT_CHECKSUM" : "EWIEGA46WW",
+	"OUTPUT_NAME" : "qrc_Resources.cpp",
+	"RCC_EXECUTABLE" : "/usr/bin/rcc",
+	"RCC_LIST_OPTIONS" : [ "--list" ],
+	"SETTINGS_FILE" : "/home/user/MyStuff/PrivateProjects/CPPProjects/ArmSimulator/src/asmeditor/linrelease/CMakeFiles/AsmEditor_autogen.dir/AutoRcc_Resources_EWIEGA46WW_Used.txt",
+	"SOURCE" : "/home/user/MyStuff/PrivateProjects/CPPProjects/ArmSimulator/src/asmeditor/AsmEditor/Resources.qrc",
+	"VERBOSITY" : 0
+}

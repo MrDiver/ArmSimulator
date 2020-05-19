@@ -17,7 +17,7 @@ public:
     EOR = 7, SUB = 8, RSB = 9, ADD = 10, ADC = 11, SBC = 12, RSC = 13, TST = 14, 
     TEQ = 15, CMP = 16, CMN = 17, ORR = 18, MOV = 19, BIC = 20, MVN = 21, 
     MUL = 22, MLA = 23, SMULL = 24, UMULL = 25, SMLAL = 26, UMLAL = 27, 
-    LDR = 28, STR = 29, PUSH = 30, POP = 31, FB = 32, BL = 33, BLX = 34, 
+    LDR = 28, STR = 29, PUSH = 30, POP = 31, FB = 32, LINK = 33, BLX = 34, 
     BX = 35, BXJ = 36, NOP = 37, EQ = 38, NE = 39, CS = 40, CC = 41, MI = 42, 
     PL = 43, VS = 44, VC = 45, HI = 46, LS = 47, GE = 48, LT = 49, GT = 50, 
     LE = 51, AL = 52, UPDATEFLAG = 53, PRIVILEGE = 54, DOUBLEWORD = 55, 
@@ -438,7 +438,7 @@ public:
     antlr4::tree::TerminalNode *SPACE();
     antlr4::tree::TerminalNode *LABELREF();
     antlr4::tree::TerminalNode *FB();
-    antlr4::tree::TerminalNode *BL();
+    antlr4::tree::TerminalNode *LINK();
     CondContext *cond();
     virtual void enterRule(antlr4::tree::ParseTreeListener *listener) override;
     virtual void exitRule(antlr4::tree::ParseTreeListener *listener) override;

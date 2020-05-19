@@ -29,6 +29,7 @@ private:
     void updateRegs();
     void updateMemory();
     void updateError();
+    void cursorVisibility(int line);
     bool errorOccured = false;
     bool hitBreakpoint;
 public Q_SLOTS:

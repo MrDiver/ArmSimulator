@@ -171,9 +171,15 @@ namespace Set {
                               std::string spelling)
     {
         Routine f = [op,label,sl](Processor *p){
+            if(p->labels.find(label)==p->labels.end())
+            {
+                 p->errors.emplace_back("The label "+label+" was not found in your code!", sl);
+                 return;
+            }
             unsigned int dest = p->labels.at(label);
             switch(op){
-            case B: p->regs[15] = dest;
+            case B:
+                    p->regs[15] = dest;
                     break;
             case BL:
                     p->regs[14] = p->regs[15];
@@ -242,6 +248,47 @@ namespace Set {
             }
         };
         Instruction instruction(cond, f,sl,std::move(spelling));
+        return instruction;
+    }
+
+    Instruction pushMakro(std::vector<unsigned int> regs, SourceLocation sl,std::string spelling){
+        Routine f = [regs,sl](Processor *p){
+            unsigned int sp = p->regs[13]/4;
+            for(int i = 0; i < (int)regs.size();i++)
+            {
+                unsigned int rd = regs.at(regs.size()-i-1);
+                unsigned int addr = --sp;
+                if(addr < 0 || addr >= MEMSIZE/2)
+                {
+                    p->errors.emplace_back("Stack adress out of range",sl);
+                    return -1;
+                }
+                p->memory[addr]=p->regs[rd];
+            }
+            p->regs[13] = sp*4;
+        };
+        Instruction instruction(AL, f,sl,std::move(spelling));
+        return instruction;
+    }
+
+    Instruction popMakro(std::vector<unsigned int> regs, SourceLocation sl,std::string spelling){
+        Routine f = [regs,sl](Processor *p){
+            unsigned int sp = p->regs[13]/4;
+            for(int i = 0; i < (int)regs.size();i++)
+            {
+                unsigned int addr = sp++;
+                if(addr < 0 || addr >= MEMSIZE/2)
+                {
+                    p->errors.emplace_back("Stack adress out of range",sl);
+                    return -1;
+                }
+                unsigned int val = p->memory[addr];
+                unsigned int rd = regs.at(i);
+                p->regs[rd] = val;
+            }
+            p->regs[13] = sp*4;
+        };
+        Instruction instruction(AL, f,sl,std::move(spelling));
         return instruction;
     }
 

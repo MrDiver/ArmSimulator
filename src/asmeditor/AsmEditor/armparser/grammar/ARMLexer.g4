@@ -76,7 +76,8 @@ POP: 'pop'-> mode(ParameterMode);
 
 //Branch operations
 FB              : B;
-BL              : B L;
+LINK            : L;
+//BL              : B L;
 BLX             : B L X;
 BX              : B X;
 BXJ             : B X J;

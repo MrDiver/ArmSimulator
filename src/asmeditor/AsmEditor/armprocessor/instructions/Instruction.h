@@ -12,7 +12,7 @@
 #include "SourceLocation.h"
 #include "Condition.h"
 #include "armprocessor/architecture/Aluops.h"
-
+#include <vector>
 class Processor;
 
 #define ShiftOperand std::function<unsigned int (Processor*)>
@@ -60,6 +60,8 @@ namespace Set{
     Instruction branchToRegister(Opcode op, Condition cond,unsigned int rd, SourceLocation sl,std::string spelling);
     Instruction labelLoadStore(Opcode op,Condition cond,unsigned int rd,std::string label, SourceLocation sl,std::string spelling);
     Instruction loadStore(Opcode op,Condition cond,TypeCondition typeCond,bool privilege,unsigned int rd,AddressingOperand addop, SourceLocation sl,std::string spelling);
+    Instruction pushMakro(std::vector<unsigned int> regs, SourceLocation sl,std::string spelling);
+    Instruction popMakro(std::vector<unsigned int> regs, SourceLocation sl,std::string spelling);
     Instruction normalMultiply(Condition cond,bool updateFlags,unsigned int rd,unsigned int rn,unsigned int rm, SourceLocation sl,std::string spelling);
     namespace shifter{
         ShiftOperand immediate(unsigned int imm);

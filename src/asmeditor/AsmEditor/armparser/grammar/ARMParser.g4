@@ -35,7 +35,7 @@ number: (HEX|NUMBER);
 
    ==================================*/
 
-branch_instruction: opcode=(FB|BL)  cond? SPACE LABELREF #branchToLabel
+branch_instruction: opcode= FB LINK? cond? SPACE LABELREF #branchToLabel
                 | opcode=BX cond? SPACE reg              #branchToRegister
                 ;
 

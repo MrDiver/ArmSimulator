@@ -19,5 +19,5 @@ SourceLocation::SourceLocation(int startline,int startcol,int endline,int endcol
 }
 
 std::string SourceLocation::toString(){
-    return "Line"+std::to_string(startline) +" Column" + std::to_string(startcol) + ":"+ std::to_string(endcol);
+    return "Line "+std::to_string(startline) +" Column " + std::to_string(startcol) + ":"+ std::to_string(endcol);
 }
