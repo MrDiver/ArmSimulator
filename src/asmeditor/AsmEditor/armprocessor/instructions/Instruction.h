@@ -49,6 +49,7 @@ namespace Set{
         MOV,MVN,
         CMP,CMN,TST,TEQ,
         ADD,SUB,RSB,ADC,SBC,RSC,AND,BIC,EOR,ORR,
+        ASR,LSL,LSR,ROR,RRX,
         B,BL,BX,
         LDR,STR,
         MUL
@@ -56,6 +57,8 @@ namespace Set{
     Instruction moveOp(Opcode op,Condition cond,bool updateFlags,unsigned int rd,const ShiftOperand& rm,SourceLocation sl,std::string spelling ="");
     Instruction compareOp(Opcode op,Condition cond,unsigned int rn,const ShiftOperand& rm,SourceLocation sl,std::string spelling ="");
     Instruction arithmeticOp(Opcode op, Condition cond, bool updateFlags, unsigned int rd,unsigned int rn, const ShiftOperand &rm, SourceLocation sl,std::string spelling);
+    Instruction shiftByRegister(Opcode op, Condition cond , bool updateFlags, unsigned int rd,unsigned int rn, unsigned int rm, SourceLocation sl,std::string spelling);
+    Instruction shiftByImmediate(Opcode op, Condition cond , bool updateFlags, unsigned int rd,unsigned int rn, unsigned int imm, SourceLocation sl,std::string spelling);
     Instruction branchToLabel(Opcode op, Condition cond,std::string label, SourceLocation sl,std::string spelling);
     Instruction branchToRegister(Opcode op, Condition cond,unsigned int rd, SourceLocation sl,std::string spelling);
     Instruction labelLoadStore(Opcode op,Condition cond,unsigned int rd,std::string label, SourceLocation sl,std::string spelling);

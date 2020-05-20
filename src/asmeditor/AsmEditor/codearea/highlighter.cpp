@@ -11,7 +11,7 @@ Highlighter::Highlighter(QTextDocument* parent)
 
     keywordFormat.setForeground(Qt::darkBlue);
     keywordFormat.setFontWeight(QFont::Bold);
-    const QString keywords[] ={"adc","add","and","b","bic","bkpt","bl","blx","bx","cdp","cdp2","clz","cmn","cmn","cmp","eor","ldc","ldc2","ldm","ldr","mcr","mcr2","mcrr","mla","mov","mrc","mrc2","mrrc","mrs","msr","mul","mvn","orr","qadd","qdadd","qdsub","qsub","rsb","rsc","sbc","stm","str","sub","swi","swp","teq","tst"};
+    const QString keywords[] ={"adc","add","and","asr","b","bic","bkpt","bl","blx","bx","cdp","cdp2","clz","cmn","cmn","cmp","eor","ldc","ldc2","ldm","ldr","lsl","lsr","mcr","mcr2","mcrr","mla","mov","mrc","mrc2","mrrc","mrs","msr","mul","mvn","orr","qadd","qdadd","qdsub","qsub","ror","rsb","rsc","rrx","sbc","stm","str","sub","swi","swp","teq","tst"};
     const QString conditions[] = {"eq","ne","cs","cc","mi","pl","vs","vc","hi","ls","ge","lt","gt","le","al"};
     QVector<QString> commands;
 

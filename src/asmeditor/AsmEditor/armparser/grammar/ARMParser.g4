@@ -46,7 +46,9 @@ branch_instruction: opcode= FB LINK? cond? SPACE LABELREF #branchToLabel
    ==================================*/
 data_processing_instruction : opcode=(MOV|MVN) cond? UPDATEFLAG? SPACE reg COMMA shifter_operand # moveOp
                             | opcode=(CMP|CMN|TST|TEQ) cond? SPACE reg COMMA shifter_operand # compareOp
-                            | opcode=(ADD|SUB|RSB|ADC|SBC|RSC|AND|BIC|EOR|ORR) cond? UPDATEFLAG? SPACE reg COMMA reg COMMA shifter_operand # arithmeticOp;
+                            | opcode=(ADD|SUB|RSB|ADC|SBC|RSC|AND|BIC|EOR|ORR) UPDATEFLAG? cond?  SPACE reg COMMA reg COMMA shifter_operand # arithmeticOp
+                            | opcode=(ASR|LSL|LSR|ROR) UPDATEFLAG? cond?  SPACE reg COMMA reg (COMMA (reg|immediate))? #shiftOp
+                            ;
                             // TODO ADD SHIFT OPERATIONS
 
 shifter_operand : immediate                 # op2immediate
@@ -56,7 +58,7 @@ shifter_operand : immediate                 # op2immediate
 
 shift_operation : shiftopcode immediate       # shiftByImmediate
                 | shiftopcode reg           # shiftByRegister
-                | RRXI                       # rotateWithExtend
+                | RRX                       # rotateWithExtend
                 ;
 
 shiftopcode: LSLI | LSRI | ASRI | RORI;
@@ -68,8 +70,8 @@ shiftopcode: LSLI | LSRI | ASRI | RORI;
         TODO: MORE INSTRUCTIONS FOR MULTIPLICATION
    ==================================*/
 
-multiply_instruction : opcode=MUL cond ? UPDATEFLAG? SPACE rd=reg COMMA rn=reg COMMA rm=reg #normalMul
-                     | opcode=(MLA|SMULL|UMULL|SMLAL|UMLAL) cond ? UPDATEFLAG? SPACE reg COMMA reg COMMA reg COMMA reg #longMul;
+multiply_instruction : opcode=MUL UPDATEFLAG? cond ?  SPACE rd=reg COMMA rn=reg COMMA rm=reg #normalMul
+                     | opcode=(MLA|SMULL|UMULL|SMLAL|UMLAL) UPDATEFLAG? cond?  SPACE reg COMMA reg COMMA reg COMMA reg #longMul;
 
 /* ==================================
 

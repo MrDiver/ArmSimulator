@@ -45,14 +45,14 @@ int Processor::tick(){
     //std::cout << "isDone "<< isDone << std::endl;
     //std::cout << "regs[15] " << regs[15] << std::endl;
     //std::cout << "program size " << program.size() << std::endl;
-
+    unsigned int pc=regs[15];
     if(isDone)
         return regs[15];
-    if(regs[15]>=0 && regs[15]<program.size()){
+    if(pc>=0 && pc<program.size()){
         //fetch and decode
         Instruction inst = program.at(regs[15]);
         //std::cout << "fetching" << std::endl;
-        regs[15]= regs[15]+1;
+        regs[15]= pc+1;
         //std::cout << "incr pc" << std::endl;
         inst.execute(this);
         //std::cout << "executed" << std::endl;

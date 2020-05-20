@@ -32,6 +32,8 @@ fragment Y : [yY];
 fragment Z : [zZ];
 COMMENTM : '/*' .*? '*/' -> skip; // .*? matches anything until the first */
 COMMENT : '//' ~( '\r' | '\n' )* -> skip;
+TABNEWLINE: ('\t'|' ')+ '\r'? '\n' -> skip;
+//TAB:  '\t' ->skip;
 
 //mode CommandMode;
 
@@ -57,6 +59,11 @@ ORR: O R R;
 MOV: M O V;
 BIC: B I C;
 MVN: M V N;
+LSL: L S L;
+LSR: L S R;
+ASR: A S R;
+ROR: R O R;
+RRX: R R X;
 
 //Multiplication Instructions
 //normal

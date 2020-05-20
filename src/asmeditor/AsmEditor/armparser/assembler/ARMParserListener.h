@@ -85,6 +85,9 @@ public:
   virtual void enterArithmeticOp(ARMParser::ArithmeticOpContext *ctx) = 0;
   virtual void exitArithmeticOp(ARMParser::ArithmeticOpContext *ctx) = 0;
 
+  virtual void enterShiftOp(ARMParser::ShiftOpContext *ctx) = 0;
+  virtual void exitShiftOp(ARMParser::ShiftOpContext *ctx) = 0;
+
   virtual void enterOp2immediate(ARMParser::Op2immediateContext *ctx) = 0;
   virtual void exitOp2immediate(ARMParser::Op2immediateContext *ctx) = 0;
 

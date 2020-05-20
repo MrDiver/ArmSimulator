@@ -109,6 +109,10 @@ public:
     return visitChildren(ctx);
   }
 
+  virtual antlrcpp::Any visitShiftOp(ARMParser::ShiftOpContext *ctx) override {
+    return visitChildren(ctx);
+  }
+
   virtual antlrcpp::Any visitOp2immediate(ARMParser::Op2immediateContext *ctx) override {
     return visitChildren(ctx);
   }

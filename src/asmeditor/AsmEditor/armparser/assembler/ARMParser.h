@@ -13,21 +13,22 @@ namespace assembler {
 class  ARMParser : public antlr4::Parser {
 public:
   enum {
-    COMMENTM = 1, COMMENT = 2, GLOBAL = 3, DATA = 4, TEXT = 5, AND = 6, 
-    EOR = 7, SUB = 8, RSB = 9, ADD = 10, ADC = 11, SBC = 12, RSC = 13, TST = 14, 
-    TEQ = 15, CMP = 16, CMN = 17, ORR = 18, MOV = 19, BIC = 20, MVN = 21, 
-    MUL = 22, MLA = 23, SMULL = 24, UMULL = 25, SMLAL = 26, UMLAL = 27, 
-    LDR = 28, STR = 29, PUSH = 30, POP = 31, FB = 32, LINK = 33, BLX = 34, 
-    BX = 35, BXJ = 36, NOP = 37, EQ = 38, NE = 39, CS = 40, CC = 41, MI = 42, 
-    PL = 43, VS = 44, VC = 45, HI = 46, LS = 47, GE = 48, LT = 49, GT = 50, 
-    LE = 51, AL = 52, UPDATEFLAG = 53, PRIVILEGE = 54, DOUBLEWORD = 55, 
-    HALFWORD = 56, SIGNEDHALFWORD = 57, SIGNEDBYTE = 58, LABEL = 59, LOCALLABEL = 60, 
-    SPACE = 61, NL = 62, WORD = 63, BYTE = 64, ASCIZ = 65, R0 = 66, R1 = 67, 
-    R2 = 68, R3 = 69, R4 = 70, R5 = 71, R6 = 72, R7 = 73, R8 = 74, R9 = 75, 
-    R10 = 76, R11 = 77, R12 = 78, R13 = 79, R14 = 80, R15 = 81, LSLI = 82, 
-    LSRI = 83, ASRI = 84, RORI = 85, RRXI = 86, HASH = 87, HEX = 88, NUMBER = 89, 
-    WSPARAM = 90, NEWLINE = 91, COMMA = 92, LBRACKET = 93, RBRACKET = 94, 
-    LBRACE = 95, RBRACE = 96, SPECIALRBRACKET = 97, LABELREF = 98, STRING = 99
+    COMMENTM = 1, COMMENT = 2, TABNEWLINE = 3, GLOBAL = 4, DATA = 5, TEXT = 6, 
+    AND = 7, EOR = 8, SUB = 9, RSB = 10, ADD = 11, ADC = 12, SBC = 13, RSC = 14, 
+    TST = 15, TEQ = 16, CMP = 17, CMN = 18, ORR = 19, MOV = 20, BIC = 21, 
+    MVN = 22, LSL = 23, LSR = 24, ASR = 25, ROR = 26, RRX = 27, MUL = 28, 
+    MLA = 29, SMULL = 30, UMULL = 31, SMLAL = 32, UMLAL = 33, LDR = 34, 
+    STR = 35, PUSH = 36, POP = 37, FB = 38, LINK = 39, BLX = 40, BX = 41, 
+    BXJ = 42, NOP = 43, EQ = 44, NE = 45, CS = 46, CC = 47, MI = 48, PL = 49, 
+    VS = 50, VC = 51, HI = 52, LS = 53, GE = 54, LT = 55, GT = 56, LE = 57, 
+    AL = 58, UPDATEFLAG = 59, PRIVILEGE = 60, DOUBLEWORD = 61, HALFWORD = 62, 
+    SIGNEDHALFWORD = 63, SIGNEDBYTE = 64, LABEL = 65, LOCALLABEL = 66, SPACE = 67, 
+    NL = 68, WORD = 69, BYTE = 70, ASCIZ = 71, R0 = 72, R1 = 73, R2 = 74, 
+    R3 = 75, R4 = 76, R5 = 77, R6 = 78, R7 = 79, R8 = 80, R9 = 81, R10 = 82, 
+    R11 = 83, R12 = 84, R13 = 85, R14 = 86, R15 = 87, LSLI = 88, LSRI = 89, 
+    ASRI = 90, RORI = 91, RRXI = 92, HASH = 93, HEX = 94, NUMBER = 95, WSPARAM = 96, 
+    NEWLINE = 97, COMMA = 98, LBRACKET = 99, RBRACKET = 100, LBRACE = 101, 
+    RBRACE = 102, SPECIALRBRACKET = 103, LABELREF = 104, STRING = 105
   };
 
   enum {
@@ -501,8 +502,8 @@ public:
     antlr4::tree::TerminalNode *BIC();
     antlr4::tree::TerminalNode *EOR();
     antlr4::tree::TerminalNode *ORR();
-    CondContext *cond();
     antlr4::tree::TerminalNode *UPDATEFLAG();
+    CondContext *cond();
     virtual void enterRule(antlr4::tree::ParseTreeListener *listener) override;
     virtual void exitRule(antlr4::tree::ParseTreeListener *listener) override;
 
@@ -523,6 +524,29 @@ public:
     antlr4::tree::TerminalNode *TST();
     antlr4::tree::TerminalNode *TEQ();
     CondContext *cond();
+    virtual void enterRule(antlr4::tree::ParseTreeListener *listener) override;
+    virtual void exitRule(antlr4::tree::ParseTreeListener *listener) override;
+
+    virtual antlrcpp::Any accept(antlr4::tree::ParseTreeVisitor *visitor) override;
+  };
+
+  class  ShiftOpContext : public Data_processing_instructionContext {
+  public:
+    ShiftOpContext(Data_processing_instructionContext *ctx);
+
+    antlr4::Token *opcode = nullptr;
+    antlr4::tree::TerminalNode *SPACE();
+    std::vector<RegContext *> reg();
+    RegContext* reg(size_t i);
+    std::vector<antlr4::tree::TerminalNode *> COMMA();
+    antlr4::tree::TerminalNode* COMMA(size_t i);
+    antlr4::tree::TerminalNode *ASR();
+    antlr4::tree::TerminalNode *LSL();
+    antlr4::tree::TerminalNode *LSR();
+    antlr4::tree::TerminalNode *ROR();
+    antlr4::tree::TerminalNode *UPDATEFLAG();
+    CondContext *cond();
+    ImmediateContext *immediate();
     virtual void enterRule(antlr4::tree::ParseTreeListener *listener) override;
     virtual void exitRule(antlr4::tree::ParseTreeListener *listener) override;
 
@@ -622,7 +646,7 @@ public:
   public:
     RotateWithExtendContext(Shift_operationContext *ctx);
 
-    antlr4::tree::TerminalNode *RRXI();
+    antlr4::tree::TerminalNode *RRX();
     virtual void enterRule(antlr4::tree::ParseTreeListener *listener) override;
     virtual void exitRule(antlr4::tree::ParseTreeListener *listener) override;
 
@@ -677,8 +701,8 @@ public:
     antlr4::tree::TerminalNode *UMULL();
     antlr4::tree::TerminalNode *SMLAL();
     antlr4::tree::TerminalNode *UMLAL();
-    CondContext *cond();
     antlr4::tree::TerminalNode *UPDATEFLAG();
+    CondContext *cond();
     virtual void enterRule(antlr4::tree::ParseTreeListener *listener) override;
     virtual void exitRule(antlr4::tree::ParseTreeListener *listener) override;
 
@@ -699,8 +723,8 @@ public:
     antlr4::tree::TerminalNode *MUL();
     std::vector<RegContext *> reg();
     RegContext* reg(size_t i);
-    CondContext *cond();
     antlr4::tree::TerminalNode *UPDATEFLAG();
+    CondContext *cond();
     virtual void enterRule(antlr4::tree::ParseTreeListener *listener) override;
     virtual void exitRule(antlr4::tree::ParseTreeListener *listener) override;
 

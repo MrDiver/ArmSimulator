@@ -87,6 +87,9 @@ public:
   virtual void enterArithmeticOp(ARMParser::ArithmeticOpContext * /*ctx*/) override { }
   virtual void exitArithmeticOp(ARMParser::ArithmeticOpContext * /*ctx*/) override { }
 
+  virtual void enterShiftOp(ARMParser::ShiftOpContext * /*ctx*/) override { }
+  virtual void exitShiftOp(ARMParser::ShiftOpContext * /*ctx*/) override { }
+
   virtual void enterOp2immediate(ARMParser::Op2immediateContext * /*ctx*/) override { }
   virtual void exitOp2immediate(ARMParser::Op2immediateContext * /*ctx*/) override { }
 

@@ -49,6 +49,9 @@ std::string trim(const std::string& line)
         return line;
     const char* WhiteSpace = " \t\v";
     std::size_t start = line.find_first_not_of(WhiteSpace);
+    //std::cout << start << " : " << line.size() << " : " << line << std::endl;
+    if(start >= line.size())
+        return "";
     return start == line.size() ? std::string() : line.substr(start, line.size() - start + 1);
 }
 
@@ -124,6 +127,7 @@ void ProcessorManager::runProgram(){
     errorOccured = false;
     unsigned int i = 0;
     unsigned int startingLine = p->getCurrentLine()-1;
+    running = true;
     while((!p->isDone)&&(!errorOccured)){
         if(ca->getBreakpoints().contains(p->getCurrentLine()-1)&&p->getCurrentLine()-1!=startingLine)
         {
@@ -135,6 +139,14 @@ void ProcessorManager::runProgram(){
         if(i>1000)
             break;
     }
+    running = false;
+
+    updateRegs();
+    updateMemory();
+    updateError();
+    //ca->highlighter->currentLine = p->program.at(p->regs[15]).sourceLocation.startline;
+    //ca->highlighter->rehighlight();
+
     if(i>1000)
         cw->print("Program didnt finish yet. Maybe you have an infinite loop");
     //cw->clear();
@@ -147,25 +159,30 @@ void ProcessorManager::stepProgram(){
     errorOccured = false;
     unsigned int oldval = p->regs[15];
     p->tick();
-    if(oldval == p->regs[15]){
+    unsigned int newval = p->regs[15];
+    if(oldval == newval){
         errorOccured = true;
     }
     //updating the register table on the interface
-    updateRegs();
-    updateMemory();
-    updateError();
+    if(!running){
+        updateRegs();
+        updateMemory();
+        updateError();
+    }
+
     if(errorOccured)
         return;
     //stopping if program has finished
     if(p->isDone)
     {
+        ca->highlighter->currentLine = p->program.at(oldval).sourceLocation.startline;
         cw->clear();
         cw->print("Return Value: "+ std::to_string(p->regs[0]));
         ca->highlighter->rehighlight();
         return;
     }
 
-    if(p->regs[15]<0|| p->regs[15]>=p->program.size())
+    if(newval<0|| newval>=p->program.size())
     {
         errorOccured = true;
         cw->clear();
@@ -173,9 +190,12 @@ void ProcessorManager::stepProgram(){
         return;
     }
 
-    ca->highlighter->currentLine = p->program.at(p->regs[15]).sourceLocation.startline;
-    cursorVisibility(ca->highlighter->currentLine);
-    ca->highlighter->rehighlight();
+    if(!running)
+    {
+        ca->highlighter->currentLine = p->program.at(newval).sourceLocation.startline;
+        //cursorVisibility(ca->highlighter->currentLine);
+        ca->highlighter->rehighlight();
+    }
 }
 void ProcessorManager::resetProgram(){
     errorOccured = false;
@@ -188,7 +208,7 @@ void ProcessorManager::resetProgram(){
         return;
     }
     ca->highlighter->currentLine = p->program.at(p->startInstruction).sourceLocation.startline;
-    cursorVisibility(ca->highlighter->currentLine);
+    //cursorVisibility(ca->highlighter->currentLine);
     ca->highlighter->rehighlight();
     cw->clear();
     //TODO: Something is wrong here
@@ -205,12 +225,23 @@ void ProcessorManager::updateError(){
 }
 
 void ProcessorManager::updateMemory(){
+    unsigned int sp = p->regs[13];
     for(int i = 0; i < MEMSIZE; i++){
         unsigned int r = p->memory[i];
         std::string rhex = int_to_hex(r);
-        memoryTable->setItem(i,0,new QTableWidgetItem(QString::fromStdString(std::to_string(r))));
-        memoryTable->setItem(i,1,new QTableWidgetItem(QString::fromStdString(rhex)));
-        memoryTable->setItem(i,2,new QTableWidgetItem(QString::fromStdString(std::bitset<32>(r).to_string())));
+        QTableWidgetItem* tmp1 = new QTableWidgetItem(QString::fromStdString(std::to_string(r)));
+        QTableWidgetItem* tmp2 = new QTableWidgetItem(QString::fromStdString(rhex));
+        QTableWidgetItem* tmp3 = new QTableWidgetItem(QString::fromStdString(std::bitset<32>(r).to_string()));
+
+        if(i==sp/4){
+            tmp1->setTextColor(QColor(255,20,20));
+            tmp2->setTextColor(QColor(255,20,20));
+            tmp3->setTextColor(QColor(255,20,20));
+        }
+
+        memoryTable->setItem(i,0,tmp1);
+        memoryTable->setItem(i,1,tmp2);
+        memoryTable->setItem(i,2,tmp3);
     }
 }
 

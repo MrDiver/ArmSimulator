@@ -23,6 +23,7 @@ public:
     antlrcpp::Any visitMoveOp(assembler::ARMParser::MoveOpContext *ctx) override;
     antlrcpp::Any visitCompareOp(assembler::ARMParser::CompareOpContext *ctx) override;
     antlrcpp::Any visitArithmeticOp(assembler::ARMParser::ArithmeticOpContext *ctx) override;
+    antlrcpp::Any visitShiftOp(assembler::ARMParser::ShiftOpContext *ctx) override;
 
     //branch_instruction
     antlrcpp::Any visitBranchToLabel(assembler::ARMParser::BranchToLabelContext *ctx) override;
