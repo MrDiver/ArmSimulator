@@ -5,3 +5,4 @@ src/asmeditor/build-AsmEditor-Desktop-Debug
 src/asmeditor/RelWithDebInfo/
 src/asmeditor/winrelease/
 src/asmeditor/build
+src/asmeditor/linrelease/

@@ -1,6 +1,0 @@
-# Target labels
- antlr4_runtime
-# Source files and their labels
-/home/user/MyStuff/PrivateProjects/CPPProjects/ArmSimulator/src/asmeditor/linrelease/CMakeFiles/antlr4_runtime-build_static
-/home/user/MyStuff/PrivateProjects/CPPProjects/ArmSimulator/src/asmeditor/linrelease/CMakeFiles/antlr4_runtime-build_static.rule
-/home/user/MyStuff/PrivateProjects/CPPProjects/ArmSimulator/src/asmeditor/linrelease/antlr4_runtime/src/antlr4_runtime-stamp/antlr4_runtime-build_static.rule
