@@ -25,6 +25,7 @@ The final product will represent a Simulator for basic ARM processor behavior. T
 - Conditional execution
 - Register Preview
 - Memory Preview
+- Stack Pointer is highlighted in Memory Preview
 - Endless loop prevention by only allowing a certain amount of instructions per run
 - Console output window displays return value at last instruction
 
