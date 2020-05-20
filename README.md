@@ -21,7 +21,7 @@ The final product will represent a Simulator for basic ARM processor behavior. T
 - Almost complete arm instruction set recognition for the ArmParser
 - Working breakpoints finally they arrived for everyone !!!
 - Implemented commands
-  - MOV, MVN, CMP, CMN, TST, TEQ, ADD, SUB, RSB, ADC, SBC, RSC, AND, BIC, EOR, ORR, B, BL, BX, LDR, STR, PUSH, POP, MUL
+  - MOV, MVN, CMP, CMN, TST, TEQ, ADD, SUB, RSB, ADC, SBC, RSC, AND, BIC, EOR, ORR, ASR, LSL, LSR, ROR, B, BL, BX, LDR, STR, PUSH, POP, MUL
 - Conditional execution
 - Register Preview
 - Memory Preview
