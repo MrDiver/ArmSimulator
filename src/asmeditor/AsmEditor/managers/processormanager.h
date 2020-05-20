@@ -31,6 +31,7 @@ private:
     void updateError();
     void cursorVisibility(int line);
     bool errorOccured = false;
+    bool running = false;
     bool hitBreakpoint;
 public Q_SLOTS:
     void lint();
