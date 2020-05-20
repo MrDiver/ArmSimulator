@@ -148,6 +148,50 @@ antlrcpp::Any CommandVisitor::visitArithmeticOp(assembler::ARMParser::Arithmetic
     return inst;
 }
 
+antlrcpp::Any CommandVisitor::visitShiftOp(assembler::ARMParser::ShiftOpContext *ctx){
+    Condition cond = Condition::AL;
+    if(ctx->cond())
+        cond = CommandVisitor::visit(ctx->cond()).as<Condition>();
+
+    bool updateFlag = ctx->UPDATEFLAG()!=nullptr;
+
+    Set::Opcode opcode;
+    if(ctx->ASR())
+        opcode = Set::Opcode::ASR;
+    else if (ctx->LSL())
+        opcode = Set::Opcode::LSL;
+    else if (ctx->LSR())
+        opcode = Set::Opcode::LSR;
+    else if (ctx->ROR())
+        opcode = Set::Opcode::ROR;
+
+    if(!ctx->reg().at(0))
+        return -1;
+    if(!ctx->reg().at(1))
+        return -1;
+
+    unsigned int rd = CommandVisitor::visitReg(ctx->reg().at(0));
+    if(rd == 16)
+        return -1;
+    unsigned int rn = CommandVisitor::visitReg(ctx->reg().at(1));
+    if(rd == 16)
+        return -1;
+
+    if(ctx->immediate())
+    {
+        unsigned int imm = visit(ctx->immediate());
+        Instruction inst = Set::shiftByImmediate(opcode,cond,updateFlag,rd,rn,imm,toSL(ctx),ctx->getText());
+        program.push_back(inst);
+        return inst;
+    }else if(ctx->reg().at(2)){
+        unsigned int rm = CommandVisitor::visitReg(ctx->reg().at(2));
+        Instruction inst = Set::shiftByRegister(opcode,cond,updateFlag,rd,rn,rm,toSL(ctx),ctx->getText());
+        program.push_back(inst);
+        return inst;
+    }
+    return -1;
+}
+
 
 /*==================
  *
@@ -297,6 +341,7 @@ antlrcpp::Any CommandVisitor::visitPushPopMakro(assembler::ARMParser::PushPopMak
         program.push_back(inst);
         return inst;
     }
+    return -1;
 }
 
 antlrcpp::Any CommandVisitor::visitNormalAddressing(assembler::ARMParser::NormalAddressingContext *ctx){

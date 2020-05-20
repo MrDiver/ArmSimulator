@@ -49,6 +49,9 @@ std::string trim(const std::string& line)
         return line;
     const char* WhiteSpace = " \t\v";
     std::size_t start = line.find_first_not_of(WhiteSpace);
+    //std::cout << start << " : " << line.size() << " : " << line << std::endl;
+    if(start >= line.size())
+        return "";
     return start == line.size() ? std::string() : line.substr(start, line.size() - start + 1);
 }
 

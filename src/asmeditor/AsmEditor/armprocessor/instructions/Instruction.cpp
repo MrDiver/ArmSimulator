@@ -155,6 +155,64 @@ namespace Set {
         return instruction;
     };
 
+    Instruction shiftByRegister(Opcode op, Condition cond , bool updateFlags, unsigned int rd,unsigned int rn, unsigned int rm, SourceLocation sl,
+                             std::string spelling) {
+        Routine f = [op,updateFlags,rd,rn,rm, sl](Processor *p) {
+            p->alu->updateFlags = updateFlags;
+            unsigned int res = 0;
+            switch (op) {
+            case ASR:
+                res = p->alu->calcU(Aluops::ASR,p->regs[rn],p->regs[rm]);
+                break;
+            case LSL:
+                res = p->alu->calcU(Aluops::LSL,p->regs[rn],p->regs[rm]);
+                break;
+            case LSR:
+                res = p->alu->calcU(Aluops::LSR,p->regs[rn],p->regs[rm]);
+                break;
+            case ROR:
+                res = p->alu->calcU(Aluops::ROR,p->regs[rn],p->regs[rm]);
+                break;
+            default:
+                p->errors.emplace_back("Error at shiftByRegister in Instruction.h unsupported instruction", sl);
+                return;
+            }
+
+            p->regs[rd] = res;
+        };
+        Instruction instruction(cond, f, sl, std::move(spelling));
+        return instruction;
+    };
+
+    Instruction shiftByImmediate(Opcode op, Condition cond , bool updateFlags, unsigned int rd,unsigned int rn, unsigned int imm, SourceLocation sl,
+                                std::string spelling) {
+        Routine f = [op,updateFlags,rd,rn,imm, sl](Processor *p) {
+            p->alu->updateFlags = updateFlags;
+            unsigned int res = 0;
+            switch (op) {
+            case ASR:
+                res = p->alu->calcU(Aluops::ASR,p->regs[rn],imm);
+                break;
+            case LSL:
+                res = p->alu->calcU(Aluops::LSL,p->regs[rn],imm);
+                break;
+            case LSR:
+                res = p->alu->calcU(Aluops::LSR,p->regs[rn],imm);
+                break;
+            case ROR:
+                res = p->alu->calcU(Aluops::ROR,p->regs[rn],imm);
+                break;
+            default:
+                p->errors.emplace_back("Error at shiftByImmediate in Instruction.h unsupported instruction", sl);
+                return;
+            }
+
+            p->regs[rd] = res;
+        };
+        Instruction instruction(cond, f, sl, std::move(spelling));
+        return instruction;
+    };
+
     Instruction normalMultiply(Condition cond,bool updateFlags,unsigned int rd,unsigned int rn,unsigned int rm,SourceLocation sl,
                                std::string spelling){
         Routine f = [updateFlags, rd,rn, rm, sl](Processor *p) {

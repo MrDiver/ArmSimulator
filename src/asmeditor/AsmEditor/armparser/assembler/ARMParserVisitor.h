@@ -66,6 +66,8 @@ public:
 
     virtual antlrcpp::Any visitArithmeticOp(ARMParser::ArithmeticOpContext *context) = 0;
 
+    virtual antlrcpp::Any visitShiftOp(ARMParser::ShiftOpContext *context) = 0;
+
     virtual antlrcpp::Any visitOp2immediate(ARMParser::Op2immediateContext *context) = 0;
 
     virtual antlrcpp::Any visitOp2register(ARMParser::Op2registerContext *context) = 0;
