@@ -48,7 +48,13 @@ public:
 
     virtual antlrcpp::Any visitDatatype(ARMParser::DatatypeContext *context) = 0;
 
-    virtual antlrcpp::Any visitValue(ARMParser::ValueContext *context) = 0;
+    virtual antlrcpp::Any visitNumberVal(ARMParser::NumberValContext *context) = 0;
+
+    virtual antlrcpp::Any visitLabelVal(ARMParser::LabelValContext *context) = 0;
+
+    virtual antlrcpp::Any visitStringVal(ARMParser::StringValContext *context) = 0;
+
+    virtual antlrcpp::Any visitNumber(ARMParser::NumberContext *context) = 0;
 
     virtual antlrcpp::Any visitBranchToLabel(ARMParser::BranchToLabelContext *context) = 0;
 

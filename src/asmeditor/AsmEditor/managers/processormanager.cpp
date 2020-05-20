@@ -29,6 +29,7 @@ ProcessorManager::ProcessorManager(CodeArea* ca,ConsoleWindow* cw,QListWidget* e
         sl.append(QString::fromStdString(rhex));
     }
     memoryTable->setVerticalHeaderLabels(QStringList(sl));
+    hitBreakpoint = false;
 }
 
 ProcessorManager::~ProcessorManager()
@@ -61,6 +62,14 @@ std::vector<std::string> split(const std::string& s, char delimiter)
         tokens.push_back(token);
     }
     return tokens;
+}
+
+void ProcessorManager::cursorVisibility(int line){
+    //TODO: Fix cursor movement
+    QTextCursor cursor = ca->textCursor();
+    cursor.setVerticalMovementX(line);
+    ca->setTextCursor(cursor);
+    ca->ensureCursorVisible();
 }
 
 void ProcessorManager::lint(){
@@ -107,14 +116,20 @@ void ProcessorManager::lint(){
             currentLines.insert(i.sourceLocation.startline);
         }
 
-        p->load(program,cv.labels,cv.startLabel,cv.dataToValue);
+        p->load(program,cv.labels,cv.startLabel,cv.dataToValue,cv.dataToReference);
         resetProgram();
 }
 
 void ProcessorManager::runProgram(){
     errorOccured = false;
     unsigned int i = 0;
+    unsigned int startingLine = p->getCurrentLine()-1;
     while((!p->isDone)&&(!errorOccured)){
+        if(ca->getBreakpoints().contains(p->getCurrentLine()-1)&&p->getCurrentLine()-1!=startingLine)
+        {
+            cw->print("Hit breakpoint");
+            break;
+        }
         stepProgram();
         i++;
         if(i>1000)
@@ -128,12 +143,19 @@ void ProcessorManager::runProgram(){
 
 
 void ProcessorManager::stepProgram(){
+    if(ca->getBreakpoints().contains(p->getCurrentLine()))
     errorOccured = false;
+    unsigned int oldval = p->regs[15];
     p->tick();
+    if(oldval == p->regs[15]){
+        errorOccured = true;
+    }
     //updating the register table on the interface
     updateRegs();
-
     updateMemory();
+    updateError();
+    if(errorOccured)
+        return;
     //stopping if program has finished
     if(p->isDone)
     {
@@ -152,21 +174,34 @@ void ProcessorManager::stepProgram(){
     }
 
     ca->highlighter->currentLine = p->program.at(p->regs[15]).sourceLocation.startline;
+    cursorVisibility(ca->highlighter->currentLine);
     ca->highlighter->rehighlight();
 }
 void ProcessorManager::resetProgram(){
     errorOccured = false;
     p->reset();
-    updateRegs();
     updateMemory();
+    updateRegs();
+    errorList->clear();
+    updateError();
     if(p->program.size()==0){
         return;
     }
     ca->highlighter->currentLine = p->program.at(p->startInstruction).sourceLocation.startline;
+    cursorVisibility(ca->highlighter->currentLine);
     ca->highlighter->rehighlight();
     cw->clear();
     //TODO: Something is wrong here
     //cw->print("start:"+std::to_string(p->program.at(p->startInstruction).sourceLocation.startline));
+}
+
+void ProcessorManager::updateError(){
+    if(errorList->count() != (int)p->errors.size()){
+        errorList->clear();
+        for(std::pair<std::string,SourceLocation> e: p->errors){
+            errorList->addItem(QString::fromStdString(e.first+" at "+e.second.toString()));
+        }
+    }
 }
 
 void ProcessorManager::updateMemory(){

@@ -58,8 +58,17 @@ public:
   virtual void enterDatatype(ARMParser::DatatypeContext *ctx) = 0;
   virtual void exitDatatype(ARMParser::DatatypeContext *ctx) = 0;
 
-  virtual void enterValue(ARMParser::ValueContext *ctx) = 0;
-  virtual void exitValue(ARMParser::ValueContext *ctx) = 0;
+  virtual void enterNumberVal(ARMParser::NumberValContext *ctx) = 0;
+  virtual void exitNumberVal(ARMParser::NumberValContext *ctx) = 0;
+
+  virtual void enterLabelVal(ARMParser::LabelValContext *ctx) = 0;
+  virtual void exitLabelVal(ARMParser::LabelValContext *ctx) = 0;
+
+  virtual void enterStringVal(ARMParser::StringValContext *ctx) = 0;
+  virtual void exitStringVal(ARMParser::StringValContext *ctx) = 0;
+
+  virtual void enterNumber(ARMParser::NumberContext *ctx) = 0;
+  virtual void exitNumber(ARMParser::NumberContext *ctx) = 0;
 
   virtual void enterBranchToLabel(ARMParser::BranchToLabelContext *ctx) = 0;
   virtual void exitBranchToLabel(ARMParser::BranchToLabelContext *ctx) = 0;

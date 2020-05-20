@@ -13,21 +13,21 @@ namespace assembler {
 class  ARMLexer : public antlr4::Lexer {
 public:
   enum {
-    GLOBAL = 1, DATA = 2, TEXT = 3, AND = 4, EOR = 5, SUB = 6, RSB = 7, 
-    ADD = 8, ADC = 9, SBC = 10, RSC = 11, TST = 12, TEQ = 13, CMP = 14, 
-    CMN = 15, ORR = 16, MOV = 17, BIC = 18, MVN = 19, MUL = 20, MLA = 21, 
-    SMULL = 22, UMULL = 23, SMLAL = 24, UMLAL = 25, LDR = 26, STR = 27, 
-    PUSH = 28, POP = 29, FB = 30, BL = 31, BLX = 32, BX = 33, BXJ = 34, 
-    NOP = 35, EQ = 36, NE = 37, CS = 38, CC = 39, MI = 40, PL = 41, VS = 42, 
-    VC = 43, HI = 44, LS = 45, GE = 46, LT = 47, GT = 48, LE = 49, AL = 50, 
-    UPDATEFLAG = 51, PRIVILEGE = 52, DOUBLEWORD = 53, HALFWORD = 54, SIGNEDHALFWORD = 55, 
-    SIGNEDBYTE = 56, LABEL = 57, LOCALLABEL = 58, SPACE = 59, TOSKIP = 60, 
-    NL = 61, WORD = 62, BYTE = 63, R0 = 64, R1 = 65, R2 = 66, R3 = 67, R4 = 68, 
-    R5 = 69, R6 = 70, R7 = 71, R8 = 72, R9 = 73, R10 = 74, R11 = 75, R12 = 76, 
-    R13 = 77, R14 = 78, R15 = 79, LSLI = 80, LSRI = 81, ASRI = 82, RORI = 83, 
-    RRXI = 84, HASH = 85, HEX = 86, NUMBER = 87, WSPARAM = 88, NEWLINE = 89, 
-    COMMA = 90, LBRACKET = 91, RBRACKET = 92, LBRACE = 93, RBRACE = 94, 
-    SPECIALRBRACKET = 95, LABELREF = 96, STRING = 97
+    COMMENTM = 1, COMMENT = 2, GLOBAL = 3, DATA = 4, TEXT = 5, AND = 6, 
+    EOR = 7, SUB = 8, RSB = 9, ADD = 10, ADC = 11, SBC = 12, RSC = 13, TST = 14, 
+    TEQ = 15, CMP = 16, CMN = 17, ORR = 18, MOV = 19, BIC = 20, MVN = 21, 
+    MUL = 22, MLA = 23, SMULL = 24, UMULL = 25, SMLAL = 26, UMLAL = 27, 
+    LDR = 28, STR = 29, PUSH = 30, POP = 31, FB = 32, LINK = 33, BLX = 34, 
+    BX = 35, BXJ = 36, NOP = 37, EQ = 38, NE = 39, CS = 40, CC = 41, MI = 42, 
+    PL = 43, VS = 44, VC = 45, HI = 46, LS = 47, GE = 48, LT = 49, GT = 50, 
+    LE = 51, AL = 52, UPDATEFLAG = 53, PRIVILEGE = 54, DOUBLEWORD = 55, 
+    HALFWORD = 56, SIGNEDHALFWORD = 57, SIGNEDBYTE = 58, LABEL = 59, LOCALLABEL = 60, 
+    SPACE = 61, NL = 62, WORD = 63, BYTE = 64, ASCIZ = 65, R0 = 66, R1 = 67, 
+    R2 = 68, R3 = 69, R4 = 70, R5 = 71, R6 = 72, R7 = 73, R8 = 74, R9 = 75, 
+    R10 = 76, R11 = 77, R12 = 78, R13 = 79, R14 = 80, R15 = 81, LSLI = 82, 
+    LSRI = 83, ASRI = 84, RORI = 85, RRXI = 86, HASH = 87, HEX = 88, NUMBER = 89, 
+    WSPARAM = 90, NEWLINE = 91, COMMA = 92, LBRACKET = 93, RBRACKET = 94, 
+    LBRACE = 95, RBRACE = 96, SPECIALRBRACKET = 97, LABELREF = 98, STRING = 99
   };
 
   enum {
