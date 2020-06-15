@@ -1,4 +1,4 @@
-# ArmSimulator V 0.5
+# ArmSimulator V 0.6
 
 This project is for educational purposes.
 The final product will represent a Simulator for basic ARM processor behavior. The first version aims at comepletely emulating the ARMv4 infrastructure and the complete instruction set.
