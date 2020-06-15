@@ -13,6 +13,8 @@ The final product will represent a Simulator for basic ARM processor behavior. T
 - Reallocate semantics to external linter library
 - Add optimization hints to the code
 
+### Problems
+The grammar is not the best sooooo there are some issues with putting commands behind labels and so on. But im lazy and it works if you put a newline after every command and or label.
 
 # Current Features
 
