@@ -114,6 +114,9 @@
           <height>1000</height>
          </size>
         </property>
+        <property name="focusPolicy">
+         <enum>Qt::TabFocus</enum>
+        </property>
         <property name="acceptDrops">
          <bool>false</bool>
         </property>
@@ -172,6 +175,9 @@
        </property>
        <property name="autoFillBackground">
         <bool>false</bool>
+       </property>
+       <property name="tabShape">
+        <enum>QTabWidget::Rounded</enum>
        </property>
        <property name="currentIndex">
         <number>0</number>

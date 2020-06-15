@@ -18,6 +18,9 @@ Processor::~Processor() {
 void Processor::load(std::vector<Instruction> program,std::map<std::string,unsigned int> labels,std::string startLabel,std::map<std::string,std::vector<unsigned int>> dataToValue,std::map<std::string,std::string> dataToReference){
     this->labels = labels;
     this->program = program;
+    /*for(unsigned int i = 0; i < program.size();i++){
+        std::cout << i << ": "<<program.at(i).spelling<<std::endl;
+    }*/
     this->isDone = false;
     this->startInstruction = -1;
     this->dataToValue = dataToValue;
@@ -54,6 +57,7 @@ int Processor::tick(){
         //std::cout << "fetching" << std::endl;
         regs[15]= pc+1;
         //std::cout << "incr pc" << std::endl;
+        //std::cout << "Executing: " << inst.spelling << "\n" << inst.sourceLocation.toString() << std::endl;
         inst.execute(this);
         //std::cout << "executed" << std::endl;
         return 0;
@@ -78,7 +82,7 @@ unsigned int Processor::getCurrentLine(){
 void Processor::reset(){
     cpsr->reset();
     alu->reset();
-
+    dataToAddress.clear();
     for(unsigned int i = 0; i < 16; i++){
         regs[i]=0;
     }
@@ -95,6 +99,8 @@ void Processor::reset(){
         memory[i] = (unsigned int)program.at(i).bits.to_ulong();
     }
     unsigned int i = 0;
+
+    //Write values in data section to the end of the memory
     for(std::pair<std::string,std::vector<unsigned int>> pair : dataToValue){
         unsigned int addr = MEMSIZE-i-1;
         std::string label = pair.first;
@@ -113,14 +119,22 @@ void Processor::reset(){
     }
 
     unsigned int endofprogram = program.size();
-    i=0;
+    std::cout << "Endofprogram: " << endofprogram << std::endl;
+    int j=0;
     for(std::pair<std::string,std::string> pair: dataToReference){
         unsigned int addressTo = dataToAddress.at(pair.second)*4;
-        memory[endofprogram+i] = addressTo;
+        std::cout << "Adress to: " << addressTo <<std::endl;
+        std::cout << "j: " << j << "\tendofprogram+j: " << endofprogram+j << std::endl;
+        unsigned int addressFrom = endofprogram+j;
+        memory[addressFrom] = addressTo;
         std::string label = pair.first;
         label = label.substr(0,label.size()-1);
-        dataToAddress.emplace(label,(endofprogram+i));
-        i++;
+
+        std::cout << "AdressFrom: "<< addressFrom << std::endl;
+        std::cout << "Writing:  " << label << ":" << addressFrom << std::endl;
+        dataToAddress.emplace(std::pair<std::string,unsigned int>(label,addressFrom));
+
+        j++;
     }
 
     for(std::pair<std::string,unsigned int> pair : dataToAddress){

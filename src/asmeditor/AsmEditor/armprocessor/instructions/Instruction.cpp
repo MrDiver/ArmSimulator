@@ -273,6 +273,7 @@ namespace Set {
                     return;
                 }
                 unsigned int address = p->dataToAddress.at(label);
+                std::cout << "Loading from: " << address*4 << std::endl;
                 if(address>=MEMSIZE||address < 0){
                     p->errors.emplace_back("Error at label load instruction in Instruction.h adress out of bounds", sl);
                     return;
@@ -286,6 +287,7 @@ namespace Set {
 
     Instruction loadStore(Opcode op,Condition cond,TypeCondition typeCond,bool privilege,unsigned int rd,AddressingOperand addop, SourceLocation sl,std::string spelling){
         Routine f = [op,rd,addop,sl](Processor *p){
+
             if(op == Opcode::LDR){
                 unsigned int address = addop.operator()(p);
                 unsigned int tmp = address/4;

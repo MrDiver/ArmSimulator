@@ -1,5 +1,5 @@
 #include "consolewindow.h"
-
+#include <QTabWidget>
 ConsoleWindow::ConsoleWindow(QWidget* parent):QPlainTextEdit(parent)
 {
 
