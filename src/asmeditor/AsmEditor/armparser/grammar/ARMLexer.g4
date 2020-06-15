@@ -79,7 +79,7 @@ UMLAL : U M L A L;
 LDR : L D R;
 STR : S T R;
 PUSH: 'push'-> mode(ParameterMode);
-POP: 'pop'-> mode(ParameterMode);
+POP: 'pop' -> mode(ParameterMode);
 
 //Branch operations
 FB              : B;
@@ -117,15 +117,17 @@ HALFWORD        : H ;
 SIGNEDHALFWORD  :S H;
 SIGNEDBYTE      :S B;
 
-LABEL: '.'?[a-zA-Z_] ([0-9] | [a-zA-Z_])* ':'->mode(DEFAULT_MODE);
+LABEL: '.'?[a-zA-Z_] ([0-9] | [a-zA-Z_])* ':' ->mode(DEFAULT_MODE);
 LOCALLABEL:[0-9][0-9]? ':'->mode(DEFAULT_MODE);
 
-SPACE: (' '|'\t') ->mode(ParameterMode);
+SPACE: (' '|'\t')+ ->mode(ParameterMode);
 //TOSKIP: (COMMENT | COMMENTM )+;
 NL: '\r'? '\n';
 
 
 mode ParameterMode;
+PUSH2: 'push'-> type(PUSH),mode(ParameterMode);
+POP2: 'pop' -> type(POP),mode(ParameterMode);
 WORD: '.word';
 BYTE: '.byte';
 ASCIZ: '.asciz';

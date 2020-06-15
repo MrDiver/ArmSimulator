@@ -5,7 +5,7 @@ compilationUnit: program? EOF;
 
 program: (statement)+;
 
-statement: instruction | section | variable | label | NL;
+statement: instruction | section | label | variable | NL;
 
 instruction : data_processing_instruction
             | multiply_instruction
