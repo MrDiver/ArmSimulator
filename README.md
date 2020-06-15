@@ -3,6 +3,11 @@
 This project is for educational purposes.
 The final product will represent a Simulator for basic ARM processor behavior. The first version aims at comepletely emulating the ARMv4 infrastructure and the complete instruction set.
 
+### Download and Install
+
+Click on the releases tab in the top bar or click on https://github.com/MrDiver/ArmSimulator/releases. There you can find all the versions. To download just click on the assets button below the release and download the archive that matches your operating system.
+After that extract the files and run the ArmSimulator executable.
+
 ### Planned Features
 - More Commands
 - Adding an error listener to the parser for error highlighting
